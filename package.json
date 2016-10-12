@@ -1,0 +1,23 @@
+{
+	"name": "matrix-editor",
+	"version": "2.0.0",
+	"description": "Dota2 KV Editor",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/zombieJ/MatrixEditor.git"
+	},
+	"keywords": [
+		"dota2",
+		"KV"
+	],
+	"author": "zombieJ",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/zombieJ/MatrixEditor/issues"
+	},
+	"homepage": "https://github.com/zombieJ/MatrixEditor#readme"
+}
