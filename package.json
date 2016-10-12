@@ -1,23 +1,54 @@
 {
-	"name": "matrix-editor",
-	"version": "2.0.0",
-	"description": "Dota2 KV Editor",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+ssh://git@github.com/zombieJ/MatrixEditor.git"
-	},
-	"keywords": [
-		"dota2",
-		"KV"
-	],
-	"author": "zombieJ",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/zombieJ/MatrixEditor/issues"
-	},
-	"homepage": "https://github.com/zombieJ/MatrixEditor#readme"
+  "name": "matrix-editor",
+  "version": "2.0.0",
+  "description": "Dota2 KV Editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devSrv": "cross-env NODE_ENV=development babel-node scripts/server.js",
+    "devApp": "electron scripts/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zombieJ/MatrixEditor.git"
+  },
+  "keywords": [
+    "dota2",
+    "KV"
+  ],
+  "author": "zombieJ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zombieJ/MatrixEditor/issues"
+  },
+  "homepage": "https://github.com/zombieJ/MatrixEditor#readme",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^4.0.0-alpha.4",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-class-properties": "^6.16.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "cross-env": "^3.1.2",
+    "css-loader": "^0.25.0",
+    "electron": "^1.4.3",
+    "eslint": "^3.7.1",
+    "express": "^4.14.0",
+    "react-addons-perf": "^15.3.2",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.0"
+  }
 }
