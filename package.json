@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devSrv": "cross-env NODE_ENV=development babel-node scripts/server.js",
-    "devApp": "electron scripts/app.js"
+    "devApp": "electron scripts/app.js",
+    "eslint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -25,11 +26,14 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "react": "^15.3.2",
+    "react-css-modules": "^3.7.10",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.4",
     "redux": "^3.6.0",
+    "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
+    "warning": "^3.0.0",
     "webpack": "^1.13.2"
   },
   "devDependencies": {
@@ -46,9 +50,14 @@
     "css-loader": "^0.25.0",
     "electron": "^1.4.3",
     "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "^3.10.1",
     "react-addons-perf": "^15.3.2",
-    "redux-logger": "^2.7.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack-dev-middleware": "^1.8.4",
