@@ -3,5 +3,10 @@
  */
 
 import { combineReducers } from '../utils/redux-dependencies-reducers';
+import international from './international';
+import config from './config';
 
-export default combineReducers({});
+export default combineReducers({
+	international,
+	config,
+});

@@ -15,7 +15,7 @@ import Main from './view/Main';
 const loggerMiddleware = createLogger({
 	collapsed: true,
 });
-const store = createStore(app, null, applyMiddleware(thunkMiddleware, loggerMiddleware));
+const store = createStore(app, {}, applyMiddleware(thunkMiddleware, loggerMiddleware));
 window.store = store;
 
 require('./index.scss');

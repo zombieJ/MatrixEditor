@@ -27,7 +27,7 @@ function createWindow () {
 		mainWindow = null;
 	});
 
-	//BrowserWindow.addDevToolsExtension(`./extensions/reactDevTool/0.15.0_0`);
+	BrowserWindow.addDevToolsExtension(`./extensions/reactDevTool/0.15.0_0`);
 }
 
 app.on('ready', createWindow);

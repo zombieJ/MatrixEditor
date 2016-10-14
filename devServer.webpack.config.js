@@ -7,7 +7,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	devtool: 'cheap-module-source-map',
+	devtool: 'source-map',
 
 	entry: [
 		'webpack-hot-middleware/client',
@@ -26,6 +26,10 @@ module.exports = {
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 
+		new webpack.DefinePlugin({
+			'process.env': JSON.stringify('development')
+		}),
+
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery"
@@ -33,6 +37,12 @@ module.exports = {
 	],
 
 	module: {
+		preLoaders: [{
+			test: /\.js$/,
+			loader: 'eslint',
+			exclude: /node_modules/,
+			include: __dirname
+		}],
 		loaders: [
 			{
 				test: /\.js$/,
