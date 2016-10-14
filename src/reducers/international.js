@@ -12,12 +12,13 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case Action.INIT: {
-			const list = getFileList('res/intl', /\.js$/);
-			console.log('>>>', list);
-			break;
+			const langList = getFileList('res/intl', /\.js$/);
+			return Object.assign({}, state, { langList });
 		}
-		default:
-			return state;
+		case Action.LOAD_LANG: {
+			const { lang } = action;
+			console.log('>>>', lang);
+		}
 	}
 
 	return state;

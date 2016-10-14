@@ -3,19 +3,25 @@
  */
 
 import storage from 'electron-json-storage';
+import { loadLang } from './international';
 
-export const INIT = 'INIT';
+const initConfig = {
+	lang: 'schinese',
+};
 
-export const init = () => {
-	return dispatch => {
-		storage.get('config', (error, config) => {
-			if (error) {
-				console.warn('Config read failed:', error);
-			}
-			dispatch({
-				type: INIT,
-				config
-			});
+export const INIT = 'ACTION_INIT';
+
+export const init = () => (dispatch) => {
+	storage.get('config', (error, data) => {
+		if (error) console.warn('Config read failed:', error);
+
+		const config = Object.assign({}, initConfig, data);
+
+		dispatch({
+			type: INIT,
+			config,
 		});
-	};
+
+		dispatch(loadLang(config.lang));
+	});
 };

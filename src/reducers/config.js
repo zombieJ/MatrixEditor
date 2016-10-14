@@ -4,14 +4,11 @@
 
 import * as Action from '../actions/config';
 
-const initialState = {
-	intl: 'schinese',
-};
 
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
 	switch (action.type) {
 		case Action.INIT: {
-			console.log(state, action);
+			return Object.assign({}, state, action.config);
 		}
 	}
 	return state;

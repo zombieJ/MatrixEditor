@@ -23,6 +23,7 @@
 	},
 
 	"rules":{
+		"default-case": 0,
 		"no-console": 0,
 		"no-tabs": 0,
 		"indent": ["warn", "tab", {
