@@ -17,8 +17,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'builds'),
 		filename: 'bundle.js',
-		publicPath: './builds/',
-		publicPath: '/builds/'
+		publicPath: './builds/'
 	},
 
 	plugins: [
@@ -55,9 +54,22 @@ module.exports = {
 				loader: ExtractTextPlugin.extract(
 					'style-loader',
 					'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader?sourceMap'
-				)
+				),
+				exclude: /style/,
+			},
+			{
+				test: /\.scss/,
+				loader: ExtractTextPlugin.extract(
+					'style-loader',
+					'css-loader?sourceMap&importLoaders=1&!sass-loader?sourceMap'
+				),
+				include: /style/
 			},
 		]
+	},
+
+	resolve: {
+		modulesDirectories: ['node_modules', './src']
 	},
 
 	target:'electron'

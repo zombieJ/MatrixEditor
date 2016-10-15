@@ -1,5 +1,31 @@
 .header {
-	color: #FFF;
+	color: #DDD;
 	background: #333;
-	font-size: 26px;
+	font-size: 20px;
+	padding: 0 15px 0 0;
+
+	a {
+		display: inline-block;
+		padding: 10px 15px;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.1);
+			color: #FFF;
+		}
+	}
+
+	.title {
+		padding: 10px 15px 10px 15px;
+		border-right: 1px solid #666;
+	}
+
+	.nav {
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+
+		li {
+			display: inline-block;
+		}
+	}
 }

@@ -24,8 +24,13 @@
 
 	"rules":{
 		"default-case": 0,
+		"global-require": 0,
 		"no-console": 0,
 		"no-tabs": 0,
+		"import/no-dynamic-require": 0,
+		"import/no-extraneous-dependencies": 0,
+		"import/no-unresolved": 0,
+		"import/extensions": 0,
 		"indent": ["warn", "tab", {
 			"SwitchCase": 1
 		}],

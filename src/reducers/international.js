@@ -7,6 +7,7 @@ import * as Action from '../actions/international';
 
 const initialState = {
 	langList: [],
+	lang: {},
 };
 
 export default (state = initialState, action) => {
@@ -15,9 +16,9 @@ export default (state = initialState, action) => {
 			const langList = getFileList('res/intl', /\.js$/);
 			return Object.assign({}, state, { langList });
 		}
-		case Action.LOAD_LANG: {
+		case Action.LOADED_LANG: {
 			const { lang } = action;
-			console.log('>>>', lang);
+			return Object.assign({}, state, { lang });
 		}
 	}
 

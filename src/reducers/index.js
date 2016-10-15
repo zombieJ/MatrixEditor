@@ -4,9 +4,11 @@
 
 import { combineReducers } from '../utils/redux-dependencies-reducers';
 import international from './international';
+import project from './project';
 import config from './config';
 
 export default combineReducers({
 	international,
+	project,
 	config,
 });

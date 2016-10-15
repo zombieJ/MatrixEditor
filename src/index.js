@@ -5,6 +5,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -18,11 +19,13 @@ const loggerMiddleware = createLogger({
 const store = createStore(app, {}, applyMiddleware(thunkMiddleware, loggerMiddleware));
 window.store = store;
 
-require('./index.scss');
+require('./style/index.scss');
 
 render(
-	<Provider store={store}>
-		<Main />
-	</Provider>,
+	<HashRouter>
+		<Provider store={store}>
+			<Main />
+		</Provider>
+	</HashRouter>,
 	document.getElementById('root')
 );
