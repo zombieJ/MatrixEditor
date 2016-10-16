@@ -17,7 +17,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'builds'),
 		filename: 'bundle.js',
-		publicPath: './builds/'
+		publicPath: '/builds/'
 	},
 
 	plugins: [
@@ -61,9 +61,24 @@ module.exports = {
 				test: /\.scss/,
 				loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css-loader?sourceMap&importLoaders=1&!sass-loader?sourceMap'
+					'css-loader?sourceMap&importLoaders=1!sass-loader?sourceMap'
 				),
 				include: /style/
+			},
+			{
+				test: /\.css/,
+				loader: ExtractTextPlugin.extract(
+					'style-loader',
+					'css-loader'
+				),
+			},
+			{
+				test: /\.(woff|woff2|svg|eot|ttf)/,
+				loader: 'file?prefix=font/'
+			},
+			{
+				test:   /\.(png|gif|jpe?g|svg)$/i,
+				loader: 'file?prefix=img/',
 			},
 		]
 	},

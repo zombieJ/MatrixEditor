@@ -20,6 +20,7 @@ const store = createStore(app, {}, applyMiddleware(thunkMiddleware, loggerMiddle
 window.store = store;
 
 require('./style/index.scss');
+require('font-awesome/css/font-awesome.min.css');
 
 render(
 	<HashRouter>

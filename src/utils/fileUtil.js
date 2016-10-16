@@ -10,7 +10,7 @@ export function getPath(path) {
 }
 
 export function getFileList(path, match) {
-	let list = FS.readdirSync(getPath(path));
+	let list = FS.readdirSync(Path.resolve(path));
 
 	if (match) {
 		list = list.filter(file => match.test(file));
@@ -19,9 +19,17 @@ export function getFileList(path, match) {
 	return list;
 }
 
+export function folderExist(path) {
+	const rPath = Path.resolve(path);
+	const exist = FS.existsSync(rPath);
+	if (!exist) return false;
+
+	return FS.lstatSync(rPath).isDirectory();
+}
+
 export function readFile(path, encoding = 'utf8') {
 	return new Promise((resolve, reject) => {
-		FS.readFile(getPath(path), encoding, (err, data) => {
+		FS.readFile(Path.resolve(path), encoding, (err, data) => {
 			if (err) reject(err);
 			resolve(data);
 		});

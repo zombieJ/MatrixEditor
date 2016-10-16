@@ -34,6 +34,7 @@
 		"indent": ["warn", "tab", {
 			"SwitchCase": 1
 		}],
+		"jsx-a11y/anchor-has-content": 0,
 		"react/jsx-indent": ["warn", "tab"],
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
 	}

@@ -8,6 +8,7 @@ p,
 input,
 button,
 textarea {
+	line-height: 150%;
 	font-size: 16px;
 	font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
@@ -15,12 +16,12 @@ textarea {
 a {
 	cursor: pointer;
 	text-decoration: none;
-	color: inherit;
+	color: #3c8dbc;
 	outline: none;
 }
 
 p {
-	margin: 0 0 10px 0;
+	margin: 5px 0 10px 0;
 }
 
 input,
@@ -34,7 +35,12 @@ textarea {
 
 	&:focus {
 		border-color: #333;
+		box-shadow: 0 0 3px rgba(0,0,0,0.5);
 	}
+}
+
+ul {
+	margin: 0 0 10px 0;
 }
 
 .input-group {

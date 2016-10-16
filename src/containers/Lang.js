@@ -35,3 +35,11 @@ const mapState = ({ international }, { id }) => ({
 });
 
 export default connect(mapState)(Lang);
+
+const withLangMapState = ({ international }) => ({
+	lang: id => international.lang[id],
+});
+
+export function withLang(Component) {
+	return connect(withLangMapState)(Component);
+}
