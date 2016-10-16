@@ -1,0 +1,32 @@
+@import "../../style/common.scss";
+
+.content {
+	width: 800px;
+	margin: 15px auto 0 auto;
+
+	h1 {
+		margin: 0 0 10px 0;
+		padding: 0;
+	}
+
+	.historyList {
+		font-size: 20px;
+
+		li {
+			list-style: none;
+			line-height: 150%;
+
+			button {
+				&:first-child {
+					padding-right: 10px;
+					border-right: 1px solid #666;
+					margin-right: 10px;
+				}
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}

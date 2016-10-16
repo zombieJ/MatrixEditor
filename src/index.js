@@ -11,7 +11,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import app from './reducers';
-import Main from './view/Main';
+import Main from './views/Main';
 
 const loggerMiddleware = createLogger({
 	collapsed: true,

@@ -6,8 +6,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Lang, { withLang } from 'containers/Lang';
 import cssModules from 'react-css-modules';
+import DialogHolder from 'components/Dialog';
 
-import { loadProject } from '../../actions/project';
+import { removeProjectRecord, loadProject } from '../../actions/project';
 
 import styles from './index.scss';
 
@@ -16,6 +17,7 @@ class Open extends React.Component {
 		super();
 		this.state = { projectPath: '' };
 		this.projectUpdate = this.projectUpdate.bind(this);
+		this.removeProject = this.removeProject.bind(this);
 		this.openProject = this.openProject.bind(this);
 	}
 
@@ -23,12 +25,23 @@ class Open extends React.Component {
 		this.setState({ projectPath: e.target.value });
 	}
 
-	openProject() {
-		const { projectPath } = this.state;
+	removeProject(path) {
 		const { dispatch } = this.props;
+		dispatch(removeProjectRecord(path));
+	}
+
+	openProject(path) {
+		const projectPath = typeof path === 'string' ? path : this.state.projectPath;
+		const { dispatch, lang } = this.props;
+
+		if (!projectPath) return;
 
 		dispatch(loadProject(projectPath)).then(() => {}, (reject) => {
-			alert(reject);
+			this.dialog.show({
+				title: lang('OPS'),
+				content: lang(reject),
+			});
+			console.log('Reject:', reject);
 		}, (notify) => {
 			this.setState({ notify });
 		});
@@ -50,10 +63,13 @@ class Open extends React.Component {
 				<ul styleName="historyList">
 					{historyPathList.map((path, index) => (
 						<li key={index}>
-							<a className="fa fa-trash" /> | <a>{path}</a>
+							<button className="link fa fa-trash" onClick={() => { this.removeProject(path); }} />
+							<button className="link" onClick={() => { this.openProject(path); }}>{path}</button>
 						</li>
 					))}
 				</ul>
+
+				<DialogHolder ref={(node) => { this.dialog = node; }} {...this.state.dialog} />
 			</div>
 		);
 	}

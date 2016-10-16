@@ -17,12 +17,14 @@ import styles from './index.scss';
 
 import { init as intInit } from '../../actions/international';
 import { init as configInit } from '../../actions/config';
+import { init as projectInit } from '../../actions/project';
 
 class Main extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(intInit());
 		dispatch(configInit());
+		dispatch(projectInit());
 	}
 
 	render() {

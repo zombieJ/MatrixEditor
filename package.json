@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/zombieJ/MatrixEditor#readme",
   "dependencies": {
+    "classnames": "^2.2.5",
     "electron-json-storage": "^2.0.1",
     "font-awesome": "^4.6.3",
+    "fs-extra": "^0.30.0",
     "immutable": "^3.8.1",
     "jquery": "^3.1.1",
     "react": "^15.3.2",

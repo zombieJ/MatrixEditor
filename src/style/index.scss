@@ -1,3 +1,5 @@
+@import "./common.scss";
+
 body {
 	padding: 0;
 	margin: 0;
@@ -13,11 +15,16 @@ textarea {
 	font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
-a {
-	cursor: pointer;
+a,
+.link {
 	text-decoration: none;
-	color: #3c8dbc;
+	border: 0;
+	background: transparent;
+	padding: inherit;
+	margin: inherit;
+	color: $primary;
 	outline: none;
+	cursor: pointer;
 }
 
 p {
@@ -39,6 +46,10 @@ textarea {
 	}
 }
 
+button {
+	outline: none;
+}
+
 ul {
 	margin: 0 0 10px 0;
 }
@@ -53,7 +64,6 @@ ul {
 	color: #FFF;
 	padding: 7px 15px;
 	white-space: nowrap;
-	outline: none;
 
 	&:hover {
 		opacity: 0.9;

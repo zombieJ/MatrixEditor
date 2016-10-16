@@ -27,6 +27,14 @@ export function folderExist(path) {
 	return FS.lstatSync(rPath).isDirectory();
 }
 
+export function fileExist(path) {
+	const rPath = Path.resolve(path);
+	const exist = FS.existsSync(rPath);
+	if (!exist) return false;
+
+	return FS.lstatSync(rPath).isFile();
+}
+
 export function readFile(path, encoding = 'utf8') {
 	return new Promise((resolve, reject) => {
 		FS.readFile(Path.resolve(path), encoding, (err, data) => {
