@@ -9,10 +9,28 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	devtool: 'source-map',
 
-	entry: [
-		'webpack-hot-middleware/client',
-		'./src/index'
-	],
+	entry: {
+		app: [
+			'webpack-hot-middleware/client',
+			'./src/index'
+		],
+		vendor: [
+			"classnames",
+			"electron-json-storage",
+			"fs-extra",
+			"immutable",
+			"jquery",
+			"react",
+			"react-css-modules",
+			"react-dom",
+			"react-redux",
+			"react-router",
+			"redux",
+			"redux-logger",
+			"redux-thunk",
+			"warning",
+		]
+	},
 
 	output: {
 		path: path.join(__dirname, 'builds'),
@@ -21,6 +39,7 @@ module.exports = {
 	},
 
 	plugins: [
+		new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
 		new ExtractTextPlugin('style.css', { allChunks: true }),
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
@@ -87,5 +106,5 @@ module.exports = {
 		modulesDirectories: ['node_modules', './src']
 	},
 
-	target:'electron'
+	target:'electron-renderer'
 };
