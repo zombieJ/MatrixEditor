@@ -63,7 +63,7 @@ class Open extends React.Component {
 				<ul styleName="historyList">
 					{historyPathList.map((path, index) => (
 						<li key={index}>
-							<button className="link fa fa-trash" onClick={() => { this.removeProject(path); }} />
+							<button className="link fa fa-times" onClick={() => { this.removeProject(path); }} />
 							<button className="link" onClick={() => { this.openProject(path); }}>{path}</button>
 						</li>
 					))}

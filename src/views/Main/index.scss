@@ -4,11 +4,9 @@
 	a {
 		display: inline-block;
 		padding: 6px 10px;
-		color: $fontColor;
 
 		&:hover {
 			background: lighten($panelColor, 3%);
-			color: $fontFocusColor;
 		}
 	}
 

@@ -24,9 +24,13 @@ a,
 	background: transparent;
 	padding: inherit;
 	margin: inherit;
-	color: $primary;
+	color: $fontColor;
 	outline: none;
 	cursor: pointer;
+
+	&:hover {
+		color: $fontFocusColor;
+	}
 }
 
 p {

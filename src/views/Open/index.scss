@@ -23,14 +23,16 @@
 			line-height: 150%;
 
 			button {
+				color: darken($fontColor, 20%);
+
 				&:first-child {
 					padding-right: 10px;
-					border-right: 1px solid #666;
+					border-right: 1px solid $panelBorderColor;
 					margin-right: 10px;
 				}
 
 				&:hover {
-					text-decoration: underline;
+					color: $fontColor;
 				}
 			}
 		}
