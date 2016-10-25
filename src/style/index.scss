@@ -36,20 +36,19 @@ p {
 input,
 select,
 textarea {
+	border-radius: $inputBorderRadius;
 	border: 1px solid $inputBorderColor;
 	outline: none;
 	padding: 7px 10px;
 	width: 100%;
 	box-sizing: border-box;
-	background: $inputBackgroundColor;
-	border-bottom-color: $inputLightColor;
+	background: $inputColor;
 	color: $fontColor;
+	box-shadow: 1px 1px 1px $inputShadowColor inset;
 	transition: 0.2s ease-in background;
 
 	&:focus {
-		// border-color: #333;
-		//box-shadow: 0 0 5px $inputLightColor;
-		background-color: lighten($inputBackgroundColor, 5%);
+		background-color: $inputFocusColor;
 	}
 }
 
@@ -66,25 +65,25 @@ ul {
 }
 
 .btn {
-	border: 1px solid #666;
-	background: #666;
+	border-radius: $inputBorderRadius;
+	border: 1px solid $buttonBorderColor;
+	background: $buttonColor;
 	color: #FFF;
 	padding: 7px 15px;
 	white-space: nowrap;
 
 	&:hover {
-		opacity: 0.9;
+		background: $buttonFocusColor;
 	}
 
 	&:active {
-		border: 1px solid #333;
-		background: #333;
+		background: $buttonActiveColor;
 	}
 }
 
 .panel {
 	border: 1px solid $panelBorderColor;
-	box-shadow: 0 1px 0 0 $panelLightColor inset, 0 1px 3px $panelShadowColor;
+	box-shadow: 0 1px 3px $panelShadowColor;
 	text-shadow: -1px -1px 0 $panelBorderColor;
 	background: $panelColor;
 }

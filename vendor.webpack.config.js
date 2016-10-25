@@ -5,16 +5,13 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var config = require('./devServer.webpack.config');
 
 module.exports = {
 	devtool: 'source-map',
 
 	entry: {
-		app: [
-			'webpack-hot-middleware/client',
-			'./src/index'
-		],
-		/*vendor: [
+		vendor: [
 			"classnames",
 			"electron-json-storage",
 			"fs-extra",
@@ -29,43 +26,26 @@ module.exports = {
 			"redux-logger",
 			"redux-thunk",
 			"warning",
-		]*/
+		]
 	},
 
 	output: {
 		path: path.join(__dirname, 'builds'),
-		filename: 'bundle.js',
-		publicPath: '/builds/'
+		publicPath: '/builds/',
+		filename: '[name].bundle.js',
+		library: '[name]',
 	},
 
 	plugins: [
-		//new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
-		new ExtractTextPlugin('style.css', { allChunks: true }),
-		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-
-		new webpack.DefinePlugin({
-			'process.env': JSON.stringify('development')
-		}),
-
-		new webpack.ProvidePlugin({
-			$: "jquery",
-			jQuery: "jquery"
-		}),
-
-		new webpack.DllReferencePlugin({
+		new webpack.DllPlugin({
 			context: __dirname,
-			manifest: require('./builds/manifest.json')
+			path: path.join(__dirname, 'builds', 'manifest.json'),
+			name: '[name]'
 		}),
+		new ExtractTextPlugin('style.css', { allChunks: true }),
 	],
 
 	module: {
-		preLoaders: [{
-			test: /\.js$/,
-			loader: 'eslint',
-			exclude: /node_modules/,
-			include: __dirname
-		}],
 		loaders: [
 			{
 				test: /\.js$/,
@@ -108,7 +88,7 @@ module.exports = {
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules', './src']
+		modulesDirectories: ['node_modules']
 	},
 
 	target:'electron-renderer'

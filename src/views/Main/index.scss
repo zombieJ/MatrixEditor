@@ -12,14 +12,14 @@
 		color: $fontColor;
 
 		&:hover {
-			background: rgba(255, 255, 255, 0.1);
-			//color: #FFF;
+			background: lighten($panelColor, 3%);
+			color: $fontFocusColor;
 		}
 	}
 
 	.title {
 		padding: 6px 10px;
-		border-right: 1px solid #666;
+		border-right: 1px solid $panelBorderColor;
 	}
 
 	.nav {

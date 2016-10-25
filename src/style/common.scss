@@ -1,14 +1,26 @@
-$backgroundColor: #272727;
-$fontColor: #ffffff;
-$activeColor: #3b3b3b;
+$inputBorderRadius: 3px;
 
-$panelColor: #535353;
-$panelShadowColor: rgba(0,0,0,0.7);
-$panelBorderColor: #3a3a3a;
-$panelLightColor: #5c5c5c;
+$mainColor: #333333;
 
-$inputBorderColor: #373737;
-$inputBackgroundColor: #393939;
-$inputLightColor: #5d5d5d;
+$backgroundColor: darken($mainColor, 2%);
+
+$fontColor: lighten($mainColor, 70%);
+$fontFocusColor: lighten($mainColor, 80%);
+
+$panelColor: $mainColor;
+$panelBorderColor: lighten($mainColor, 5%);
+$panelShadowColor: darken($panelColor, 15%);
+
+$inputColor: lighten($mainColor, 15%);
+$inputFocusColor: lighten($inputColor, 8%);
+$inputBorderColor: darken($mainColor, 7%);
+$inputShadowColor: darken($inputColor, 15%);
+
+$buttonColor: lighten($mainColor, 10%);
+$buttonFocusColor: lighten($mainColor, 15%);
+$buttonActiveColor: lighten($mainColor, 5%);
+$buttonBorderColor: darken($mainColor, 7%);
+
+
 
 $primary: #3c8dbc;

@@ -54,7 +54,7 @@ class Open extends React.Component {
 			<div styleName="content">
 				<h1><Lang id="OpenProject" />:</h1>
 
-				<div className="input-group">
+				<div className="input-group" styleName="open-group">
 					<input type="text" value={this.state.projectPath} onChange={this.projectUpdate} />
 					<button className="btn" onClick={this.openProject}><Lang id="Open" /></button>
 				</div>

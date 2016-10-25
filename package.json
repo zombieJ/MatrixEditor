@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "devSrv": "cross-env NODE_ENV=development babel-node scripts/server.js",
     "devApp": "electron scripts/app.js",
-    "eslint": "eslint src"
+    "eslint": "eslint src",
+    "vendor": "webpack --config vendor.webpack.config.js"
   },
   "repository": {
     "type": "git",

@@ -15,6 +15,8 @@ const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath.replace(/^\./, "")}));
 app.use(webpackHotMiddleware(compiler));
 
+app.use('/builds', express.static('builds'));
+
 app.get("/", function (req, res) {
 	res.sendFile(path.resolve(__dirname + '/../index.html'));
 });
