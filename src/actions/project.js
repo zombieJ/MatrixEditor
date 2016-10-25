@@ -32,7 +32,7 @@ export const loadProject = path => (dispatch) => {
 	const dtd = new Deferred();
 
 	// const list = getFileList(path);
-	console.log('Load Project >>>', path, dispatch);
+	console.log('[Project] loading:', path);
 
 	setTimeout(() => {
 		// Check project

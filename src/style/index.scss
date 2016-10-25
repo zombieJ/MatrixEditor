@@ -51,6 +51,10 @@ textarea {
 	box-shadow: 1px 1px 1px $inputShadowColor inset;
 	transition: 0.2s ease-in background;
 
+	&:hover {
+		background-color: $inputHoverColor;
+	}
+
 	&:focus {
 		background-color: $inputFocusColor;
 	}
@@ -58,6 +62,7 @@ textarea {
 
 button {
 	outline: none;
+	cursor: pointer;
 }
 
 ul {

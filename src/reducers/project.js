@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 			historyPathList.unshift(path);
 			const newState = Object.assign({}, state, { path, historyPathList });
 			storage.set('project', newState, (err) => {
-				console.log('[Project] Record:', newState, err);
+				if (err) console.error('[Project] Record Error:', newState);
 			});
 			return newState;
 		}
