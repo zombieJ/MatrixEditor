@@ -3,6 +3,8 @@
 body {
 	padding: 0;
 	margin: 0;
+	background: $backgroundColor;
+	color: $fontColor;
 }
 
 body,
@@ -34,15 +36,20 @@ p {
 input,
 select,
 textarea {
-	border: 1px solid #666;
+	border: 1px solid $inputBorderColor;
 	outline: none;
 	padding: 7px 10px;
 	width: 100%;
 	box-sizing: border-box;
+	background: $inputBackgroundColor;
+	border-bottom-color: $inputLightColor;
+	color: $fontColor;
+	transition: 0.2s ease-in background;
 
 	&:focus {
-		border-color: #333;
-		box-shadow: 0 0 3px rgba(0,0,0,0.5);
+		// border-color: #333;
+		//box-shadow: 0 0 5px $inputLightColor;
+		background-color: lighten($inputBackgroundColor, 5%);
 	}
 }
 
@@ -73,4 +80,11 @@ ul {
 		border: 1px solid #333;
 		background: #333;
 	}
+}
+
+.panel {
+	border: 1px solid $panelBorderColor;
+	box-shadow: 0 1px 0 0 $panelLightColor inset, 0 1px 3px $panelShadowColor;
+	text-shadow: -1px -1px 0 $panelBorderColor;
+	background: $panelColor;
 }

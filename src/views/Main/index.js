@@ -30,7 +30,7 @@ class Main extends React.Component {
 	render() {
 		return (
 			<div>
-				<header styleName="header">
+				<header className="panel" styleName="header">
 					<Link to="/" styleName="title">
 						<Lang id="Title" />
 					</Link>
