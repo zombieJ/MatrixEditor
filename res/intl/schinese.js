@@ -4,6 +4,7 @@ module.exports = {
 
 	Ability: "技能",
 	Item: "物品",
+	About: "关于",
 
 	OPS: "啊哦~",
 	Open: "打开",

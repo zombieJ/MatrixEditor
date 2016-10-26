@@ -33,6 +33,9 @@ export default (state = initialState, action) => {
 			});
 			return newState;
 		}
+
+		case Action.PROJECT_LOADED:
+			return Object.assign({}, state, { path: action.path });
 	}
 
 	return state;

@@ -7,6 +7,8 @@ import storage from 'electron-json-storage';
 import { folderExist, fileExist } from '../utils/fileUtil';
 import ImmutableKV from '../models/ImmutableKV';
 
+import { loadKVList } from './kv';
+
 export const PROJECT_INIT = 'PROJECT_INIT';
 export const PROJECT_LOADED = 'PROJECT_LOADED';
 export const PROJECT_RECORDED = 'PROJECT_RECORDED';
@@ -56,10 +58,20 @@ export const loadProject = path => (dispatch) => {
 		}
 
 		dtd.notify('Load abilities...');
-		ImmutableKV.fromFile(abilityPath).then((kv) => {
+		const abilityPromise = ImmutableKV.fromFile(abilityPath).then((kv) => {
 			const error = kv.getParseError();
 			const list = kv.normalizr();
+			dispatch(loadKVList('ability', list));
 			console.log('Loaded:', list, error);
+		});
+
+		Promise.all([abilityPromise]).then(() => {
+			dispatch({
+				type: PROJECT_LOADED,
+				path,
+			});
+
+			dtd.resolve();
 		});
 	}, 0);
 

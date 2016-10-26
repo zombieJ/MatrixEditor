@@ -8,6 +8,8 @@ import Lang, { withLang } from 'containers/Lang';
 import cssModules from 'react-css-modules';
 import DialogHolder from 'components/Dialog';
 
+import { withRouter } from '../Page';
+
 import { removeProjectRecord, loadProject } from '../../actions/project';
 
 import styles from './index.scss';
@@ -36,7 +38,9 @@ class Open extends React.Component {
 
 		if (!projectPath) return;
 
-		dispatch(loadProject(projectPath)).then(() => {}, (reject) => {
+		dispatch(loadProject(projectPath)).then(() => {
+			this.props.router.transitionTo('/about');
+		}, (reject) => {
 			this.dialog.show({
 				title: lang('OPS'),
 				content: lang(reject),
@@ -78,6 +82,9 @@ class Open extends React.Component {
 Open.propTypes = {
 	dispatch: PropTypes.func,
 	lang: PropTypes.func,
+	router: PropTypes.shape({
+		transitionTo: PropTypes.func,
+	}),
 	historyPathList: PropTypes.arrayOf(PropTypes.string),
 };
 
@@ -85,4 +92,4 @@ const mapState = ({ project }) => ({
 	historyPathList: project.historyPathList,
 });
 
-export default connect(mapState)(withLang(cssModules(Open, styles)));
+export default connect(mapState)(withLang(withRouter(cssModules(Open, styles))));

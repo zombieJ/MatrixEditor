@@ -11,6 +11,7 @@ import Lang from 'containers/Lang';
 import Home from '../Home';
 import Open from '../Open';
 import Ability from '../Ability';
+import About from '../About';
 
 import styles from './index.scss';
 
@@ -37,6 +38,7 @@ class Main extends React.Component {
 					<ul styleName="nav">
 						<li><Link to="/ability"><Lang id="Ability" /></Link></li>
 						<li><Link to="/item"><Lang id="Item" /></Link></li>
+						<li><Link to="/about"><Lang id="About" /></Link></li>
 					</ul>
 				</header>
 
@@ -44,6 +46,7 @@ class Main extends React.Component {
 					<Match pattern="/" exactly component={Home} />
 					<Match pattern="/open" component={Open} />
 					<Match pattern="/ability" component={Ability} />
+					<Match pattern="/about" component={About} />
 				</section>
 			</div>
 		);
