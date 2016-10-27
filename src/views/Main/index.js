@@ -12,6 +12,7 @@ import Home from '../Home';
 import Open from '../Open';
 import Ability from '../Ability';
 import About from '../About';
+import { verifyProject } from '../Page';
 
 import styles from './index.scss';
 
@@ -45,7 +46,7 @@ class Main extends React.Component {
 				<section>
 					<Match pattern="/" exactly component={Home} />
 					<Match pattern="/open" component={Open} />
-					<Match pattern="/ability" component={Ability} />
+					<Match pattern="/ability" component={verifyProject(Ability)} />
 					<Match pattern="/about" component={About} />
 				</section>
 			</div>

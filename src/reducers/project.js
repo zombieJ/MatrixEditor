@@ -13,7 +13,7 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case Action.PROJECT_INIT:
-			return Object.assign({}, state, action.projectState);
+			return Object.assign({}, state, action.projectState, { path: '' });
 		case Action.PROJECT_RECORD_REMOVE: {
 			const { path } = action;
 			const historyPathList = state.historyPathList.filter(prjPath => prjPath !== path);

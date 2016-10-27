@@ -9,6 +9,7 @@ import { HashRouter } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import $ from 'jquery';
 
 import app from './reducers';
 import Main from './views/Main';
@@ -18,6 +19,7 @@ const loggerMiddleware = createLogger({
 });
 const store = createStore(app, {}, applyMiddleware(thunkMiddleware, loggerMiddleware));
 window.store = store;
+window.$ = $;
 
 require('./style/index.scss');
 require('font-awesome/css/font-awesome.min.css');

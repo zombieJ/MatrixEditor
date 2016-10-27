@@ -16,6 +16,7 @@ app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.
 app.use(webpackHotMiddleware(compiler));
 
 app.use('/builds', express.static('builds'));
+app.use('/scripts', express.static('scripts'));
 
 app.get("/", function (req, res) {
 	res.sendFile(path.resolve(__dirname + '/../index.html'));
