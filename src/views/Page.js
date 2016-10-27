@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { propTypes } from 'react-router';
 
 export const withRouter = (Component) => {
@@ -15,6 +16,10 @@ export const withRouter = (Component) => {
 	};
 
 	return Page;
+};
+
+export const withAuth = (Component) => {
+
 };
 
 
