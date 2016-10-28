@@ -3,6 +3,8 @@
  */
 
 (function () {
+	return;
+
 	var auto = true;
 
 	$(window).click(function () {

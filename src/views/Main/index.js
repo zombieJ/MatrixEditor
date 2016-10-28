@@ -40,6 +40,7 @@ class Main extends React.Component {
 						<li><Link to="/ability"><Lang id="Ability" /></Link></li>
 						<li><Link to="/item"><Lang id="Item" /></Link></li>
 						<li><Link to="/about"><Lang id="About" /></Link></li>
+						<li><Link to="/dev"><Lang id="Develop" /></Link></li>
 					</ul>
 				</header>
 
@@ -48,6 +49,7 @@ class Main extends React.Component {
 					<Match pattern="/open" component={Open} />
 					<Match pattern="/ability" component={verifyProject(Ability)} />
 					<Match pattern="/about" component={About} />
+					<Match pattern="/dev" component={Dev} />
 				</section>
 			</div>
 		);
