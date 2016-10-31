@@ -12,6 +12,7 @@ import Home from '../Home';
 import Open from '../Open';
 import Ability from '../Ability';
 import About from '../About';
+import Dev from '../Dev';
 import { verifyProject } from '../Page';
 
 import styles from './index.scss';
