@@ -7,10 +7,12 @@ import international from './international';
 import project from './project';
 import config from './config';
 import kv from './kv';
+import test from './test';
 
 export default combineReducers({
 	international,
 	project,
 	config,
 	kv,
+	test,
 });

@@ -4,9 +4,11 @@
 
 import React, { PropTypes } from 'react';
 
-const Avatar = ({ onClick, children }) => (
-	<div onClick={onClick}>
-		<h1>Item</h1>
+const Avatar = ({ name, onClick, children }) => (
+	<div>
+		<a onClick={onClick} tabIndex="0">
+			<h1>{name}</h1>
+		</a>
 		<div>
 			{children}
 		</div>
@@ -14,6 +16,7 @@ const Avatar = ({ onClick, children }) => (
 );
 
 Avatar.propTypes = {
+	name: PropTypes.string,
 	onClick: PropTypes.func,
 	children: PropTypes.element,
 };
