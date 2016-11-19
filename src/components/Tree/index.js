@@ -3,7 +3,7 @@
  */
 
 const connect = (Component, props) => {
-	
+
 };
 
 export default connect;
