@@ -7,87 +7,72 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	devtool: 'source-map',
+	// devtool: 'source-map',
+	devtool: 'cheap-module-eval-source-map',
 
 	entry: {
 		app: [
+			'react-hot-loader/patch',
 			'webpack-hot-middleware/client',
 			'./src/index'
-		],
-		/*vendor: [
-			"classnames",
-			"electron-json-storage",
-			"fs-extra",
-			"immutable",
-			"jquery",
-			"react",
-			"react-css-modules",
-			"react-dom",
-			"react-redux",
-			"react-router",
-			"redux",
-			"redux-logger",
-			"redux-thunk",
-			"warning",
-		]*/
+		]
 	},
 
 	output: {
 		path: path.join(__dirname, 'builds'),
 		filename: 'bundle.js',
-		publicPath: '/builds/'
+		publicPath: 'http://localhost:3333/builds/'
 	},
 
 	plugins: [
-		//new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
 		new ExtractTextPlugin('style.css', { allChunks: true }),
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 
 		new webpack.DefinePlugin({
-			'process.env': JSON.stringify('development')
+			'process.env': JSON.stringify('development'),
 		}),
 
 		new webpack.ProvidePlugin({
-			$: "jquery",
-			jQuery: "jquery"
+			$: 'jquery',
+			jQuery: 'jquery',
 		}),
 
 		new webpack.DllReferencePlugin({
 			context: __dirname,
-			manifest: require('./builds/manifest.json')
+			manifest: require('./builds/manifest.json'),
 		}),
+
+		new webpack.IgnorePlugin(/common\.config/),
 	],
 
 	module: {
-		preLoaders: [{
-			test: /\.js$/,
-			loader: 'eslint',
-			exclude: /node_modules/,
-			include: __dirname
-		}],
 		loaders: [
 			{
 				test: /\.js$/,
 				loaders: ['babel'],
 				exclude: /node_modules/,
-				include: __dirname
+				include: __dirname,
 			},
 			{
 				test: /\.scss/,
-				loader: ExtractTextPlugin.extract(
+				loaders: [
 					'style-loader',
-					'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader?sourceMap'
-				),
+					'css-loader?sourceMap&modules&importLoaders=1&localIdentName=bdp_[local]_[hash:base64:5]',
+					'postcss-loader?sourceMap=inline',
+					'sass-loader?sourceMap',
+				],
 				exclude: /style/,
 			},
 			{
 				test: /\.scss/,
-				loader: ExtractTextPlugin.extract(
+				loaders: [
 					'style-loader',
-					'css-loader?sourceMap&importLoaders=1!sass-loader?sourceMap'
-				),
-				include: /style/
+					'css-loader?sourceMap&importLoaders=1',
+					'postcss-loader?sourceMap=inline',
+					'sass-loader?sourceMap',
+				],
+				include: /style/,
 			},
 			{
 				test: /\.css/,
@@ -98,18 +83,17 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2|svg|eot|ttf)/,
-				loader: 'file?prefix=font/'
+				loader: 'file?prefix=font/',
 			},
 			{
-				test:   /\.(png|gif|jpe?g|svg)$/i,
+				test: /\.(png|gif|jpe?g|svg)$/i,
 				loader: 'file?prefix=img/',
 			},
-		]
+		],
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules', './src']
+		modulesDirectories: ['node_modules', './src'],
 	},
-
-	target:'electron-renderer'
+	target:'electron-renderer',
 };

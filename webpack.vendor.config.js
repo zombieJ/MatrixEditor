@@ -11,21 +11,19 @@ module.exports = {
 
 	entry: {
 		vendor: [
-			"classnames",
-			"electron-json-storage",
-			"fs-extra",
-			"immutable",
-			"jquery",
-			"react",
-			"react-css-modules",
-			"react-dom",
-			"react-redux",
-			"react-router",
-			"redux",
-			"redux-logger",
-			"redux-thunk",
-			"warning",
-		]
+			'classnames',
+			'immutable',
+			'jquery',
+			'react',
+			'react-css-modules',
+			'react-dom',
+			'react-redux',
+			'react-router',
+			'redux',
+			'redux-logger',
+			'redux-thunk',
+			'warning',
+		],
 	},
 
 	output: {
@@ -36,10 +34,21 @@ module.exports = {
 	},
 
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('development'),
+			},
+		}),
+
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery',
+		}),
+
 		new webpack.DllPlugin({
 			context: __dirname,
 			path: path.join(__dirname, 'builds', 'manifest.json'),
-			name: '[name]'
+			name: '[name]',
 		}),
 		new ExtractTextPlugin('style.css', { allChunks: true }),
 	],
@@ -50,23 +59,7 @@ module.exports = {
 				test: /\.js$/,
 				loaders: ['babel'],
 				exclude: /node_modules/,
-				include: __dirname
-			},
-			{
-				test: /\.scss/,
-				loader: ExtractTextPlugin.extract(
-					'style-loader',
-					'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader?sourceMap'
-				),
-				exclude: /style/,
-			},
-			{
-				test: /\.scss/,
-				loader: ExtractTextPlugin.extract(
-					'style-loader',
-					'css-loader?sourceMap&importLoaders=1!sass-loader?sourceMap'
-				),
-				include: /style/
+				include: __dirname,
 			},
 			{
 				test: /\.css/,
@@ -77,18 +70,16 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2|svg|eot|ttf)/,
-				loader: 'file?prefix=font/'
+				loader: 'file?prefix=font/',
 			},
 			{
-				test:   /\.(png|gif|jpe?g|svg)$/i,
+				test: /\.(png|gif|jpe?g|svg)$/i,
 				loader: 'file?prefix=img/',
 			},
-		]
+		],
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules']
+		modulesDirectories: ['node_modules'],
 	},
-
-	target:'electron-renderer'
 };

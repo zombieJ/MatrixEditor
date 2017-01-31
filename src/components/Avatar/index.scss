@@ -1,0 +1,63 @@
+@import "../../style/common";
+
+$avatarBackgroundColor: $panelColor;
+$sideDes: 5px;
+
+.avatar {
+	line-height: 100%;
+
+	.header {
+		border: 1px solid $panelBorderColor;
+		overflow: auto;
+		padding: $sideDes;
+		cursor: pointer;
+		background: $avatarBackgroundColor;
+
+		.icon {
+			float: left;
+			width: 40px;
+			height: 40px;
+			background: darken($panelColor, 5%);
+			margin-right: $sideDes;
+
+			:global {
+				.fa {
+					margin: 5px 0 0 6px;
+					font-size: 30px;
+				}
+			}
+		}
+
+		.info {
+			color: $fontColor;
+
+			.title {
+				margin: 0;
+				padding: 1px 0 0 0;
+				font-weight: normal;
+			}
+
+			.comment {
+				padding: 7px 0 0 0;
+				margin: 0;
+				line-height: 100%;
+				color: darken($fontColor, 20%);
+			}
+		}
+	}
+
+	.list {
+		margin: 0 0 0 20px;
+		padding: 5px;
+		border-left: 5px solid $panelBorderColor;
+		background: darken($avatarBackgroundColor, 5%);
+
+		.tips {
+			color: darken($fontColor, 20%);
+
+			:global(.fa) {
+				margin-right: 5px;
+			}
+		}
+	}
+}

@@ -3,17 +3,12 @@
  */
 
 import React, { PropTypes } from 'react';
-import { Match, Link } from 'react-router';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
 import Lang from 'containers/Lang';
-import Home from '../Home';
-import Open from '../Open';
-import Ability from '../Ability';
-import About from '../About';
-import Dev from '../Dev';
-import { verifyProject } from '../Page';
+import Router from '../router';
 
 import styles from './index.scss';
 
@@ -46,11 +41,7 @@ class Main extends React.Component {
 				</header>
 
 				<section>
-					<Match pattern="/" exactly component={Home} />
-					<Match pattern="/open" component={Open} />
-					<Match pattern="/ability" component={verifyProject(Ability)} />
-					<Match pattern="/about" component={About} />
-					<Match pattern="/dev" component={Dev} />
+					<Router />
 				</section>
 			</div>
 		);
