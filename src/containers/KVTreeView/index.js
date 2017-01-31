@@ -57,8 +57,12 @@ class KVTreeView extends React.Component {
 
 	render() {
 		const { kv, name } = this.props;
-		const kvList = kv[name];
-		if (!kvList) return <span>Loading...</span>;
+		const kvHolder = kv.get(name);
+		const index = kvHolder.get('index');
+		const kvList = kvHolder.get('list');
+		if (!kvHolder) return <span>Loading...</span>;
+
+		console.log('Index:', index);
 
 		return (
 			<div styleName="view">

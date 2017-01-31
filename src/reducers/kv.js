@@ -1,28 +1,21 @@
-/**
- * Created by jiljiang on 2016/10/26.
- */
-
 import Immutable from 'immutable';
 import * as Action from '../actions/kv';
 
-export default (state = {}, action) => {
+const defaultState = new Immutable.Map();
+
+export default (state = defaultState, action) => {
 	switch (action.type) {
 		case Action.KV_LOADED: {
 			const immutableItemList = action.list.map(item => new Immutable.Map(item));
-
-			return Object.assign({}, state, {
-				[action.name]: new Immutable.List(immutableItemList),
-			});
+			const root = action.list[0];
+			return state.set(action.name, new Immutable.Map({
+				index: root.list[0],
+				list: new Immutable.List(immutableItemList),
+			}));
 		}
 		case Action.KV_TOGGLE: {
-			const OPEN_PATH = [action.id, 'open'];
-			const { name } = action;
-			return Object.assign({}, state, {
-				[name]: state[name].setIn(
-					OPEN_PATH,
-					!state[name].getIn(OPEN_PATH),
-				),
-			});
+			const { name, id } = action;
+			return state.updateIn([name, 'list', id, 'open'], value => !value);
 		}
 	}
 	return state;
