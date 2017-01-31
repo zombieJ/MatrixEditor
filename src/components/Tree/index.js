@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import warning from 'warning';
 
 const connect = (Component, subPropsListGenerator) => {
