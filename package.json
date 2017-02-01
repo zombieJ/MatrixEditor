@@ -10,7 +10,6 @@
     "eslint": "eslint src",
     "vendor": "webpack --config webpack.vendor.config.js",
     "webpack": "webpack --config webpack.prod.config.js",
-
     "dev": "node scripts/dev.js",
     "start": "cross-env NODE_ENV=development cross-env pm2 start scripts/server.js --name=MatrixEditor",
     "stop": "pm2 stop MatrixEditor",
@@ -40,6 +39,7 @@
     "react": "^15.4.2",
     "react-css-modules": "^3.7.10",
     "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.4.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.4",

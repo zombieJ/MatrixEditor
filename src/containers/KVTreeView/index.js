@@ -33,9 +33,10 @@ const TreeAvatar = withTree(({ kvList, id, ...props }) => {
 	if (kv) return [];
 
 	const list = item.get('list');
-	const subPropsList = list.map(subId => ({
+	const subPropsList = list.map((subId, index) => ({
 		kvList,
 		id: subId,
+		index,
 		...props,
 	}));
 
@@ -47,12 +48,17 @@ class KVTreeView extends React.Component {
 		super();
 		this.state = {};
 		this.onAvatarClick = this.onAvatarClick.bind(this);
+		this.onAvatarMove = this.onAvatarMove.bind(this);
 	}
 
 	onAvatarClick(props) {
 		const { dispatch, name } = this.props;
 		const { id, isFolder } = props;
 		if (isFolder) dispatch(toggleKV(name, id));
+	}
+
+	onAvatarMove() {
+		console.log('Move!!!');
 	}
 
 	render() {
@@ -66,7 +72,11 @@ class KVTreeView extends React.Component {
 
 		return (
 			<div styleName="view">
-				<TreeAvatar kvList={kvList} id="0" onItemClick={this.onAvatarClick} />
+				<TreeAvatar
+					kvList={kvList} id="0"
+					onItemClick={this.onAvatarClick}
+					onItemMove={this.onAvatarMove}
+				/>
 			</div>
 		);
 	}
