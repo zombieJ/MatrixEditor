@@ -12,11 +12,16 @@ module.exports = {
 	entry: {
 		vendor: [
 			'classnames',
+			'electron-json-storage',
+			'fs-extra',
+			'graceful-fs',
 			'immutable',
 			'jquery',
+			'lodash',
 			'react',
 			'react-css-modules',
 			'react-dom',
+			'react-dnd',
 			'react-redux',
 			'react-router',
 			'redux',
@@ -82,4 +87,5 @@ module.exports = {
 	resolve: {
 		modulesDirectories: ['node_modules'],
 	},
+	target: 'electron-renderer',
 };
