@@ -12,7 +12,7 @@ const VAbility = verifyProject(Ability);
 
 const Router = () => (
 	<div>
-		<Match pattern="" component={Home} />
+		<Match pattern="/" component={Home} />
 		<Match pattern="/open" component={Open} />
 		<Match pattern="/ability" component={VAbility} />
 		<Match pattern="/about" component={About} />

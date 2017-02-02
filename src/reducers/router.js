@@ -1,7 +1,7 @@
 import { ROUTER_TO, ROUTER_REDIRECT } from '../actions/router';
 
 const initialState = {
-	path: '',
+	path: '/',
 };
 
 export default (state = initialState, action) => {

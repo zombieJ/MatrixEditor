@@ -16,10 +16,6 @@ import { init as configInit } from '../../actions/config';
 import { init as projectInit } from '../../actions/project';
 
 class Main extends React.Component {
-	constructor() {
-		super();
-	}
-
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(intInit());
