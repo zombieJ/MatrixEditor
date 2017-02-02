@@ -1,5 +1,5 @@
 import React from 'react';
-import { Match } from 'react-router';
+import Match from '../containers/Router/Match';
 
 import Home from './Home';
 import Open from './Open';
@@ -12,7 +12,7 @@ const VAbility = verifyProject(Ability);
 
 const Router = () => (
 	<div>
-		<Match pattern="/" exactly component={Home} />
+		<Match pattern="" component={Home} />
 		<Match pattern="/open" component={Open} />
 		<Match pattern="/ability" component={VAbility} />
 		<Match pattern="/about" component={About} />

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
 import { undo, redo } from '../../actions/history';
 
 import Lang from '../../containers/Lang';
+import Link from '../../containers/Router/Link';
 import Router from '../router';
 
 import styles from './index.scss';

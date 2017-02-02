@@ -1,7 +1,11 @@
+import { ROUTER_TO } from '../actions/router';
 import { KV_MOVE } from '../actions/kv';
 import { HISTORY_UNDO, HISTORY_REDO } from '../actions/history';
 
-const RECORD_ACTIONS = [KV_MOVE];
+const RECORD_ACTIONS = [
+	ROUTER_TO,
+	KV_MOVE,
+];
 
 const initialState = {
 	history: [],

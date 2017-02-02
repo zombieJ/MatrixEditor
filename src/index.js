@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -35,11 +34,9 @@ Promise.prototype.finally = function doFinally(onResolveOrReject) {
 delete AppContainer.prototype.unstable_handleError;
 render(
 	<AppContainer>
-		<HashRouter>
-			<Provider store={store}>
-				<Main />
-			</Provider>
-		</HashRouter>
+		<Provider store={store}>
+			<Main />
+		</Provider>
 	</AppContainer>,
 	document.getElementById('root')
 );
@@ -51,11 +48,9 @@ if (module.hot) {
 
 		render(
 			<AppContainer>
-				<HashRouter>
-					<Provider store={store}>
-						<NextMain />
-					</Provider>
-				</HashRouter>
+				<Provider store={store}>
+					<NextMain />
+				</Provider>
 			</AppContainer>,
 			document.getElementById('root'),
 		);
