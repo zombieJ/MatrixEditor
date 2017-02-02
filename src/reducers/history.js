@@ -60,6 +60,7 @@ export default (state = initialState, action, store, mergeStoreFunc) => {
 
 				return Object.assign({}, state, {
 					history,
+					future: [],
 				});
 			}
 		}
