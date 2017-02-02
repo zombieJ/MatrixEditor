@@ -9,7 +9,8 @@ export default (state = defaultState, action) => {
 			const immutableItemList = action.list.map(item => new Immutable.Map(item));
 			const root = action.list[0];
 			return state.set(action.name, new Immutable.Map({
-				index: root.list[0],
+				tab: 0,
+				selected: root.list[0],
 				list: new Immutable.List(immutableItemList),
 			}));
 		}
@@ -50,10 +51,20 @@ export default (state = defaultState, action) => {
 						name, 'list',
 						index, 'list',
 					], newList);
-		}
+				}
 			});
 
 			return myState;
+		}
+
+		case Action.KV_SELECT: {
+			const { name, id } = action;
+			return state.setIn([name, 'selected'], id);
+		}
+
+		case Action.KV_SWITCH_TAB: {
+			const { name, index } = action;
+			return state.setIn([name, 'tab'], index);
 		}
 	}
 	return state;

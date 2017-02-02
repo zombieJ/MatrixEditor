@@ -12,9 +12,7 @@ export default () => (
 		</div>
 
 		<div className="col-md-9">
-			<div className="panel">
-				<KVEditor name="ability" />
-			</div>
+			<KVEditor name="ability" />
 		</div>
 	</div>
 );

@@ -1,6 +1,7 @@
 @import "../../style/common";
 
 $avatarBackgroundColor: $panelColor;
+$avatarSelectedBackgroundColor: lighten($panelColor, 10%);
 $sideDes: 5px;
 
 @mixin headerBlock {
@@ -22,6 +23,7 @@ $sideDes: 5px;
 		overflow: visible;
 		padding: $sideDes;
 		background: $avatarBackgroundColor;
+		transition: background 0.3s ease-out;
 		cursor: pointer;
 
 		.icon {
@@ -79,13 +81,13 @@ $sideDes: 5px;
 	}
 
 	&.hover-top {
-		.header:after {
+		> .header:after {
 			@include headerBlock;
 			top: -3px;
 		}
 	}
 	&.hover-bottom {
-		.header:after {
+		> .header:after {
 			@include headerBlock;
 			bottom: -3px;
 		}
@@ -96,6 +98,12 @@ $sideDes: 5px;
 			margin: 0;
 			padding: 0;
 			border-left: 0;
+		}
+	}
+
+	&.selected {
+		> .header {
+			background: $avatarSelectedBackgroundColor;
 		}
 	}
 }

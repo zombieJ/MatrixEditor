@@ -99,11 +99,33 @@ ul {
 	}
 }
 
+// Panel
 .panel {
 	border: 1px solid $panelBorderColor;
 	box-shadow: 0 1px 3px $panelShadowColor;
-	text-shadow: -1px -1px 0 $panelBorderColor;
+	text-shadow: 1px 1px 0 $panelBorderColor;
 	background: $panelColor;
+}
+
+// Table
+.table {
+	width: 100%;
+	max-width: 100%;
+	text-align: left;
+	border-collapse: collapse !important;
+
+	&.table-bordered {
+		> thead,
+		> tbody {
+			> tr {
+				> th, > td {
+					border: 1px solid $panelBorderColor;
+					padding: 3px 5px;
+					line-height: 120%;
+				}
+			}
+		}
+	}
 }
 
 // Scroll bar
@@ -143,7 +165,7 @@ ul {
 				height: 100%;
 				overflow: auto;
 
-				> .panel {
+				> div {
 					height: 100%;
 					overflow: auto;
 				}
@@ -158,6 +180,11 @@ ul {
 			float: left;
 		}
 	}
+}
+
+// Text
+.text-no-break {
+	white-space: nowrap;
 }
 
 #root {

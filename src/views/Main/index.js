@@ -29,8 +29,8 @@ class Main extends React.Component {
 	};
 
 	closeDev = () => {
-		const { dispatch } = this.props;
-		dispatch(closeDev());
+		const { dispatch, dev } = this.props;
+		if (dev) dispatch(closeDev());
 	};
 
 	render() {
@@ -74,7 +74,8 @@ Main.propTypes = {
 	hasFuture: PropTypes.bool,
 };
 
-const mapState = ({ history: { history, future } }) => ({
+const mapState = ({ app: { dev }, history: { history, future } }) => ({
+	dev,
 	hasHistory: !!history.length,
 	hasFuture: !!future.length,
 });

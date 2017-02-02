@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
-import { toggleKV, moveKV } from '../../actions/kv';
+import { toggleKV, moveKV, selectKV } from '../../actions/kv';
 
 import withTree from '../../components/Tree';
 import Avatar from '../../components/Avatar';
 
 import styles from './index.scss';
 
-const TreeAvatar = withTree(({ kvList, id, ...props }) => {
+const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
 	const item = kvList.get(id);
 	const kv = item.get('kv');
 	const isFolder = !!item.get('list');
@@ -18,7 +18,7 @@ const TreeAvatar = withTree(({ kvList, id, ...props }) => {
 
 	return (
 		<Avatar
-			kvList={kvList} id={id}
+			kvList={kvList} id={id} selected={selectedId === id}
 			isFolder={isFolder} open={item.get('open')}
 			name={name} comment={comment}
 			{...props}
@@ -54,7 +54,11 @@ class KVTreeView extends React.Component {
 	onAvatarClick(props) {
 		const { dispatch, name } = this.props;
 		const { id, isFolder } = props;
-		if (isFolder) dispatch(toggleKV(name, id));
+		if (isFolder) {
+			dispatch(toggleKV(name, id));
+		} else {
+			dispatch(selectKV(name, id));
+		}
 	}
 
 	onAvatarMove(srcId, tgtId, moveType) {
@@ -65,14 +69,15 @@ class KVTreeView extends React.Component {
 	render() {
 		const { kv, name, className } = this.props;
 		const kvHolder = kv.get(name);
-		const index = kvHolder.get('index');
+		const selected = kvHolder.get('selected');
 		const kvList = kvHolder.get('list');
 		if (!kvHolder) return <span>Loading...</span>;
 
 		return (
 			<div styleName="view" className={className}>
 				<TreeAvatar
-					kvList={kvList} id="0" noHeader
+					kvList={kvList} id={0} selectedId={selected}
+					noHeader
 					onItemClick={this.onAvatarClick}
 					onItemMove={this.onAvatarMove}
 				/>
