@@ -6,21 +6,11 @@ import cssModules from 'react-css-modules';
 import { DragDropContext as dragDropContext, DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import { KV_MOVE_UP, KV_MOVE_BOTTOM } from '../../actions/kv';
 import Lang from '../../containers/Lang';
 import styles from './index.scss';
 
 const DRAG_TYPE = 'AVATAR';
-const HOVER_NONE = null;
-const HOVER_TOP = 'top';
-const HOVER_BOTTOM = 'bottom';
-
-const style = {
-	border: '1px dashed gray',
-	padding: '0.5rem 1rem',
-	marginBottom: '.5rem',
-	backgroundColor: 'white',
-	cursor: 'move',
-};
 
 const avatarSource = {
 	beginDrag(props) {
@@ -37,7 +27,7 @@ const avatarSource = {
 
 const avatarTarget = {
 	hover(props, monitor, component) {
-		let hover = HOVER_NONE;
+		let hover = null;
 
 		const dragIndex = monitor.getItem().index;
 		const hoverIndex = props.index;
@@ -45,7 +35,7 @@ const avatarTarget = {
 		const { lastComponent } = monitor.getItem();
 
 		if (lastComponent && lastComponent !== component) {
-			lastComponent.setState({ hover: HOVER_NONE });
+			lastComponent.setState({ hover: null });
 		}
 
 		if (props.isFolder || dragIndex === hoverIndex) {
@@ -58,17 +48,12 @@ const avatarTarget = {
 
 		// Notice target hover
 		if (hoverClientY < hoverBoundingRect.height / 2) {
-			hover = HOVER_TOP;
-			if (component.state.hover !== HOVER_TOP) component.setState({ hover: HOVER_TOP });
+			hover = KV_MOVE_UP;
+			if (component.state.hover !== KV_MOVE_UP) component.setState({ hover: KV_MOVE_UP });
 		} else {
-			hover = HOVER_BOTTOM;
-			if (component.state.hover !== HOVER_BOTTOM) component.setState({ hover: HOVER_BOTTOM });
+			hover = KV_MOVE_BOTTOM;
+			if (component.state.hover !== KV_MOVE_BOTTOM) component.setState({ hover: KV_MOVE_BOTTOM });
 		}
-
-		/*
-		// Time to actually perform the action
-		props.onItemMove(dragIndex, hoverIndex);
-		*/
 
 		monitor.getItem().lastComponent = component;
 		monitor.getItem().hover = hover;
@@ -83,13 +68,13 @@ const avatarTarget = {
 		const dragIndex = monitor.getItem().index;
 		const hoverIndex = props.index;
 
-		component.setState({ hover: HOVER_NONE });
+		component.setState({ hover: null });
 
 		if (props.isFolder || dragIndex === hoverIndex) {
 			return;
 		}
 
-		console.log('Drop!!!', hover);
+		props.onItemMove(dragId, hoverId, hover);
 	},
 };
 
@@ -97,7 +82,7 @@ class Avatar extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			hover: HOVER_NONE,
+			hover: null,
 		};
 		this.onItemClick = this.onItemClick.bind(this);
 	}
@@ -142,8 +127,8 @@ class Avatar extends React.Component {
 		return connectDragSource(connectDropTarget(
 			<div
 				styleName={classNames('avatar', {
-					'hover-top': hover === HOVER_TOP,
-					'hover-bottom': hover === HOVER_BOTTOM,
+					'hover-top': hover === KV_MOVE_UP,
+					'hover-bottom': hover === KV_MOVE_BOTTOM,
 				})}
 				style={{ opacity }}
 			>

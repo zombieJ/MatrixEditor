@@ -13,9 +13,47 @@ export default (state = defaultState, action) => {
 				list: new Immutable.List(immutableItemList),
 			}));
 		}
+
 		case Action.KV_TOGGLE: {
 			const { name, id } = action;
 			return state.updateIn([name, 'list', id, 'open'], value => !value);
+		}
+
+		case Action.KV_MOVE: {
+			let myState = state;
+			const { name, src, tgt, moveType } = action;
+
+			// Remove source in list
+			myState.getIn([name, 'list']).forEach((entity, index) => {
+				const list = entity.get('list');
+				if (!list) return;
+
+				const pos = list.indexOf(src);
+				if (pos !== -1) {
+					myState = myState.setIn([
+						name, 'list',
+						index, 'list',
+					], list.filter(id => id !== src));
+				}
+			});
+
+			// Add source near target
+			myState.getIn([name, 'list']).forEach((entity, index) => {
+				const list = entity.get('list');
+				if (!list) return;
+
+				const pos = list.indexOf(tgt);
+				if (pos !== -1) {
+					const newList = list.concat();
+					newList.splice(pos + (moveType === Action.KV_MOVE_UP ? 0 : 1), 0, src);
+					myState = myState.setIn([
+						name, 'list',
+						index, 'list',
+					], newList);
+		}
+			});
+
+			return myState;
 		}
 	}
 	return state;

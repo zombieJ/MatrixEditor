@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
-import { toggleKV } from '../../actions/kv';
+import { toggleKV, moveKV } from '../../actions/kv';
 
 import withTree from '../../components/Tree';
 import Avatar from '../../components/Avatar';
@@ -12,7 +12,7 @@ import styles from './index.scss';
 const TreeAvatar = withTree(({ kvList, id, ...props }) => {
 	const item = kvList.get(id);
 	const kv = item.get('kv');
-	const isFolder = !kv;
+	const isFolder = !!item.get('list');
 	const name = isFolder ? item.get('name') : kv.key;
 	const comment = isFolder ? 'Is Folder~' : kv.comment;
 	// console.log('KV:', item);
@@ -57,8 +57,9 @@ class KVTreeView extends React.Component {
 		if (isFolder) dispatch(toggleKV(name, id));
 	}
 
-	onAvatarMove() {
-		console.log('Move!!!');
+	onAvatarMove(srcId, tgtId, moveType) {
+		const { dispatch, name } = this.props;
+		dispatch(moveKV(name, srcId, tgtId, moveType));
 	}
 
 	render() {
