@@ -60,7 +60,7 @@ class Main extends React.Component {
 					}
 				</header>
 
-				<section>
+				<section styleName="content">
 					<Router />
 				</section>
 			</div>

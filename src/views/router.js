@@ -11,7 +11,7 @@ import { verifyProject } from './Page';
 const VAbility = verifyProject(Ability);
 
 const Router = () => (
-	<div>
+	<div style={{ height: '100%' }}>
 		<Match pattern="/" component={Home} />
 		<Match pattern="/open" component={Open} />
 		<Match pattern="/ability" component={VAbility} />

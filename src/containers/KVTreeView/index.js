@@ -15,7 +15,6 @@ const TreeAvatar = withTree(({ kvList, id, ...props }) => {
 	const isFolder = !!item.get('list');
 	const name = isFolder ? item.get('name') : kv.key;
 	const comment = isFolder ? 'Is Folder~' : kv.comment;
-	// console.log('KV:', item);
 
 	return (
 		<Avatar
@@ -38,6 +37,7 @@ const TreeAvatar = withTree(({ kvList, id, ...props }) => {
 		id: subId,
 		index,
 		...props,
+		noHeader: false,
 	}));
 
 	return subPropsList;
@@ -63,16 +63,16 @@ class KVTreeView extends React.Component {
 	}
 
 	render() {
-		const { kv, name } = this.props;
+		const { kv, name, className } = this.props;
 		const kvHolder = kv.get(name);
 		const index = kvHolder.get('index');
 		const kvList = kvHolder.get('list');
 		if (!kvHolder) return <span>Loading...</span>;
 
 		return (
-			<div styleName="view">
+			<div styleName="view" className={className}>
 				<TreeAvatar
-					kvList={kvList} id="0"
+					kvList={kvList} id="0" noHeader
 					onItemClick={this.onAvatarClick}
 					onItemMove={this.onAvatarMove}
 				/>
@@ -85,6 +85,7 @@ KVTreeView.propTypes = {
 	dispatch: PropTypes.func,
 	kv: PropTypes.object,
 	name: PropTypes.string,
+	className: PropTypes.string,
 };
 
 const mapState = ({ kv }) => ({

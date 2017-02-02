@@ -1,10 +1,15 @@
 @import "./common.scss";
 
+html, body {
+	height: 100%;
+}
+
 body {
 	padding: 0;
 	margin: 0;
 	background: $backgroundColor;
 	color: $fontColor;
+	position: relative;
 }
 
 body,
@@ -15,6 +20,10 @@ textarea {
 	line-height: 150%;
 	font-size: 16px;
 	font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+div {
+	box-sizing: border-box;
 }
 
 a,
@@ -95,4 +104,65 @@ ul {
 	box-shadow: 0 1px 3px $panelShadowColor;
 	text-shadow: -1px -1px 0 $panelBorderColor;
 	background: $panelColor;
+}
+
+// Scroll bar
+::-webkit-scrollbar
+{
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track-piece
+{
+	background-color: $mainColor;
+}
+::-webkit-scrollbar-thumb {
+	background-color: lighten($mainColor, 20%);
+}
+
+// Grid
+.row {
+	margin-left: -$gridMargin;
+
+	&:before,
+	&:after {
+		display: table;
+		content: " ";
+	}
+	&:after {
+		clear: both;
+	}
+
+	&.fixed {
+		height: 100%;
+		overflow-y: hidden;
+
+		@for $i from 1 to 12 {
+			> .col-md-#{$i} {
+				height: 100%;
+				overflow: auto;
+
+				> .panel {
+					height: 100%;
+					overflow: auto;
+				}
+			}
+		}
+	}
+
+	@for $i from 1 to 12 {
+		> .col-md-#{$i} {
+			width: $i * 100% / 12;
+			padding-left: $gridMargin;
+			float: left;
+		}
+	}
+}
+
+#root {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }

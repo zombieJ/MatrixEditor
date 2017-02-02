@@ -94,7 +94,7 @@ class Avatar extends React.Component {
 
 	render() {
 		const { hover } = this.state;
-		const { isFolder, open, name, comment, children } = this.props;
+		const { noHeader, isFolder, open, name, comment, children } = this.props;
 		const { isDragging, connectDragSource, connectDropTarget } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
@@ -129,18 +129,21 @@ class Avatar extends React.Component {
 				styleName={classNames('avatar', {
 					'hover-top': hover === KV_MOVE_UP,
 					'hover-bottom': hover === KV_MOVE_BOTTOM,
+					noHeader: noHeader,
 				})}
 				style={{ opacity }}
 			>
-				<div styleName="header" role="button" onClick={this.onItemClick}>
-					<div styleName="icon">
-						{$icon}
+				{!noHeader &&
+					<div styleName="header" role="button" onClick={this.onItemClick}>
+						<div styleName="icon">
+							{$icon}
+						</div>
+						<div styleName="info">
+							<h3 styleName="title">{name}</h3>
+							<p styleName="comment">{comment}</p>
+						</div>
 					</div>
-					<div styleName="info">
-						<h3 styleName="title">{name}</h3>
-						<p styleName="comment">{comment}</p>
-					</div>
-				</div>
+				}
 
 				{$children}
 			</div>
@@ -153,6 +156,7 @@ Avatar.propTypes = {
 	connectDropTarget: PropTypes.func.isRequired,
 	isDragging: PropTypes.bool.isRequired,
 
+	noHeader: PropTypes.bool,
 	onItemClick: PropTypes.func,
 	onItemMove: PropTypes.func,
 	isFolder: PropTypes.bool,

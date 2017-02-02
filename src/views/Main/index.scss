@@ -1,7 +1,11 @@
 @import "../../style/common.scss";
 
 .header {
+	position: absolute;
+	top: 0;
+	width: 100%;
 	line-height: 100%;
+	z-index: 1;
 
 	a {
 		display: inline-block;
@@ -34,4 +38,13 @@
 			float: right;
 		}
 	}
+}
+
+.content {
+	position: absolute;
+	top: 38px;
+	width: 100%;
+	bottom: 0;
+	overflow-y: auto;
+	padding-top: $gridMargin;
 }
