@@ -1,7 +1,3 @@
-/**
- * Created by jiljiang on 2016/10/15.
- */
-
 import storage from 'electron-json-storage';
 import * as Action from '../actions/project';
 

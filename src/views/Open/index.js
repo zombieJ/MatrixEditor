@@ -6,6 +6,7 @@ import DialogHolder from 'components/Dialog';
 
 import { toRouter } from '../../actions/router';
 import { removeProjectRecord, loadProject } from '../../actions/project';
+import { cleanHistory } from '../../actions/history';
 
 import styles from './index.scss';
 
@@ -35,6 +36,7 @@ class Open extends React.Component {
 
 		dispatch(loadProject(projectPath)).then(() => {
 			dispatch(toRouter('/about'));
+			dispatch(cleanHistory());
 		}, (reject) => {
 			this.dialog.show({
 				title: lang('OPS'),

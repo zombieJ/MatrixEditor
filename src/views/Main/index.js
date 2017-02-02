@@ -10,17 +10,12 @@ import Router from '../router';
 
 import styles from './index.scss';
 
-
-import { init as intInit } from '../../actions/international';
-import { init as configInit } from '../../actions/config';
-import { init as projectInit } from '../../actions/project';
+import { initApplication, closeDev } from '../../actions/app';
 
 class Main extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(intInit());
-		dispatch(configInit());
-		dispatch(projectInit());
+		dispatch(initApplication());
 	}
 
 	onUndo = () => {
@@ -33,11 +28,16 @@ class Main extends React.Component {
 		dispatch(redo());
 	};
 
+	closeDev = () => {
+		const { dispatch } = this.props;
+		dispatch(closeDev());
+	};
+
 	render() {
 		const { hasHistory, hasFuture } = this.props;
 
 		return (
-			<div>
+			<div onClick={this.closeDev}>
 				<header className="panel" styleName="header">
 					<Link to="/" styleName="title">
 						<Lang id="Title" />
@@ -48,14 +48,16 @@ class Main extends React.Component {
 						<li><Link to="/about"><Lang id="About" /></Link></li>
 						<li><Link to="/dev"><Lang id="Develop" /></Link></li>
 					</ul>
-					<ul styleName="nav tool">
-						<li>
-							<a className="fa fa-undo" disabled={!hasHistory} onClick={this.onUndo} />
-						</li>
-						<li>
-							<a className="fa fa-repeat" disabled={!hasFuture} onClick={this.onRedo} />
-						</li>
-					</ul>
+					{(hasHistory || hasFuture) &&
+						<ul styleName="nav tool">
+							<li>
+								<a className="fa fa-undo" disabled={!hasHistory} onClick={this.onUndo} />
+							</li>
+							<li>
+								<a className="fa fa-repeat" disabled={!hasFuture} onClick={this.onRedo} />
+							</li>
+						</ul>
+					}
 				</header>
 
 				<section>

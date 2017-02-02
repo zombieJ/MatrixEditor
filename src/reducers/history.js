@@ -1,6 +1,6 @@
 import { ROUTER_TO, ROUTER_REDIRECT } from '../actions/router';
 import { KV_MOVE } from '../actions/kv';
-import { HISTORY_UNDO, HISTORY_REDO } from '../actions/history';
+import { HISTORY_UNDO, HISTORY_REDO, HISTORY_CLEAN } from '../actions/history';
 
 const RECORD_ACTIONS = [
 	ROUTER_TO,
@@ -54,6 +54,12 @@ export default (state = initialState, action, store, mergeStoreFunc) => {
 				future,
 			});
 		}
+
+		case HISTORY_CLEAN:
+			return Object.assign({}, state, {
+				history: [],
+				future: [],
+			});
 
 		default: {
 			if (RECORD_ACTIONS.indexOf(type) !== -1) {

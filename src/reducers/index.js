@@ -5,6 +5,7 @@ import config from './config';
 import router from './router';
 import history from './history';
 import kv from './kv';
+import app from './app';
 
 export default combineReducers({
 	international,
@@ -12,6 +13,7 @@ export default combineReducers({
 	router,
 	kv,
 
+	app,
 	config,
 	history,
 }, {
