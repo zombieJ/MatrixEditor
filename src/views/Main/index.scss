@@ -1,17 +1,23 @@
 @import "../../style/common.scss";
 
 .header {
+	line-height: 100%;
+
 	a {
 		display: inline-block;
-		padding: 6px 10px;
+		padding: 10px 10px;
 
 		&:hover {
 			background: lighten($panelColor, 3%);
 		}
+
+		&[disabled] {
+			opacity: 0.3;
+			pointer-events: none;
+		}
 	}
 
 	.title {
-		padding: 6px 10px;
 		border-right: 1px solid $panelBorderColor;
 	}
 
@@ -22,6 +28,10 @@
 
 		li {
 			display: inline-block;
+		}
+
+		&.tool {
+			float: right;
 		}
 	}
 }

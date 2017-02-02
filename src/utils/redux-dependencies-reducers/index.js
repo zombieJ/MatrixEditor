@@ -1,12 +1,7 @@
-import warning from 'warning';
-
-function isDependsOn(potentialDepend, dependencies) {
-	return dependencies ? dependencies.indexOf(potentialDepend) >= 0 : false;
-}
-
 export function combineReducers(reducers, { dependencies } = {}) {
 	let keys = [];
 
+	// Map keys with dependencies
 	if (dependencies) {
 		Object.keys(dependencies).forEach((key) => {
 			const depKeys = Array.isArray(dependencies[key]) ? dependencies[key] : [dependencies[key]];
@@ -24,19 +19,31 @@ export function combineReducers(reducers, { dependencies } = {}) {
 	} else {
 		keys = Object.keys(reducers);
 	}
-	console.log('KEYS:', keys);
 
-	return (state = {}, action) => {
-		const newState = {};
+	return (store = {}, action) => {
 		let update = false;
+		const newStore = {};
+		const mergedStoreList = [];
 
+		// Merge store function for time travelling
+		const mergeStoreFunc = (mergedStore) => {
+			update = true;
+			mergedStoreList.push(mergedStore);
+		};
+
+		// Update state
 		for (const key of keys) {
-			newState[key] = reducers[key](state[key], action, state);
-			if (newState[key] !== state[key]) update = true;
+			newStore[key] = reducers[key](store[key], action, store, mergeStoreFunc);
+			if (newStore[key] !== store[key]) update = true;
 		}
 
-		return update ? newState : state;
+		// Merge store
+		mergedStoreList.forEach((mergedStore) => {
+			Object.assign(newStore, mergedStore);
+		});
+
+		return update ? newStore : store;
 	};
 }
 
-export { combineReducers as default };
+export default combineReducers;

@@ -1,26 +1,68 @@
 import { KV_MOVE } from '../actions/kv';
+import { HISTORY_UNDO, HISTORY_REDO } from '../actions/history';
 
 const RECORD_ACTIONS = [KV_MOVE];
 
 const initialState = {
 	history: [],
+	future: [],
 };
 
-export default (state = initialState, action, store) => {
+const snapshot = (store) => {
+	const cloneStore = Object.assign({}, store);
+	delete cloneStore.config;
+	delete cloneStore.history;
+
+	return cloneStore;
+};
+
+export default (state = initialState, action, store, mergeStoreFunc) => {
 	const { type } = action;
 
-	if (RECORD_ACTIONS.indexOf(type) !== -1) {
-		const { config: { historyLimit } } = store;
+	switch (type) {
+		case HISTORY_UNDO: {
+			const cloneStore = snapshot(store);
+			const history = state.history.concat();
+			const future = state.future.concat(cloneStore);
+			const current = history.pop();
 
-		const cloneStore = Object.assign({}, store);
-		delete cloneStore.config;
-		delete cloneStore.history;
+			// Call merge to restore other states
+			mergeStoreFunc(current);
 
-		const history = state.history.concat(cloneStore).slice(-historyLimit);
+			return Object.assign({}, state, {
+				history,
+				future,
+			});
+		}
 
-		return Object.assign({}, state, {
-			history,
-		});
+		case HISTORY_REDO: {
+			const cloneStore = snapshot(store);
+			const history = state.history.concat().concat(cloneStore);
+			const future = state.future;
+			const current = future.pop();
+
+			// Call merge to restore other states
+			mergeStoreFunc(current);
+
+			return Object.assign({}, state, {
+				history,
+				future,
+			});
+		}
+
+		default: {
+			if (RECORD_ACTIONS.indexOf(type) !== -1) {
+				const { config: { historyLimit } } = store;
+
+				const cloneStore = snapshot(store);
+
+				const history = state.history.concat(cloneStore).slice(-historyLimit);
+
+				return Object.assign({}, state, {
+					history,
+				});
+			}
+		}
 	}
 
 	return state;
