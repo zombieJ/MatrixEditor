@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, propTypes } from 'react-router';
+
+import Redirect from '../containers/Router/Redirect';
 
 export const verifyProject = (Component) => {
 	const VerifyPage = ({ hasProject, ...props }) => {

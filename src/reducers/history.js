@@ -1,9 +1,10 @@
-import { ROUTER_TO } from '../actions/router';
+import { ROUTER_TO, ROUTER_REDIRECT } from '../actions/router';
 import { KV_MOVE } from '../actions/kv';
 import { HISTORY_UNDO, HISTORY_REDO } from '../actions/history';
 
 const RECORD_ACTIONS = [
 	ROUTER_TO,
+	ROUTER_REDIRECT,
 	KV_MOVE,
 ];
 
@@ -60,10 +61,15 @@ export default (state = initialState, action, store, mergeStoreFunc) => {
 
 				const cloneStore = snapshot(store);
 
-				const history = state.history.concat(cloneStore).slice(-historyLimit);
+				const history = state.history.concat(cloneStore);
+
+				// [Router] Redirect will remove prev history
+				if (type === ROUTER_REDIRECT) {
+					history.pop();
+				}
 
 				return Object.assign({}, state, {
-					history,
+					history: history.slice(-historyLimit),
 					future: [],
 				});
 			}
