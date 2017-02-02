@@ -5,21 +5,26 @@ function isDependsOn(potentialDepend, dependencies) {
 }
 
 export function combineReducers(reducers, { dependencies } = {}) {
-	const keys = Object.keys(reducers);
+	let keys = [];
 
 	if (dependencies) {
-		keys.sort((key1, key2) => {
-			const key1DependOnKey2 = isDependsOn(key2, dependencies[key1]);
-			const key2DependOnKey1 = isDependsOn(key1, dependencies[key2]);
-			if (key1DependOnKey2 && !key2DependOnKey1) {
-				return 1;
-			} else if (!key1DependOnKey2 && key2DependOnKey1) {
-				return -1;
+		Object.keys(dependencies).forEach((key) => {
+			const depKeys = Array.isArray(dependencies[key]) ? dependencies[key] : [dependencies[key]];
+			const index = keys.indexOf(key);
+			if (index === -1) {
+				keys = keys.concat(depKeys);
+				keys.push(key);
+			} else {
+				const insertKeys = [index, 0].concat(depKeys);
+				keys.splice(...insertKeys);
 			}
-			warning(!key1DependOnKey2 || !key2DependOnKey1, `recursive dependencies in combineReducers. Please check: ${key1}, ${key2}`);
-			return 0;
 		});
+
+		keys = [...new Set(keys.concat(Object.keys(reducers)))];
+	} else {
+		keys = Object.keys(reducers);
 	}
+	console.log('KEYS:', keys);
 
 	return (state = {}, action) => {
 		const newState = {};

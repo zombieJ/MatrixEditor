@@ -1,7 +1,3 @@
-/**
- * Created by jiljiang on 2016/10/12.
- */
-
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';

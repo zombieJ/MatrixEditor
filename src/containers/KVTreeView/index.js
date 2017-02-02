@@ -69,8 +69,6 @@ class KVTreeView extends React.Component {
 		const kvList = kvHolder.get('list');
 		if (!kvHolder) return <span>Loading...</span>;
 
-		console.log('Index:', index);
-
 		return (
 			<div styleName="view">
 				<TreeAvatar
