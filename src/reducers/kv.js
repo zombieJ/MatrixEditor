@@ -66,6 +66,11 @@ export default (state = defaultState, action) => {
 			const { name, index } = action;
 			return state.setIn([name, 'tab'], index);
 		}
+
+		case Action.KV_MODIFY: {
+			const { name, id, path, value } = action;
+			return state.updateIn([name, 'list', id, 'kv'], kv => kv.set(path, value));
+		}
 	}
 	return state;
 };

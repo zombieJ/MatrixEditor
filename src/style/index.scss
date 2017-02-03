@@ -105,6 +105,10 @@ ul {
 	box-shadow: 0 1px 3px $panelShadowColor;
 	text-shadow: 1px 1px 0 $panelBorderColor;
 	background: $panelColor;
+
+	&.with-padding {
+		padding: 10px;
+	}
 }
 
 // Table
@@ -123,24 +127,30 @@ ul {
 					padding: 3px 5px;
 					line-height: 120%;
 				}
+
+				&.grid {
+					> th, > td {
+						border: 0;
+						padding: 0;
+						line-height: 0;
+					}
+				}
 			}
 		}
 	}
 }
 
 // Scroll bar
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
 }
 
-::-webkit-scrollbar-track-piece
-{
-	background-color: $mainColor;
+::-webkit-scrollbar-track-piece {
+	background-color: darken($mainColor, 10%);
 }
 ::-webkit-scrollbar-thumb {
-	background-color: lighten($mainColor, 20%);
+	background-color: lighten($mainColor, 10%);
 }
 
 // Grid
@@ -150,7 +160,7 @@ ul {
 	&:before,
 	&:after {
 		display: table;
-		content: " ";
+		content: '';
 	}
 	&:after {
 		clear: both;
@@ -185,6 +195,17 @@ ul {
 // Text
 .text-no-break {
 	white-space: nowrap;
+}
+
+// Misc
+.clearfix:before,
+.clearfix:after {
+	display: table;
+	content: '';
+}
+
+.clearfix:after {
+	clear: both;
 }
 
 #root {

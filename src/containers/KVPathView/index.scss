@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+table.pathView {
+	> tbody > tr {
+		.keyField {
+			position: relative;
+			cursor: default;
+
+			> .tips {
+				pointer-events: none;
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 100%;
+				padding: 3px 7px;
+				margin-left: 1px;
+				background: rgba(#000, 0.8);
+				color: #FFF;
+				font-weight: normal;
+			}
+
+			&:hover {
+				> .tips {
+					display: block;
+				}
+			}
+		}
+
+		td.valueField {
+			padding: 0;
+		}
+	}
+}

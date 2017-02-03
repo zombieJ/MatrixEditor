@@ -5,8 +5,15 @@ module.exports = {
 	Ability: '技能',
 	Item: '物品',
 	About: '关于',
+	Common: '常规',
+	Events: '事件',
 	EmptyList: '列表为空',
+	KVEmpty: 'KV为空',
 
+	// Ability Attrs
+	BaseClass: '基类',
+
+	// System
 	OPS: '啊哦~',
 	Open: '打开',
 	OpenProject: '打开项目',
