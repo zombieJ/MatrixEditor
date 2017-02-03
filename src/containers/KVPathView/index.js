@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules';
 
 import styles from './index.scss';
 
-import KVTextInput from '../../components/KVTextInput';
+import KVTextInput from '../../containers/KVTextInput';
 import { withLang } from '../Lang';
 
 import { TYPE_TEXT } from '../../models/Base';
@@ -44,7 +44,7 @@ class KVPathView extends React.Component {
 						return (
 							<tr key={index}>
 								<th className="text-no-break" styleName="keyField">
-									{lang(attr.name)}
+									{lang(attr.name) || attr.name}
 									<span styleName="tips">{attr.name}</span>
 								</th>
 								<td styleName="valueField">

@@ -1,7 +1,7 @@
 import * as Action from '../actions/config';
 
 const initialState = {
-	historyLimit: 10,	// 时间漫游长度
+	historyLimit: 50,	// 时间漫游长度
 };
 
 

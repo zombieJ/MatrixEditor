@@ -10,8 +10,13 @@ module.exports = {
 	EmptyList: '列表为空',
 	KVEmpty: 'KV为空',
 
-	// Ability Attrs
+	// Unit Attrs
 	BaseClass: '基类',
+
+	// Ability Attrs
+	ability_datadriven: "数据驱动技能",
+	ability_lua: "脚本技能",
+	AbilityTextureName: "图标",
 
 	// System
 	OPS: '啊哦~',

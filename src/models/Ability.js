@@ -12,6 +12,7 @@ const attrGroup = [
 					{value: "ability_lua"}		// TODO: Ability default type
 				]
 			},
+			{name: "AbilityTextureName"},
 		],
 	},
 	{

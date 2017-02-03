@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules';
 
 import styles from './index.scss';
 
-import withProps from '../PropsComponent';
+import withProps from '../../components/PropsComponent';
 
 const Li = withProps(({ children, ...props }) => (
 	<li {...props}>{children}</li>
@@ -19,21 +19,40 @@ class KVTextInput extends React.Component {
 		this.state = {
 			selected: 0,
 			show: false,
+			value: '',
 		};
 		this.prevValue = null;
 		this.cacheList = [];
 		this.latestPromise = null;
+
+		this.asyncId = -1;
 
 		this.onKeyDown = this.onKeyDown.bind(this);
 		this.onBlur = this.onBlur.bind(this);
 		this.onOptionSelect = this.onOptionSelect.bind(this);
 		this.updateValue = this.updateValue.bind(this);
 		this.getList = this.getList.bind(this);
+		this.getPropValue = this.getPropValue.bind(this);
+	}
+
+	componentWillMount() {
+		this.setState({ value: this.getPropValue() });
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.kv === this.props.kv) return;
+		this.setState({ value: this.getPropValue(nextProps) });
 	}
 
 	onChange = (event) => {
-		const { onKVChange, path } = this.props;
-		onKVChange(path, event.target.value);
+		const value = event.target.value;
+		this.setState({ value });
+
+		clearTimeout(this.asyncId);
+		this.asyncId = setTimeout(() => {
+			const { onKVChange, path } = this.props;
+			onKVChange(path, value);
+		}, 200);
 	};
 
 	onKeyDown = (event) => {
@@ -69,14 +88,14 @@ class KVTextInput extends React.Component {
 	setSelect(value) {
 		const { selected } = this.state;
 		const len = this.getList().length;
+
 		this.setState({
 			selected: (selected + value + len) % len,
 		});
 	}
 
 	getValue() {
-		const { kv, path } = this.props;
-		return kv.get(path, false, '');
+		return this.state.value;
 	}
 
 	getList() {
@@ -117,6 +136,11 @@ class KVTextInput extends React.Component {
 			this.prevValue = value;
 		}
 		return this.cacheList;
+	}
+
+	getPropValue(props) {
+		const { kv, path } = props || this.props;
+		return kv.get(path, false, '');
 	}
 
 	updateValue(value) {
@@ -160,7 +184,7 @@ class KVTextInput extends React.Component {
 								return (
 									<Li
 										key={index} role="button" data-value={optionEntity.value}
-										className={index === selected && 'active'}
+										styleName={index === selected && 'active'}
 										onMouseDown={this.onOptionSelect}
 									>
 										{optionEntity.item || optionEntity.description || optionEntity.value}
