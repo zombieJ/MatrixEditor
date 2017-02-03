@@ -5,14 +5,20 @@ import styles from './index.scss';
 
 import KVTextInput from '../../containers/KVTextInput';
 import KVMultipleInput from '../../containers/KVMultipleInput';
+import KVSelectInput from '../../containers/KVSelectInput';
+import KVBoolInput from '../../containers/KVBoolInput';
 import { withLang } from '../Lang';
 
-import { TYPE_TEXT, TYPE_MULTI } from '../../models/Base';
+import { TYPE_TEXT, TYPE_MULTI, TYPE_SINGLE, TYPE_BOOL } from '../../models/Base';
 
 function getInputComponent(type) {
 	switch (type) {
 		case TYPE_MULTI:
 			return KVMultipleInput;
+		case TYPE_SINGLE:
+			return KVSelectInput;
+		case TYPE_BOOL:
+			return KVBoolInput;
 		case TYPE_TEXT:
 		default:
 			return KVTextInput;
@@ -50,7 +56,7 @@ class KVPathView extends React.Component {
 						}
 
 						return (
-							<tr key={index}>
+							<tr key={index} styleName={attr.divider ? 'divider' : ''}>
 								<th className="text-no-break" styleName="keyField">
 									{lang(attr.name) || attr.name}
 									<span styleName="tips">{attr.name}</span>

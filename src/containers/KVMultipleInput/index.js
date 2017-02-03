@@ -111,7 +111,6 @@ class KVMultipleInput extends React.Component {
 
 		return (
 			<ul role="button" styleName="multi-input" onClick={this.onEdit}>
-				<li styleName="opt"><span className="fa fa-edit" /></li>
 				{list.map(val => (
 					<li key={val} styleName="label">{val}</li>
 				))}

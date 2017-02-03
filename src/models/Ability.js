@@ -1,4 +1,7 @@
-import { TYPE_TEXT, TYPE_MULTI, targetType } from './Base';
+import {
+	TYPE_TEXT, TYPE_MULTI, TYPE_SINGLE, TYPE_BOOL,
+	targetType, targetTeam, targetFlags,
+} from './Base';
 
 const attrGroup = [
 	{
@@ -52,13 +55,83 @@ const attrGroup = [
 					{ value: 'DOTA_ABILITY_BEHAVIOR_OPTIONAL_NO_TARGET' },
 				],
 			},
+
 			{
 				name: 'AbilityUnitTargetType',
 				type: TYPE_MULTI,
 				abbrFunc: value => value.replace(/DOTA_UNIT_TARGET_/, ''),
-				divider: true,
 				options: targetType,
 			},
+
+			{
+				name: 'AbilityUnitTargetTeam',
+				type: TYPE_SINGLE,
+				abbrFunc: value => value.replace(/DOTA_UNIT_TARGET_TEAM_/, ''),
+				options: targetTeam,
+			},
+			{
+				name: 'AbilityUnitTargetFlags',
+				type: TYPE_MULTI,
+				abbrFunc: value => value.replace(/DOTA_UNIT_TARGET_FLAG_/, ''),
+				options: targetFlags,
+				divider: true,
+			},
+			{
+				name: 'AbilityUnitDamageType',
+				type: TYPE_SINGLE,
+				abbrFunc: value => value.replace(/DAMAGE_TYPE_/, ''),
+				options: [
+					{ value: 'DAMAGE_TYPE_MAGICAL', recommend: true },
+					{ value: 'DAMAGE_TYPE_PHYSICAL', recommend: true },
+					{ value: 'DAMAGE_TYPE_PURE', recommend: true },
+				],
+			},
+			{
+				name: 'SpellImmunityType',
+				type: TYPE_SINGLE,
+				abbrFunc: value => value.replace(/SPELL_IMMUNITY_/, ''),
+				options: [
+					{ value: 'SPELL_IMMUNITY_NONE', recommend: true },
+					{ value: 'SPELL_IMMUNITY_ALLIES_YES' },
+					{ value: 'SPELL_IMMUNITY_ALLIES_NO' },
+					{ value: 'SPELL_IMMUNITY_ENEMIES_YES' },
+					{ value: 'SPELL_IMMUNITY_ENEMIES_NO' },
+				],
+			},
+			{ name: 'CastFilterRejectCaster', type: TYPE_BOOL },
+			{ name: 'FightRecapLevel', divider: true },
+
+			{
+				name: 'AbilityType',
+				type: TYPE_SINGLE,
+				abbrFunc: value => value.replace(/DOTA_ABILITY_TYPE_/, ''),
+				options: [
+					{ value: 'DOTA_ABILITY_TYPE_BASIC', recommend: true },
+					{ value: 'DOTA_ABILITY_TYPE_ULTIMATE' },
+					{ value: 'DOTA_ABILITY_TYPE_ATTRIBUTES' },
+					{ value: 'DOTA_ABILITY_TYPE_HIDDEN' },
+				],
+			},
+			{ name: 'HotKeyOverride' },
+			{ name: 'MaxLevel' },
+			{ name: 'RequiredLevel' },
+			{ name: 'LevelsBetweenUpgrades', divider: true },
+
+			{ name: 'AbilityCastPoint' },
+			{
+				name: 'AbilityCastAnimation',
+				options: [
+					{ value: 'ACT_DOTA_ATTACK', recommend: true },
+					{ value: 'ACT_DOTA_CAST_ABILITY_1', recommend: true },
+					{ value: 'ACT_DOTA_CHANNEL_ABILITY_1' },
+					{ value: 'ACT_DOTA_DISABLED' },
+					{ value: 'ACT_DOTA_RUN' },
+					{ value: 'ACT_DOTA_SPAWN' },
+					{ value: 'ACT_DOTA_TELEPORT' },
+					{ value: 'ACT_DOTA_VICTORY' },
+				],
+			},
+			{ name: 'AnimationPlaybackRate', divider: true },
 		],
 	},
 	{

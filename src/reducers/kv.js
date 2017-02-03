@@ -69,7 +69,12 @@ export default (state = defaultState, action) => {
 
 		case Action.KV_MODIFY: {
 			const { name, id, path, value } = action;
-			return state.updateIn([name, 'list', id, 'kv'], kv => kv.set(path, value));
+			return state.updateIn([name, 'list', id, 'kv'], (kv) => {
+				if (value === null) {
+					return kv.remove(path);
+				}
+				return kv.set(path, value);
+			});
 		}
 	}
 	return state;

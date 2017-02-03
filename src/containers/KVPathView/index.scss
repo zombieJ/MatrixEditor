@@ -37,5 +37,9 @@ table.pathView {
 				background: lighten($panelColor, 2%);
 			}
 		}
+
+		&.divider {
+			border-bottom: 3px solid $tableBorderColor;
+		}
 	}
 }

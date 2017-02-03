@@ -3,7 +3,7 @@
 
 .multi-input {
 	margin: 0 0 0 1px;
-	padding: 0;
+	padding: 0 0 0 2px;
 	list-style: none;
 	line-height: 100%;
 	cursor: pointer;
@@ -12,12 +12,7 @@
 		font-size: 12px;
 		line-height: 100%;
 		display: inline-block;
-		margin-right: 5px;
-
-		&.opt {
-			border-right: 1px solid #aaa;
-			padding: 0 3px;
-		}
+		margin-left: 5px;
 
 		&.label {
 			padding: 2px 8px;
@@ -31,12 +26,10 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	text-align: center;
 
 	> li {
 		display: inline-block;
 		margin: 0 10px 10px 0;
-		text-align: left;
 		position: relative;
 
 		> a {

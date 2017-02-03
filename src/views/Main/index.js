@@ -112,8 +112,8 @@ class Main extends React.Component {
 				</section>
 
 				{showDialog &&
-					<div styleName="dialog-container" onClick={this.onDialogCancel}>
-						<div styleName="dialog" className="panel" onClick={this.onDialogClick}>
+					<div role="button" styleName="dialog-container" onClick={this.onDialogCancel}>
+						<div role="button" styleName="dialog" className="panel" onClick={this.onDialogClick}>
 							<div styleName="dialog-title">
 								<h1>{dialogTitle}</h1>
 							</div>

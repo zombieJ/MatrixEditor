@@ -24,3 +24,7 @@ $buttonColor: lighten($mainColor, 10%);
 $buttonFocusColor: lighten($mainColor, 15%);
 $buttonActiveColor: lighten($mainColor, 5%);
 $buttonBorderColor: darken($mainColor, 7%);
+
+$infoColor: #00acd6;
+
+$tableBorderColor: lighten($panelBorderColor, 20%);
