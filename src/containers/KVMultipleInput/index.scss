@@ -40,6 +40,7 @@
 		display: inline-block;
 		margin: 0 10px 10px 0;
 		text-align: left;
+		position: relative;
 
 		> a {
 			color: darken($fontColor, 30%);
@@ -70,6 +71,23 @@
 				border-color: $fontColor;
 				color: $fontColor;
 				background: lighten($panelColor, 10%);
+			}
+
+			&.recommend {
+				> a:after {
+					content: "\f005";
+				}
+			}
+		}
+
+		&.recommend {
+			> a:after {
+				font-family: FontAwesome;
+				content: "\f006";
+				position: absolute;
+				bottom: 0px;
+				right: 6px;
+				font-size: 10px;
 			}
 		}
 	}

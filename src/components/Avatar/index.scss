@@ -20,7 +20,7 @@ $sideDes: 5px;
 
 	> .header {
 		position: relative;
-		border: 1px solid $panelBorderColor;
+		border: 1px solid darken($panelBorderColor, 20%);
 		overflow: visible;
 		padding: $sideDes;
 		background: $avatarBackgroundColor;

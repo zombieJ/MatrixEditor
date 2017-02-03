@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import cssModules from 'react-css-modules';
 
 import { withLang } from '../Lang';
@@ -24,6 +25,12 @@ class KVMultiplePanel extends React.Component {
 		this.setState({ valueMap });
 	}
 
+	getValues = () => {
+		const { valueMap } = this.state;
+		return Object.keys(valueMap)
+			.filter(key => valueMap[key]);
+	};
+
 	triggerOption(event, props) {
 		const { valueMap } = this.state;
 		const { options = [] } = this.props;
@@ -40,8 +47,11 @@ class KVMultiplePanel extends React.Component {
 		const { lang, options = [], abbrFunc } = this.props;
 		return (
 			<ul styleName="multi-panel">
-				{options.map(({ value }, index) => (
-					<li key={index} styleName={valueMap[value] ? 'active' : ''}>
+				{options.map(({ value, recommend }, index) => (
+					<li
+						key={index}
+						styleName={classNames(valueMap[value] && 'active', recommend && 'recommend')}
+					>
 						<A onClick={this.triggerOption} data-index={index}>
 							<p>{abbrFunc ? abbrFunc(value) : value}</p>
 							<h3>{lang(value) || value}</h3>
@@ -60,25 +70,30 @@ KVMultiplePanel.propTypes = {
 	lang: PropTypes.func,
 };
 
-const CssKVMultiplePanel = withLang(cssModules(KVMultiplePanel, styles));
+const CssKVMultiplePanel = cssModules(KVMultiplePanel, styles, { allowMultiple: true });
 
 class KVMultipleInput extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
 		this.onEdit = this.onEdit.bind(this);
 	}
 
 	onEdit() {
-		const { lang, path, options, abbrFunc } = this.props;
+		const { onKVChange, lang, path, options, abbrFunc } = this.props;
 		const title = path[path.length - 1];
 		this.context.showDialog(
 			lang(title) || title,
 			<CssKVMultiplePanel
-				options={options} abbrFunc={abbrFunc}
+				ref={(panel) => { this.panel = panel; }}
+				options={options} abbrFunc={abbrFunc} lang={lang}
 				values={this.getValues()}
 			/>
-		);
+		).then(() => {
+			const newValues = this.panel.getValues().join(' | ');
+			if (this.getValues().join(' | ') !== newValues) {
+				onKVChange(path, newValues);
+			}
+		}, () => {});
 	}
 
 	getValues = () => {
@@ -110,6 +125,7 @@ KVMultipleInput.propTypes = {
 	lang: PropTypes.func,
 	options: PropTypes.array,
 	abbrFunc: PropTypes.func,
+	onKVChange: PropTypes.func,
 };
 
 KVMultipleInput.contextTypes = {

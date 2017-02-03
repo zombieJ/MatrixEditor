@@ -18,6 +18,8 @@ class Main extends React.Component {
 		this.state = {
 			showDialog: false,
 		};
+		this.dialogPromiseResolve = null;
+		this.dialogPromiseReject = null;
 		this.showDialog = this.showDialog.bind(this);
 	}
 
@@ -40,11 +42,31 @@ class Main extends React.Component {
 		dispatch(redo());
 	};
 
-	showDialog(title, content) {
-		this.setState({
-			showDialog: true,
-			dialogTitle: title,
-			dialogContent: content,
+	onDialogCancel = () => {
+		if (this.dialogPromiseReject) this.dialogPromiseReject();
+		setTimeout(() => {
+			this.setState({ showDialog: false });
+		}, 0);
+	};
+
+	onDialogConfirm = () => {
+		if (this.dialogPromiseResolve) this.dialogPromiseResolve();
+		setTimeout(() => {
+			this.setState({ showDialog: false });
+		}, 0);
+	};
+
+	showDialog(title = null, content = null, footer = null) {
+		return new Promise((resolve, reject) => {
+			this.dialogPromiseResolve = resolve;
+			this.dialogPromiseReject = reject;
+
+			this.setState({
+				showDialog: true,
+				dialogTitle: title,
+				dialogContent: content,
+				dialogFooter: footer,
+			});
 		});
 	}
 
@@ -54,7 +76,7 @@ class Main extends React.Component {
 	};
 
 	render() {
-		const { showDialog, dialogTitle, dialogContent } = this.state;
+		const { showDialog, dialogTitle, dialogContent, dialogFooter } = this.state;
 		const { hasHistory, hasFuture } = this.props;
 
 		return (
@@ -95,7 +117,13 @@ class Main extends React.Component {
 								{dialogContent}
 							</div>
 							<div styleName="dialog-footer">
-								Body
+								{dialogFooter || (
+									<div>
+										<button className="btn" onClick={this.onDialogCancel}>Cancel</button>
+										{' '}
+										<button className="btn" onClick={this.onDialogConfirm}>Confirm</button>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
