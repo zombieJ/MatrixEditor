@@ -3,6 +3,8 @@ import {
 	targetType, targetTeam, targetFlags,
 } from './Base';
 
+import KVEventView from '../containers/KVEventView';
+
 const attrGroup = [
 	{
 		name: 'Common',
@@ -132,11 +134,20 @@ const attrGroup = [
 				],
 			},
 			{ name: 'AnimationPlaybackRate', divider: true },
+
+			{ name: 'AbilityCooldown' },
+			{ name: 'AbilityManaCost' },
+			{ name: 'AbilityCastRange' },
+			{ name: 'AbilityCastRangeBuffer' },
+			{ name: 'AbilityChannelTime' },
+			{ name: 'AbilityChannelledManaCostPerSecond' },
+			{ name: 'AOERadius', showFunc: kv => kv.get('AbilityBehavior', false, '').toUpperCase().indexOf('DOTA_ABILITY_BEHAVIOR_AOE') >= 0 },
+
 		],
 	},
 	{
 		name: 'Events',
-		attrs: [],
+		component: KVEventView,
 	},
 ];
 

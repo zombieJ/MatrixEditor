@@ -19,7 +19,8 @@
 	}
 
 	> .typeAhead-list {
-		border: 1px solid lighten($panelBorderColor, 10%);
+		border: 1px solid $infoColor;
+		box-sizing: border-box;
 		position: absolute;
 		min-width: 100%;
 		top: 100%;
