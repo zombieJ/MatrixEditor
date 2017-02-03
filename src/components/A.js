@@ -1,11 +1,6 @@
 import React, { PropTypes } from 'react';
-import cssModules from 'react-css-modules';
 
 class A extends React.Component {
-	constructor() {
-		super();
-	}
-
 	onClick = (event) => {
 		const { onClick } = this.props;
 		if (onClick) onClick(event, this.props);
@@ -13,7 +8,7 @@ class A extends React.Component {
 
 	render() {
 		return (
-			<a {...this.props} onClick={this.onClick} />
+			<a role="button" {...this.props} onClick={this.onClick} />
 		);
 	}
 }

@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import cssModules from 'react-css-modules';
 
 import Ability from '../../models/Ability';
 
@@ -47,7 +46,7 @@ class KVEditor extends React.Component {
 		if (!current || !current.get('kv')) {
 			return (
 				<div className="panel with-padding">
-					<span className="fa fa-info-circle"/> <Lang id="KVEmpty"/>
+					<span className="fa fa-info-circle" /> <Lang id="KVEmpty" />
 				</div>
 			);
 		}
@@ -55,9 +54,9 @@ class KVEditor extends React.Component {
 		return (
 			<Tabs onSwitchTab={this.onSwitchTab} selected={tab}>
 				{attrGroup.map((group) => {
-					const { name, component: Component = KVPathView } = group;
+					const { name: tabName, component: Component = KVPathView } = group;
 					return (
-						<TabContent key={name} title={lang(name)}>
+						<TabContent key={tabName} title={lang(tabName)}>
 							<Component {...group} kv={current.get('kv')} onKVChange={this.onKVChange} />
 						</TabContent>
 					);

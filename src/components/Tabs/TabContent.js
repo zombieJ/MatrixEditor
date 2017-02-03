@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import cssModules from 'react-css-modules';
+import { PropTypes } from 'react';
 
 const TabContent = () => null;
 

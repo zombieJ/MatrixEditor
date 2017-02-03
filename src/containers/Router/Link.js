@@ -17,7 +17,7 @@ class Link extends React.Component {
 		delete props.to;
 
 		return (
-			<a {...props} onClick={this.onClick}>{children}</a>
+			<a role="button" {...props} onClick={this.onClick}>{children}</a>
 		);
 	}
 }

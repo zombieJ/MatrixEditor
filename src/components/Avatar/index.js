@@ -160,7 +160,7 @@ Avatar.propTypes = {
 	selected: PropTypes.bool,
 	noHeader: PropTypes.bool,
 	onItemClick: PropTypes.func,
-	onItemMove: PropTypes.func,
+	onItemMove: PropTypes.func,	// eslint-disable-line react/no-unused-prop-types
 	isFolder: PropTypes.bool,
 	open: PropTypes.bool,
 	name: PropTypes.string,

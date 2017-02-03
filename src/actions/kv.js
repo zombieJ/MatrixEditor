@@ -51,5 +51,8 @@ export const switchKVTab = (name, index) => ({
 
 export const modifyKV = (name, id, path, value) => ({
 	type: KV_MODIFY,
-	name, id, path, value,
+	name,
+	id,
+	path,
+	value,
 });

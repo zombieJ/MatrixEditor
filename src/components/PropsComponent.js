@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const ACTIONS = ['onClick', 'onMouseDown', 'onChange'];
 
-export const withProps = (Component) => {
+export default (Component) => {
 	class PropsComponent extends React.Component {
 		constructor() {
 			super();
@@ -46,5 +46,3 @@ export const withProps = (Component) => {
 
 	return PropsComponent;
 };
-
-export default withProps;

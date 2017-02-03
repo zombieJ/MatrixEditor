@@ -21,21 +21,13 @@ class Main extends React.Component {
 		this.showDialog = this.showDialog.bind(this);
 	}
 
-	componentDidMount() {
-		const { dispatch } = this.props;
-		dispatch(initApplication());
-	}
-
 	getChildContext() {
 		return { showDialog: this.showDialog };
 	}
 
-	showDialog(title, content) {
-		this.setState({
-			showDialog: true,
-			dialogTitle: title,
-			dialogContent: content,
-		});
+	componentDidMount() {
+		const { dispatch } = this.props;
+		dispatch(initApplication());
 	}
 
 	onUndo = () => {
@@ -48,6 +40,14 @@ class Main extends React.Component {
 		dispatch(redo());
 	};
 
+	showDialog(title, content) {
+		this.setState({
+			showDialog: true,
+			dialogTitle: title,
+			dialogContent: content,
+		});
+	}
+
 	closeDev = () => {
 		const { dispatch, dev } = this.props;
 		if (dev) dispatch(closeDev());
@@ -58,7 +58,7 @@ class Main extends React.Component {
 		const { hasHistory, hasFuture } = this.props;
 
 		return (
-			<div onClick={this.closeDev}>
+			<div role="button" onClick={this.closeDev}>
 				<header className="panel" styleName="header">
 					<Link to="/" styleName="title">
 						<Lang id="Title" />
@@ -72,10 +72,10 @@ class Main extends React.Component {
 					{(hasHistory || hasFuture) &&
 						<ul styleName="nav tool">
 							<li>
-								<a className="fa fa-undo" disabled={!hasHistory} onClick={this.onUndo} />
+								<a role="button" className="fa fa-undo" disabled={!hasHistory} onClick={this.onUndo} />
 							</li>
 							<li>
-								<a className="fa fa-repeat" disabled={!hasFuture} onClick={this.onRedo} />
+								<a role="button" className="fa fa-repeat" disabled={!hasFuture} onClick={this.onRedo} />
 							</li>
 						</ul>
 					}

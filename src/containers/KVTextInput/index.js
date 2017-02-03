@@ -182,29 +182,29 @@ class KVTextInput extends React.Component {
 					onBlur={this.onBlur}
 				/>
 				{show && list.length ? (
-						<ul styleName="typeAhead-list">
-							{list.map((option, index) => {
-								const optionEntity = typeof option === 'string' ? { value: option } : option;
-								let $context = null;
-								if (optionEntity.item) {
-									$context = optionEntity.item;
-								} else if (optionEntity.description) {
-									$context = `${optionEntity.description} (${optionEntity.value})`;
-								} else {
-									$context = optionEntity.value;
-								}
+					<ul styleName="typeAhead-list">
+						{list.map((option, index) => {
+							const optionEntity = typeof option === 'string' ? { value: option } : option;
+							let $context = null;
+							if (optionEntity.item) {
+								$context = optionEntity.item;
+							} else if (optionEntity.description) {
+								$context = `${optionEntity.description} (${optionEntity.value})`;
+							} else {
+								$context = optionEntity.value;
+							}
 
-								return (
-									<Li
-										key={index} role="button" data-value={optionEntity.value}
-										styleName={index === selected && 'active'}
-										onMouseDown={this.onOptionSelect}
-									>
-										{$context}
-									</Li>
+							return (
+								<Li
+									key={index} role="button" data-value={optionEntity.value}
+									styleName={index === selected && 'active'}
+									onMouseDown={this.onOptionSelect}
+        >
+									{$context}
+								</Li>
 								);
-							})}
-						</ul>
+						})}
+					</ul>
 					) : null}
 			</div>
 		);

@@ -56,7 +56,10 @@ class KVPathView extends React.Component {
 									<span styleName="tips">{attr.name}</span>
 								</th>
 								<td styleName="valueField">
-									<Input kv={kv} path={path} options={attr.options} abbrFunc={attr.abbrFunc} onKVChange={this.onKVChange} />
+									<Input
+										kv={kv} path={path} options={attr.options} abbrFunc={attr.abbrFunc}
+										onKVChange={this.onKVChange}
+									/>
 								</td>
 							</tr>
 						);

@@ -12,11 +12,6 @@ class Tabs extends React.Component {
 		this.onTabClick = this.onTabClick.bind(this);
 	}
 
-	getTabList() {
-		const { children } = this.props;
-		return children ? React.Children.map(children, cell => cell.props) : [];
-	};
-
 	onTabClick(event, props) {
 		const { selected = 0, onSwitchTab } = this.props;
 		const index = props['data-index'];
@@ -24,6 +19,11 @@ class Tabs extends React.Component {
 		if (selected === index) return;
 
 		if (onSwitchTab) onSwitchTab(index);
+	}
+
+	getTabList() {
+		const { children } = this.props;
+		return children ? React.Children.map(children, cell => cell.props) : [];
 	}
 
 	render() {
