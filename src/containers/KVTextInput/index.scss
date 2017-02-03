@@ -11,6 +11,11 @@
 		height: 25px;
 		background: darken($panelColor, 10%);
 		box-shadow: 1px 1px 0px darken($panelColor, 15%) inset;
+
+		&:hover,
+		&:active {
+			background: darken($panelColor, 5%);
+		}
 	}
 
 	> .typeAhead-list {

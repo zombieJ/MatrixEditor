@@ -1,6 +1,7 @@
 @import "../../style/common";
 
 $avatarBackgroundColor: $panelColor;
+$avatarHoverBackgroundColor: lighten($panelColor, 5%);
 $avatarSelectedBackgroundColor: lighten($panelColor, 10%);
 $sideDes: 5px;
 
@@ -98,6 +99,12 @@ $sideDes: 5px;
 			margin: 0;
 			padding: 0;
 			border-left: 0;
+		}
+	}
+
+	&:hover {
+		> .header {
+			background: $avatarHoverBackgroundColor;
 		}
 	}
 

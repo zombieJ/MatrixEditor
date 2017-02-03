@@ -1,0 +1,76 @@
+@charset "UTF-8";
+@import "../../style/common";
+
+.multi-input {
+	margin: 0 0 0 1px;
+	padding: 0;
+	list-style: none;
+	line-height: 100%;
+
+	> li {
+		font-size: 12px;
+		line-height: 100%;
+		display: inline-block;
+		margin-right: 5px;
+
+		> a {
+			padding: 3px;
+			line-height: 100%;
+		}
+
+		&.opt {
+			border-right: 1px solid #aaa;
+		}
+
+		&.label {
+			padding: 2px 8px;
+			border-radius: 3px;
+			background: lighten($panelColor, 10%);
+		}
+	}
+}
+
+.multi-panel {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+
+	> li {
+		display: inline-block;
+		margin: 0 10px 10px 0;
+		text-align: left;
+
+		> a {
+			color: darken($fontColor, 30%);
+			display: inline-block;
+			width: 220px;
+			border: 2px solid $panelBorderColor;
+			border-radius: 5px;
+			padding: 5px;
+
+			h3, p {
+				margin: 0;
+				padding: 0;
+				line-height: 100%;
+			}
+
+			p {
+				font-size: 10px;
+				margin-bottom: 5px;
+			}
+
+			h3 {
+				font-size: 14px;
+			}
+		}
+
+		&.active {
+			> a {
+				border-color: $fontColor;
+				color: $fontColor;
+				background: lighten($panelColor, 10%);
+			}
+		}
+	}
+}

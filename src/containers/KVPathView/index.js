@@ -4,12 +4,15 @@ import cssModules from 'react-css-modules';
 import styles from './index.scss';
 
 import KVTextInput from '../../containers/KVTextInput';
+import KVMultipleInput from '../../containers/KVMultipleInput';
 import { withLang } from '../Lang';
 
-import { TYPE_TEXT } from '../../models/Base';
+import { TYPE_TEXT, TYPE_MULTI } from '../../models/Base';
 
 function getInputComponent(type) {
 	switch (type) {
+		case TYPE_MULTI:
+			return KVMultipleInput;
 		case TYPE_TEXT:
 		default:
 			return KVTextInput;
@@ -34,12 +37,17 @@ class KVPathView extends React.Component {
 			<table className="table table-bordered" styleName="pathView">
 				<tbody>
 					<tr className="grid">
-						<th width="1%" />
+						<th width="100" />
 						<td />
 					</tr>
 					{attrs.map((attr, index) => {
 						const Input = getInputComponent(attr.type);
 						const path = attr.path || [attr.name];
+						const showFunc = attr.showFunc;
+
+						if (showFunc && !showFunc(kv)) {
+							return null;
+						}
 
 						return (
 							<tr key={index}>
@@ -48,7 +56,7 @@ class KVPathView extends React.Component {
 									<span styleName="tips">{attr.name}</span>
 								</th>
 								<td styleName="valueField">
-									<Input kv={kv} path={path} options={attr.options} onKVChange={this.onKVChange} />
+									<Input kv={kv} path={path} options={attr.options} abbrFunc={attr.abbrFunc} onKVChange={this.onKVChange} />
 								</td>
 							</tr>
 						);

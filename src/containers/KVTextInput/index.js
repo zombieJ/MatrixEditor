@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import cssModules from 'react-css-modules';
 
-import styles from './index.scss';
-
 import withProps from '../../components/PropsComponent';
+import { withLang } from '../../containers/Lang';
+
+import styles from './index.scss';
 
 const Li = withProps(({ children, ...props }) => (
 	<li {...props}>{children}</li>
@@ -50,9 +51,11 @@ class KVTextInput extends React.Component {
 
 		clearTimeout(this.asyncId);
 		this.asyncId = setTimeout(() => {
+			if (this.state.value === this.getPropValue(this.props)) return;
+
 			const { onKVChange, path } = this.props;
 			onKVChange(path, value);
-		}, 200);
+		}, 100);
 	};
 
 	onKeyDown = (event) => {
@@ -99,7 +102,7 @@ class KVTextInput extends React.Component {
 	}
 
 	getList() {
-		const { options } = this.props;
+		const { options, lang } = this.props;
 		const value = this.getValue();
 
 		if (this.prevValue !== value) {
@@ -111,6 +114,8 @@ class KVTextInput extends React.Component {
 				this.state.selected = 0;
 				this.cacheList = options.filter((option) => {
 					const optionEntity = typeof option === 'string' ? { value: option } : option;
+					optionEntity.description = optionEntity.description || lang(optionEntity.value);
+
 					return String(optionEntity.item || '').toUpperCase().indexOf(queryStr) >= 0 ||
 						String(optionEntity.description || '').toUpperCase().indexOf(queryStr) >= 0 ||
 						String(optionEntity.value || '').toUpperCase().indexOf(queryStr) >= 0;
@@ -159,12 +164,13 @@ class KVTextInput extends React.Component {
 
 		const list = this.getList();
 		const { selected, show } = this.state;
-		const props = Object.assign({}, this.props);
+		/* const props = Object.assign({}, this.props);
 		delete props.kv;
 		delete props.path;
+		delete props.dispatch;
 		delete props.styles;
 		delete props.options;
-		delete props.onKVChange;
+		delete props.onKVChange; */
 
 		return (
 			<div styleName="input" className="clearfix">
@@ -174,12 +180,19 @@ class KVTextInput extends React.Component {
 					onChange={this.onChange}
 					onKeyDown={this.onKeyDown}
 					onBlur={this.onBlur}
-					{...props}
 				/>
 				{show && list.length ? (
 						<ul styleName="typeAhead-list">
 							{list.map((option, index) => {
 								const optionEntity = typeof option === 'string' ? { value: option } : option;
+								let $context = null;
+								if (optionEntity.item) {
+									$context = optionEntity.item;
+								} else if (optionEntity.description) {
+									$context = `${optionEntity.description} (${optionEntity.value})`;
+								} else {
+									$context = optionEntity.value;
+								}
 
 								return (
 									<Li
@@ -187,7 +200,7 @@ class KVTextInput extends React.Component {
 										styleName={index === selected && 'active'}
 										onMouseDown={this.onOptionSelect}
 									>
-										{optionEntity.item || optionEntity.description || optionEntity.value}
+										{$context}
 									</Li>
 								);
 							})}
@@ -201,9 +214,10 @@ class KVTextInput extends React.Component {
 KVTextInput.propTypes = {
 	options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 	kv: PropTypes.object.isRequired,
+	path: PropTypes.array,
+	lang: PropTypes.func,
 	onKeyDown: PropTypes.func,
 	onKVChange: PropTypes.func,
-	path: PropTypes.array,
 };
 
-export default cssModules(KVTextInput, styles);
+export default withLang(cssModules(KVTextInput, styles));

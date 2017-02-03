@@ -13,9 +13,29 @@ import styles from './index.scss';
 import { initApplication, closeDev } from '../../actions/app';
 
 class Main extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			showDialog: false,
+		};
+		this.showDialog = this.showDialog.bind(this);
+	}
+
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(initApplication());
+	}
+
+	getChildContext() {
+		return { showDialog: this.showDialog };
+	}
+
+	showDialog(title, content) {
+		this.setState({
+			showDialog: true,
+			dialogTitle: title,
+			dialogContent: content,
+		});
 	}
 
 	onUndo = () => {
@@ -34,6 +54,7 @@ class Main extends React.Component {
 	};
 
 	render() {
+		const { showDialog, dialogTitle, dialogContent } = this.state;
 		const { hasHistory, hasFuture } = this.props;
 
 		return (
@@ -63,6 +84,22 @@ class Main extends React.Component {
 				<section styleName="content">
 					<Router />
 				</section>
+
+				{showDialog &&
+					<div styleName="dialog-container">
+						<div styleName="dialog" className="panel">
+							<div styleName="dialog-title">
+								<h1>{dialogTitle}</h1>
+							</div>
+							<div styleName="dialog-body">
+								{dialogContent}
+							</div>
+							<div styleName="dialog-footer">
+								Body
+							</div>
+						</div>
+					</div>
+				}
 			</div>
 		);
 	}
@@ -72,6 +109,11 @@ Main.propTypes = {
 	dispatch: PropTypes.func,
 	hasHistory: PropTypes.bool,
 	hasFuture: PropTypes.bool,
+	dev: PropTypes.bool,
+};
+
+Main.childContextTypes = {
+	showDialog: React.PropTypes.func,
 };
 
 const mapState = ({ app: { dev }, history: { history, future } }) => ({

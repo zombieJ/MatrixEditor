@@ -48,3 +48,43 @@
 	overflow-y: auto;
 	padding-top: $gridMargin;
 }
+
+.dialog-container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(#222, 0.9);
+	z-index: 10;
+	display: table-cell;
+	overflow-y: auto;
+
+	.dialog {
+		width: 80%;
+		max-width: 1010px;
+		margin: 50px auto 0 auto;
+		background: $panelColor;
+
+		.dialog-title {
+			padding: 10px 15px;
+			border-bottom: 1px solid $panelBorderColor;
+
+			h1 {
+				margin: 0;
+				padding: 0;
+				font-weight: normal;
+				font-size: 18px;
+			}
+		}
+
+		.dialog-body {
+			padding: 10px 15px;
+		}
+
+		.dialog-footer {
+			padding: 10px 15px;
+			border-top: 1px solid $panelBorderColor;
+		}
+	}
+}
