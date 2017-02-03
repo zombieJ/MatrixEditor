@@ -19,6 +19,7 @@
 	}
 
 	> .typeAhead-list {
+		border: 1px solid lighten($panelBorderColor, 10%);
 		position: absolute;
 		min-width: 100%;
 		top: 100%;
@@ -26,17 +27,24 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		background: rgba(#000, 0.8);
+		background: rgba(#000, 0.9);
 		z-index: 10;
+		font-size: 12px;
+		box-shadow: 0 1px 3px $panelShadowColor;
 
 		> li {
-			padding: 8px 15px;
+			padding: 3px 10px;
 			cursor: default;
 
 			&:hover,
 			&.active {
-				background: rgba(#333, 0.8);
+				background: rgba(#222, 0.9);
 			}
+		}
+
+		&.top {
+			top: auto;
+			bottom: 100%;
 		}
 	}
 }

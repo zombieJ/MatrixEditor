@@ -3,15 +3,15 @@ $gridMargin: 3px;
 $borderRadius: 3px;
 $inputBorderRadius: $borderRadius;
 
-$mainColor: #333333;
+$mainColor: #222222;
 
 $backgroundColor: darken($mainColor, 2%);
 
 $fontColor: lighten($mainColor, 70%);
-$fontFocusColor: lighten($mainColor, 80%);
+$fontFocusColor: lighten($fontColor, 5%);
 
-$panelColor: $mainColor;
-$panelBorderColor: lighten($mainColor, 5%);
+$panelColor: lighten($mainColor, 10%);
+$panelBorderColor: lighten($panelColor, 5%);
 $panelShadowColor: darken($panelColor, 15%);
 
 $inputColor: lighten($mainColor, 15%);

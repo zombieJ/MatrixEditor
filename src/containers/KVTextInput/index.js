@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import cssModules from 'react-css-modules';
 
 import withProps from '../../components/PropsComponent';
@@ -73,10 +74,14 @@ class KVTextInput extends React.Component {
 				this.updateValue(option.value);
 			}
 		} else {
-			this.setState({ show: true });
+			this.showList();
 		}
 
 		if (onKeyDown) onKeyDown(event);
+	};
+
+	onFocus = () => {
+		this.showList();
 	};
 
 	onBlur() {
@@ -148,6 +153,17 @@ class KVTextInput extends React.Component {
 		return kv.get(path, false, '');
 	}
 
+	showList = () => {
+		const state = { show: true };
+		const react = this.input.getBoundingClientRect();
+		if (react.bottom < window.innerHeight / 2) {
+			state.displayInTop = false;
+		} else {
+			state.displayInTop = true;
+		}
+		this.setState(state);
+	};
+
 	updateValue(value) {
 		const mockEvent = {
 			type: 'change',
@@ -163,26 +179,21 @@ class KVTextInput extends React.Component {
 		const value = this.getValue();
 
 		const list = this.getList();
-		const { selected, show } = this.state;
-		/* const props = Object.assign({}, this.props);
-		delete props.kv;
-		delete props.path;
-		delete props.dispatch;
-		delete props.styles;
-		delete props.options;
-		delete props.onKVChange; */
+		const { selected, show, displayInTop } = this.state;
 
 		return (
 			<div styleName="input" className="clearfix">
 				<input
 					type="text"
 					value={value}
+					ref={(input) => { this.input = input; }}
 					onChange={this.onChange}
 					onKeyDown={this.onKeyDown}
+					onFocus={this.onFocus}
 					onBlur={this.onBlur}
 				/>
 				{show && list.length ? (
-					<ul styleName="typeAhead-list">
+					<ul styleName={classNames('typeAhead-list', displayInTop && 'top')}>
 						{list.map((option, index) => {
 							const optionEntity = typeof option === 'string' ? { value: option } : option;
 							let $context = null;
@@ -199,7 +210,7 @@ class KVTextInput extends React.Component {
 									key={index} role="button" data-value={optionEntity.value}
 									styleName={index === selected && 'active'}
 									onMouseDown={this.onOptionSelect}
-        >
+								>
 									{$context}
 								</Li>
 								);
@@ -220,4 +231,4 @@ KVTextInput.propTypes = {
 	onKVChange: PropTypes.func,
 };
 
-export default withLang(cssModules(KVTextInput, styles));
+export default withLang(cssModules(KVTextInput, styles, { allowMultiple: true }));
