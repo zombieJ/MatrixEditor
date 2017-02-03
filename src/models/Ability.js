@@ -1,4 +1,4 @@
-import { TYPE_TEXT, TYPE_MULTI } from './Base';
+import { TYPE_TEXT, TYPE_MULTI, targetType } from './Base';
 
 const attrGroup = [
 	{
@@ -51,6 +51,13 @@ const attrGroup = [
 					{ value: 'DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET' },
 					{ value: 'DOTA_ABILITY_BEHAVIOR_OPTIONAL_NO_TARGET' },
 				],
+			},
+			{
+				name: 'AbilityUnitTargetType',
+				type: TYPE_MULTI,
+				abbrFunc: value => value.replace(/DOTA_UNIT_TARGET_/, ''),
+				divider: true,
+				options: targetType,
 			},
 		],
 	},

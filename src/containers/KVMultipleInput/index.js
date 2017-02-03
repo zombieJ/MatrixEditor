@@ -99,6 +99,7 @@ class KVMultipleInput extends React.Component {
 	getValues = () => {
 		const { kv, path } = this.props;
 		const value = kv.get(path, false, '');
+		if (!(value || '').trim()) return [];
 		return value.split(/\s*\|\s*/);
 	};
 
@@ -109,11 +110,14 @@ class KVMultipleInput extends React.Component {
 		const list = values.map(val => lang(val) || val);
 
 		return (
-			<ul styleName="multi-input">
-				<li styleName="opt"><a role="button" className="fa fa-edit" onClick={this.onEdit} /></li>
+			<ul role="button" styleName="multi-input" onClick={this.onEdit}>
+				<li styleName="opt"><span className="fa fa-edit" /></li>
 				{list.map(val => (
 					<li key={val} styleName="label">{val}</li>
 				))}
+				{!list.length &&
+					<li>[{lang('EmptyList')}]</li>
+				}
 			</ul>
 		);
 	}

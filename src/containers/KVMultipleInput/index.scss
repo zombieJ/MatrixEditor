@@ -6,6 +6,7 @@
 	padding: 0;
 	list-style: none;
 	line-height: 100%;
+	cursor: pointer;
 
 	> li {
 		font-size: 12px;
@@ -13,13 +14,9 @@
 		display: inline-block;
 		margin-right: 5px;
 
-		> a {
-			padding: 3px;
-			line-height: 100%;
-		}
-
 		&.opt {
 			border-right: 1px solid #aaa;
+			padding: 0 3px;
 		}
 
 		&.label {

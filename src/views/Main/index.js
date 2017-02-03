@@ -42,6 +42,10 @@ class Main extends React.Component {
 		dispatch(redo());
 	};
 
+	onDialogClick = (event) => {
+		event.stopPropagation();
+	};
+
 	onDialogCancel = () => {
 		if (this.dialogPromiseReject) this.dialogPromiseReject();
 		setTimeout(() => {
@@ -108,8 +112,8 @@ class Main extends React.Component {
 				</section>
 
 				{showDialog &&
-					<div styleName="dialog-container">
-						<div styleName="dialog" className="panel">
+					<div styleName="dialog-container" onClick={this.onDialogCancel}>
+						<div styleName="dialog" className="panel" onClick={this.onDialogClick}>
 							<div styleName="dialog-title">
 								<h1>{dialogTitle}</h1>
 							</div>

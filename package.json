@@ -8,7 +8,7 @@
     "devSrv": "cross-env NODE_ENV=development cross-env pm2 start scripts/server.js --name=MatrixEditor",
     "devApp": "electron scripts/app.js",
     "eslint": "eslint src",
-    "eslintFix": "eslint --fix src",
+    "eslintFix": "eslint --fix src res",
     "vendor": "webpack --config webpack.vendor.config.js",
     "webpack": "webpack --config webpack.prod.config.js",
     "dev": "node scripts/dev.js",
