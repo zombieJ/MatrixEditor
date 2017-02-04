@@ -135,7 +135,7 @@ class Avatar extends React.Component {
 				style={{ opacity }}
 			>
 				{!noHeader &&
-					<div styleName="header" role="button" onClick={this.onItemClick}>
+					<div styleName="header" className="clearfix" role="button" onClick={this.onItemClick}>
 						<div styleName="icon">
 							{$icon}
 						</div>
