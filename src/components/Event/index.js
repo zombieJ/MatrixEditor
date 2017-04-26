@@ -23,6 +23,8 @@ class Event extends React.Component {
 		const { tabIndex } = this.state;
 		const { kv } = this.props;
 
+		// TODO: Fill event
+
 		return (
 			<div styleName="event">
 				<ul className="nav-pills sm">
