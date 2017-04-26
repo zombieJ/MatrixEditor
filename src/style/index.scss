@@ -125,6 +125,15 @@ ul {
 			}
 		}
 	}
+
+	&.sm {
+		> li {
+			> a {
+				padding: 3px 6px;
+				font-size: 14px;
+			}
+		}
+	}
 }
 
 // Panel

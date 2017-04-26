@@ -5,6 +5,7 @@ import cssModules from 'react-css-modules';
 import { getEventList } from '../../models/Event';
 
 import A from '../../components/A';
+import Event from '../../components/Event';
 
 import styles from './index.scss';
 
@@ -27,7 +28,8 @@ class KVEventView extends React.Component {
 
 		// Get event key index list
 		const eventList = getEventList(kv);
-		console.log('->', eventList.toJS());
+		const currentEventKV = kv.value.get(eventList.get(tabIndex));
+		console.log('Current:', currentEventKV);
 
 		return (
 			<div>
@@ -35,7 +37,7 @@ class KVEventView extends React.Component {
 					<li className="active"><a className="fa fa-plus" /></li>
 					{eventList.map((kvIndex, index) => {
 						const eventKV = kv.value.get(kvIndex);
-						console.log(eventKV);
+						console.log(eventKV.value);
 
 						return (
 							<li key={kvIndex} className={classNames(index === tabIndex && 'active')}>
@@ -44,6 +46,8 @@ class KVEventView extends React.Component {
 						);
 					})}
 				</ul>
+
+				<Event kv={currentEventKV} />
 			</div>
 		);
 	}
