@@ -4,8 +4,8 @@
 
 import { Deferred } from 'jquery';
 import storage from 'electron-json-storage';
+import { KV } from 'immutable-kv';
 import { folderExist, fileExist } from '../utils/fileUtil';
-import ImmutableKV from '../models/ImmutableKV';
 
 import { loadKVList } from './kv';
 
@@ -58,11 +58,8 @@ export const loadProject = path => (dispatch) => {
 		}
 
 		dtd.notify('Load abilities...');
-		const abilityPromise = ImmutableKV.fromFile(abilityPath).then((kv) => {
-			const error = kv.getParseError();
-			const list = kv.normalizr();
-			dispatch(loadKVList('ability', list));
-			console.log('Loaded:', list, error);
+		const abilityPromise = KV.load(abilityPath).then((kvFileInfo) => {
+			return dispatch(loadKVList('ability', kvFileInfo));
 		});
 
 		Promise.all([abilityPromise]).then(() => {
@@ -72,6 +69,8 @@ export const loadProject = path => (dispatch) => {
 			});
 
 			dtd.resolve();
+		}, (err) => {
+			dtd.reject(err);
 		});
 	}, 0);
 

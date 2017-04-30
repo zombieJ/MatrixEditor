@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { KV } from 'immutable-kv';
 
 import { loadKVList } from '../../actions/kv';
-import ImmutableKV from '../../models/ImmutableKV';
 
 import KVTreeView from '../../containers/KVTreeView';
 

@@ -149,6 +149,7 @@ module.exports = {
 	openProject: '选择需要打开的项目目录...',
 	projectNotExist: '项目不存在，请检查路径...',
 	projectAbilityNotExist: '技能文件不存在，请检查...',
+	projectAbilityNotMatch: '技能文件格式错误，请检查...',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

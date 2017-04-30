@@ -14,6 +14,8 @@ export const devMockOperation = () => (
 			dispatch(loadProject(projectState.historyPathList[0])).then(() => {
 				dispatch(toRouter('/ability'));
 				dispatch(cleanHistory());
+			}, (err) => {
+				console.error(err);
 			});
 		});
 	}
