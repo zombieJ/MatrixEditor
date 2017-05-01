@@ -13,13 +13,12 @@ export const KV_MOVE_BOTTOM = 'kv_move_down';
 export const loadKVList = (name, kvFileInfo) => (
 	(dispatch) => {
 		if (!kvFileInfo) return Promise.reject(`project${capitalize(name)}NotMatch`);
-		/* return new Promise((resolve, reject) => {
-			dispatch({
-				type: KV_LOADED,
-					name,
-					list,
-			});
-		}); */
+		dispatch({
+			type: KV_LOADED,
+			name,
+			kvFileInfo,
+		});
+		return Promise.resolve();
 	}
 );
 

@@ -62,6 +62,7 @@ export const loadProject = path => (dispatch) => {
 			return dispatch(loadKVList('ability', kvFileInfo));
 		});
 
+		return;
 		Promise.all([abilityPromise]).then(() => {
 			dispatch({
 				type: PROJECT_LOADED,

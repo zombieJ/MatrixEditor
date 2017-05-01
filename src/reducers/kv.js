@@ -3,16 +3,33 @@ import * as Action from '../actions/kv';
 
 const defaultState = new Immutable.Map();
 
+function flatten(kvFileInfo, list, id = 0) {
+	let myId = id;
+	const myList = list || [];
+	const holder = {
+		id: myId,
+	};
+	myId += 1;
+
+	myList[holder.id] = holder;
+	console.log('~>', kvFileInfo);
+	kvFileInfo.kv.value.forEach((kv) => {
+		console.log('=>', kv);
+	});
+
+}
+
 export default (state = defaultState, action) => {
 	switch (action.type) {
 		case Action.KV_LOADED: {
-			const immutableItemList = action.list.map(item => new Immutable.Map(item));
+			flatten(action.kvFileInfo);
+			/* const immutableItemList = action.list.map(item => new Immutable.Map(item));
 			const root = action.list[0];
 			return state.set(action.name, new Immutable.Map({
 				tab: 0,
 				selected: root.list[0],
 				list: new Immutable.List(immutableItemList),
-			}));
+			})); */
 		}
 
 		case Action.KV_TOGGLE: {
