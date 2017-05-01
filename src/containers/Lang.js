@@ -13,7 +13,6 @@ class Lang extends React.Component {
 			|| className !== this.props.className;
 	}
 
-
 	render() {
 		const { className } = this.props;
 		return <span className={className}>{getContent(this.props)}</span>;
@@ -33,7 +32,11 @@ const mapState = ({ international }, { id }) => ({
 export default connect(mapState)(Lang);
 
 const withLangMapState = ({ international }) => ({
-	lang: id => international.lang[id],
+	lang: (id) => {
+		const str = international.lang[id];
+		if (str !== undefined) return str;
+		return `[MissString] ${id}`;
+	},
 });
 
 export function withLang(Component) {
