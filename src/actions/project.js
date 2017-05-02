@@ -58,7 +58,7 @@ export const loadProject = path => (dispatch) => {
 		}
 
 		dtd.notify('Load abilities...');
-		const abilityPromise = KV.load(abilityPath).then((kvFileInfo) => {
+		const abilityPromise = KV.baseLoad(abilityPath).then((kvFileInfo) => {
 			return dispatch(loadKVList('ability', kvFileInfo));
 		});
 
