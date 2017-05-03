@@ -1,35 +1,58 @@
-import Immutable from 'immutable';
 import * as Action from '../actions/kv';
 
-const defaultState = new Immutable.Map();
+const defaultState = {};
 
-function flatten(kvFileInfo, list, id = 0) {
+function flatten(kvFileInfo, list = [], id = 0) {
 	let myId = id;
-	const myList = list || [];
-	const holder = {
+	let firstId = 0;
+	let childFirstId = 0;
+	const folderHolder = {
 		id: myId,
+		list: [],
+		name: 'Hello World',
 	};
 	myId += 1;
 
-	myList[holder.id] = holder;
-	console.log('~>', kvFileInfo);
-	kvFileInfo.kv.value.forEach((kv) => {
-		console.log('=>', kv);
+	folderHolder.list = (kvFileInfo.baseList || []).map((subKvFileInfo) => {
+		const container = flatten(subKvFileInfo, list, myId);
+		myId = container.id;
+		childFirstId = childFirstId || container.firstId;
+		return container.holder.id;
 	});
 
+	list[folderHolder.id] = folderHolder;
+	kvFileInfo.kv.value.forEach((kv) => {
+		if (kv.key === 'Version') return;
+
+		const kvHolder = {
+			id: myId,
+			kv,
+		};
+		list[kvHolder.id] = kvHolder;
+		folderHolder.list.push(kvHolder.id);
+		firstId = firstId || kvHolder.id;
+		myId += 1;
+	});
+
+	return {
+		list,
+		holder: folderHolder,
+		id: myId,
+		firstId: firstId || childFirstId,
+	};
 }
 
 export default (state = defaultState, action) => {
 	switch (action.type) {
 		case Action.KV_LOADED: {
-			flatten(action.kvFileInfo);
-			/* const immutableItemList = action.list.map(item => new Immutable.Map(item));
-			const root = action.list[0];
-			return state.set(action.name, new Immutable.Map({
-				tab: 0,
-				selected: root.list[0],
-				list: new Immutable.List(immutableItemList),
-			})); */
+			const container = flatten(action.kvFileInfo);
+			return Object.assign({}, state, {
+				[action.name]: {
+					tab: 0,
+					selected: container.firstId,
+					list: container.list,
+				},
+			});
 		}
 
 		case Action.KV_TOGGLE: {

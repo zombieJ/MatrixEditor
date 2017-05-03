@@ -111,7 +111,7 @@ class Avatar extends React.Component {
 		}
 
 		let $children = null;
-		if (open && isFolder) {
+		if ((open || noHeader) && isFolder) {
 			$children = (
 				<div styleName="list">
 					{children.length ? children : (

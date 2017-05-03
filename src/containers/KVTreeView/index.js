@@ -10,28 +10,29 @@ import Avatar from '../../components/Avatar';
 import styles from './index.scss';
 
 const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
-	const item = kvList.get(id);
-	const kv = item.get('kv');
-	const isFolder = !!item.get('list');
-	const name = isFolder ? item.get('name') : kv.key;
+	const item = kvList[id];
+	const { kv, list } = item;
+	const isFolder = !!list;
+	const name = isFolder ? item.name : kv.key;
 	const comment = isFolder ? 'Is Folder~' : kv.comment;
+
+	console.log('=>', list);
 
 	return (
 		<Avatar
 			kvList={kvList} id={id} selected={selectedId === id}
-			isFolder={isFolder} open={item.get('open')}
+			isFolder={isFolder} open={item.open}
 			name={name} comment={comment}
 			{...props}
 		/>
 	);
 }, ({ kvList, id, ...props }) => {
-	const item = kvList.get(id);
-	const kv = item.get('kv');
+	const item = kvList[id];
+	const { kv, list = [] } = item;
 
 	// Skip kv entity
 	if (kv) return [];
 
-	const list = item.get('list');
 	const subPropsList = list.map((subId, index) => ({
 		kvList,
 		id: subId,
@@ -68,11 +69,12 @@ class KVTreeView extends React.Component {
 
 	render() {
 		const { kv, name, className } = this.props;
-		const kvHolder = kv.get(name);
-		const selected = kvHolder.get('selected');
-		const kvList = kvHolder.get('list');
+		const kvHolder = kv[name];
 		if (!kvHolder) return <span>Loading...</span>;
 
+		const { selected, list: kvList } = kvHolder;
+
+		console.log('yes:', kvList);
 		return (
 			<div styleName="view" className={className}>
 				<TreeAvatar
