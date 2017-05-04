@@ -1,4 +1,5 @@
 import * as Action from '../actions/kv';
+import { updateValue } from '../utils/pathUtil';
 
 const defaultState = {};
 
@@ -57,7 +58,7 @@ export default (state = defaultState, action) => {
 
 		case Action.KV_TOGGLE: {
 			const { name, id } = action;
-			return state.updateIn([name, 'list', id, 'open'], value => !value);
+			return updateValue(state, [name, 'list', id, 'open'], value => !value);
 		}
 
 		case Action.KV_MOVE: {
@@ -65,32 +66,26 @@ export default (state = defaultState, action) => {
 			const { name, src, tgt, moveType } = action;
 
 			// Remove source in list
-			myState.getIn([name, 'list']).forEach((entity, index) => {
-				const list = entity.get('list');
+			myState[name].list.forEach((entity, index) => {
+				const { list } = entity;
 				if (!list) return;
 
 				const pos = list.indexOf(src);
 				if (pos !== -1) {
-					myState = myState.setIn([
-						name, 'list',
-						index, 'list',
-					], list.filter(id => id !== src));
+					myState = updateValue(myState, [name, 'list', index, 'list'], () => list.filter(id => id !== src));
 				}
 			});
 
 			// Add source near target
-			myState.getIn([name, 'list']).forEach((entity, index) => {
-				const list = entity.get('list');
+			myState[name].list.forEach((entity, index) => {
+				const { list } = entity;
 				if (!list) return;
 
 				const pos = list.indexOf(tgt);
 				if (pos !== -1) {
 					const newList = list.concat();
 					newList.splice(pos + (moveType === Action.KV_MOVE_UP ? 0 : 1), 0, src);
-					myState = myState.setIn([
-						name, 'list',
-						index, 'list',
-					], newList);
+					myState = updateValue(myState, [name, 'list', index, 'list'], () => newList);
 				}
 			});
 

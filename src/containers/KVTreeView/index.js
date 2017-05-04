@@ -16,8 +16,6 @@ const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
 	const name = isFolder ? item.name : kv.key;
 	const comment = isFolder ? 'Is Folder~' : kv.comment;
 
-	console.log('=>', list);
-
 	return (
 		<Avatar
 			kvList={kvList} id={id} selected={selectedId === id}
@@ -73,8 +71,6 @@ class KVTreeView extends React.Component {
 		if (!kvHolder) return <span>Loading...</span>;
 
 		const { selected, list: kvList } = kvHolder;
-
-		console.log('yes:', kvList);
 		return (
 			<div styleName="view" className={className}>
 				<TreeAvatar

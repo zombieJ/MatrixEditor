@@ -140,8 +140,8 @@ class Avatar extends React.Component {
 							{$icon}
 						</div>
 						<div styleName="info">
-							<h3 styleName="title">{name}</h3>
-							<p styleName="comment">{comment}</p>
+							<h3 styleName="title">{name || '\u00A0'}</h3>
+							<p styleName="comment">{comment || '\u00A0'}</p>
 						</div>
 					</div>
 				}
