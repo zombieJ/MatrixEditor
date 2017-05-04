@@ -21,7 +21,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'builds'),
 		filename: 'bundle.js',
-		publicPath: 'http://localhost:3333/builds/'
+		publicPath: 'http://localhost:1128/builds/'
 	},
 
 	plugins: [

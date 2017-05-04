@@ -18,7 +18,7 @@ function createWindow () {
 	});
 
 	//mainWindow.loadURL(`file://${__dirname}/index.html`);
-	mainWindow.loadURL(`http://localhost:3333/`);
+	mainWindow.loadURL(`http://localhost:1128/`);
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.maximize();
