@@ -92,6 +92,27 @@ export default (state = defaultState, action) => {
 			return myState;
 		}
 
+		case Action.KV_MOVE_IN: {
+			let myState = state;
+			const { name, src, tgt } = action;
+
+			// Remove source in list
+			myState[name].list.forEach((entity, index) => {
+				const { list } = entity;
+				if (!list) return;
+
+				const pos = list.indexOf(src);
+				if (pos !== -1) {
+					myState = updateValue(myState, [name, 'list', index, 'list'], () => list.filter(id => id !== src));
+				}
+			});
+
+			// Add source near target
+			myState = updateValue(myState, [name, 'list', tgt, 'list'], (list) => [...list, src]);
+
+			return myState;
+		}
+
 		case Action.KV_SELECT: {
 			const { name, id } = action;
 			return updateValue(state, [name, 'selected'], () => id);

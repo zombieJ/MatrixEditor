@@ -9,7 +9,8 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { KV_MOVE_UP, KV_MOVE_BOTTOM } from '../../actions/kv';
 import styles from './index.scss';
 
-const DRAG_TYPE = 'AVATAR';
+export const DRAG_TYPE = 'AVATAR';
+export const ddc = dragDropContext(HTML5Backend);
 
 const avatarSource = {
 	beginDrag(props) {
@@ -90,7 +91,7 @@ class Header extends React.Component {
 
 	render() {
 		const { hover } = this.state;
-		const { selected, noHeader, isFolder, open, name, comment } = this.props;
+		const { noHeader, isFolder, open, name, comment } = this.props;
 		const { isDragging, connectDragSource, connectDropTarget } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
@@ -112,7 +113,6 @@ class Header extends React.Component {
 					styleName={classNames('header', {
 						'hover-top': hover === KV_MOVE_UP,
 						'hover-bottom': hover === KV_MOVE_BOTTOM,
-						selected,
 					})}
 					style={{ opacity }}
 					className="clearfix" role="button" onClick={this.onItemClick}
@@ -134,7 +134,6 @@ Header.propTypes = {
 	connectDropTarget: PropTypes.func.isRequired,
 	isDragging: PropTypes.bool.isRequired,
 
-	selected: PropTypes.bool,
 	noHeader: PropTypes.bool,
 	onItemClick: PropTypes.func,
 	onItemMove: PropTypes.func,	// eslint-disable-line react/no-unused-prop-types
@@ -151,7 +150,6 @@ const ds = dragSource(DRAG_TYPE, avatarSource, (connect, monitor) => ({
 	connectDragSource: connect.dragSource(),
 	isDragging: monitor.isDragging(),
 }));
-const ddc = dragDropContext(HTML5Backend);
 
 const DndHeader = ddc(ds(dt(cssModules(Header, styles, { allowMultiple: true }))));
 

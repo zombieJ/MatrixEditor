@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
-import { toggleKV, moveKV, selectKV } from '../../actions/kv';
+import { toggleKV, moveKV, moveKVInList, selectKV } from '../../actions/kv';
 
 import withTree from '../../components/Tree';
 import Avatar from '../../components/Avatar';
@@ -46,24 +46,27 @@ class KVTreeView extends React.Component {
 	constructor() {
 		super();
 		this.state = {};
-		this.onAvatarClick = this.onAvatarClick.bind(this);
-		this.onAvatarMove = this.onAvatarMove.bind(this);
 	}
 
-	onAvatarClick(props) {
+	onAvatarClick = (avatarProps) => {
 		const { dispatch, name } = this.props;
-		const { id, isFolder } = props;
+		const { id, isFolder } = avatarProps;
 		if (isFolder) {
 			dispatch(toggleKV(name, id));
 		} else {
 			dispatch(selectKV(name, id));
 		}
-	}
+	};
 
-	onAvatarMove(srcId, tgtId, moveType) {
+	onAvatarMove = (srcId, tgtId, moveType) => {
 		const { dispatch, name } = this.props;
 		dispatch(moveKV(name, srcId, tgtId, moveType));
-	}
+	};
+
+	onAvatarMoveIn = (srcId, tgtId) => {
+		const { dispatch, name } = this.props;
+		dispatch(moveKVInList(name, srcId, tgtId));
+	};
 
 	render() {
 		const { kv, name, className } = this.props;
@@ -78,6 +81,7 @@ class KVTreeView extends React.Component {
 					noHeader
 					onItemClick={this.onAvatarClick}
 					onItemMove={this.onAvatarMove}
+					onItemMoveIn={this.onAvatarMoveIn}
 				/>
 			</div>
 		);

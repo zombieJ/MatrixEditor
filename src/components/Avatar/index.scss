@@ -2,7 +2,7 @@
 
 $avatarBackgroundColor: $panelColor;
 $avatarHoverBackgroundColor: lighten($panelColor, 5%);
-$avatarSelectedBackgroundColor: lighten($panelColor, 10%);
+$avatarSelectedBackgroundColor: lighten($panelColor, 15%);
 $sideDes: 5px;
 
 @mixin headerBlock {
@@ -85,9 +85,15 @@ $sideDes: 5px;
 
 		.tips {
 			color: darken($fontColor, 20%);
+			margin: -5px;
+			padding: 5px;
 
 			:global(.fa) {
 				margin-right: 5px;
+			}
+
+			&.hover {
+				background: $avatarBackgroundColor;
 			}
 		}
 	}

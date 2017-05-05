@@ -4,7 +4,6 @@ import cssModules from 'react-css-modules';
 
 import Header from './Header';
 import Empty from './Empty';
-import Lang from '../../containers/Lang';
 
 import styles from './index.scss';
 
@@ -15,13 +14,13 @@ class Avatar extends React.Component {
 	}
 
 	render() {
-		const { open, noHeader, isFolder, children } = this.props;
+		const { selected, open, noHeader, isFolder, children } = this.props;
 		let $children = null;
 
 		if ((open || noHeader) && isFolder) {
 			$children = (
 				<div styleName="list">
-					{children.length ? children : <Empty />}
+					{children.length ? children : <Empty {...this.props} />}
 				</div>
 			);
 		}
@@ -30,6 +29,7 @@ class Avatar extends React.Component {
 			<div
 				styleName={classNames('avatar', {
 					noHeader,
+					selected,
 				})}
 			>
 				<Header {...this.props} />
