@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import $ from 'jquery';
+import storage from 'electron-json-storage';
 
 import app from './reducers';
 import Main from './views/Main';
@@ -15,6 +16,7 @@ const loggerMiddleware = createLogger({
 });
 const store = createStore(app, {}, applyMiddleware(thunkMiddleware, loggerMiddleware));
 window.$ = $;
+window.storage = storage;
 
 Object.defineProperty(window, 'store', {
 	get() {
