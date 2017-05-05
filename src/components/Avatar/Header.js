@@ -74,7 +74,7 @@ const avatarTarget = {
 	},
 };
 
-class Avatar extends React.Component {
+class Header extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -129,7 +129,7 @@ class Avatar extends React.Component {
 	}
 }
 
-Avatar.propTypes = {
+Header.propTypes = {
 	connectDragSource: PropTypes.func.isRequired,
 	connectDropTarget: PropTypes.func.isRequired,
 	isDragging: PropTypes.bool.isRequired,
@@ -153,6 +153,6 @@ const ds = dragSource(DRAG_TYPE, avatarSource, (connect, monitor) => ({
 }));
 const ddc = dragDropContext(HTML5Backend);
 
-const DndAvatar = ddc(ds(dt(cssModules(Avatar, styles, { allowMultiple: true }))));
+const DndHeader = ddc(ds(dt(cssModules(Header, styles, { allowMultiple: true }))));
 
-export default DndAvatar;
+export default DndHeader;

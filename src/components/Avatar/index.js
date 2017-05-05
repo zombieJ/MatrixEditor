@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import cssModules from 'react-css-modules';
 
 import Header from './Header';
+import Empty from './Empty';
 import Lang from '../../containers/Lang';
 
 import styles from './index.scss';
@@ -20,12 +21,7 @@ class Avatar extends React.Component {
 		if ((open || noHeader) && isFolder) {
 			$children = (
 				<div styleName="list">
-					{children.length ? children : (
-						<span styleName="tips">
-							<span className="fa fa-info-circle" />
-							<Lang className="text-muted" id="EmptyList" />
-						</span>
-					)}
+					{children.length ? children : <Empty />}
 				</div>
 			);
 		}
