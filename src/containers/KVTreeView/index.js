@@ -76,13 +76,16 @@ class KVTreeView extends React.Component {
 		const { selected, list: kvList } = kvHolder;
 		return (
 			<div styleName="view" className={className}>
-				<TreeAvatar
-					kvList={kvList} id={0} selectedId={selected}
-					noHeader
-					onItemClick={this.onAvatarClick}
-					onItemMove={this.onAvatarMove}
-					onItemMoveIn={this.onAvatarMoveIn}
-				/>
+				<div styleName="tree-container">
+					<TreeAvatar
+						kvList={kvList} id={0} selectedId={selected}
+						noHeader
+						onItemClick={this.onAvatarClick}
+						onItemMove={this.onAvatarMove}
+						onItemMoveIn={this.onAvatarMoveIn}
+					/>
+				</div>
+				<div styleName="operator"></div>
 			</div>
 		);
 	}

@@ -2,4 +2,22 @@
 
 .view {
 	background: transparent;
+	height: 100%;
+	position: relative;
+
+	.tree-container {
+		position: absolute;
+		overflow-y: auto;
+		width: 100%;
+		top: 20px;
+		bottom: 0;
+	}
+
+	.operator {
+		position: absolute;
+		top: 0;
+		height: 20px;
+		width: 100%;
+		border-bottom: 1px solid $panelBorderColor;
+	}
 }
