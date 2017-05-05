@@ -28,8 +28,8 @@ const avatarTarget = {
 	hover(props, monitor, component) {
 		let hover = null;
 
-		const dragIndex = monitor.getItem().index;
-		const hoverIndex = props.index;
+		const dragId = monitor.getItem().id;
+		const hoverId = props.id;
 
 		const { lastComponent } = monitor.getItem();
 
@@ -37,10 +37,9 @@ const avatarTarget = {
 			lastComponent.setState({ hover: null });
 		}
 
-		if (props.isFolder || dragIndex === hoverIndex) {
+		if (props.isFolder || dragId === hoverId) {
 			return;
 		}
-		console.log(dragIndex, '=>', hoverIndex, component);
 
 		const clientOffset = monitor.getClientOffset();
 		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line
@@ -65,16 +64,11 @@ const avatarTarget = {
 		const dragId = monitor.getItem().id;
 		const hoverId = props.id;
 
-		const dragIndex = monitor.getItem().index;
-		const hoverIndex = props.index;
-
 		component.setState({ hover: null });
 
-		if (props.isFolder || dragIndex === hoverIndex) {
+		if (props.isFolder || dragId === hoverId) {
 			return;
 		}
-
-		console.log(dragId, '->', hoverId, hover);
 
 		props.onItemMove(dragId, hoverId, hover);
 	},
