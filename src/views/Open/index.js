@@ -43,7 +43,7 @@ class Open extends React.Component {
 				content: lang(reject),
 			});
 			console.log('Reject:', reject);
-		}, (notify) => {
+		}).notify((notify) => {
 			this.setState({ notify });
 		});
 	}

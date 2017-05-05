@@ -2,6 +2,7 @@
  * Created by jiljiang on 2016/10/16.
  */
 
+import NotifyPromise from 'notify-promise';
 import { Deferred } from 'jquery';
 import storage from 'electron-json-storage';
 import { KV } from 'immutable-kv';
@@ -30,49 +31,46 @@ export const removeProjectRecord = path => ({
 	path,
 });
 
-export const loadProject = path => (dispatch) => {
-	const dtd = new Deferred();
+export const loadProject = path => dispatch => (
+	new NotifyPromise((resolve, reject, notify) => {
+		console.log('[Project] loading:', path);
 
-	// const list = getFileList(path);
-	console.log('[Project] loading:', path);
+		setTimeout(() => {
+			// Check project
+			notify('Check project...');
+			if (!folderExist(path)) {
+				reject('projectNotExist');
+				return;
+			}
 
-	setTimeout(() => {
-		// Check project
-		dtd.notify('Check project...');
-		if (!folderExist(path)) {
-			dtd.reject('projectNotExist');
-			return;
-		}
-
-		dispatch({
-			type: PROJECT_RECORDED,
-			path,
-		});
-
-		// Load Ability
-		dtd.notify('Check abilities...');
-		const abilityPath = `${path}/scripts/npc/npc_abilities_custom.txt`;
-		if (!fileExist(abilityPath)) {
-			dtd.reject('projectAbilityNotExist');
-			return;
-		}
-
-		dtd.notify('Load abilities...');
-		const abilityPromise = KV.baseLoad(abilityPath).then((kvFileInfo) => {
-			return dispatch(loadKVList('ability', kvFileInfo));
-		});
-
-		Promise.all([abilityPromise]).then(() => {
 			dispatch({
-				type: PROJECT_LOADED,
+				type: PROJECT_RECORDED,
 				path,
 			});
 
-			dtd.resolve();
-		}, (err) => {
-			dtd.reject(err);
-		});
-	}, 0);
+			// Load Ability
+			notify('Check abilities...');
+			const abilityPath = `${path}/scripts/npc/npc_abilities_custom.txt`;
+			if (!fileExist(abilityPath)) {
+				reject('projectAbilityNotExist');
+				return;
+			}
 
-	return dtd;
-};
+			notify('Load abilities...');
+			const abilityPromise = KV.baseLoad(abilityPath).then((kvFileInfo) => {
+				return dispatch(loadKVList('ability', kvFileInfo));
+			});
+
+			Promise.all([abilityPromise]).then(() => {
+				dispatch({
+					type: PROJECT_LOADED,
+					path,
+				});
+
+				resolve();
+			}, (err) => {
+				reject(err);
+			});
+		}, 0);
+	})
+);
