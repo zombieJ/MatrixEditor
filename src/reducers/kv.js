@@ -94,7 +94,7 @@ export default (state = defaultState, action) => {
 
 		case Action.KV_SELECT: {
 			const { name, id } = action;
-			return state.setIn([name, 'selected'], id);
+			return updateValue(state, [name, 'selected'], () => id);
 		}
 
 		case Action.KV_SWITCH_TAB: {

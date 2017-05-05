@@ -39,7 +39,7 @@ export const moveKV = (name, src, tgt, moveType) => ({
 export const selectKV = (name, id) => (
 	(dispatch, getStore) => {
 		const { kv } = getStore();
-		const selected = kv.getIn([name, 'selected']);
+		const { selected } = kv[name];
 
 		if (selected !== id) {
 			dispatch({
