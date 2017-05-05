@@ -66,6 +66,15 @@ $sideDes: 5px;
 				color: darken($fontColor, 20%);
 			}
 		}
+
+		&.hover-top:after {
+			@include headerBlock;
+			top: -3px;
+		}
+		&.hover-bottom:after {
+			@include headerBlock;
+			bottom: -3px;
+		}
 	}
 
 	> .list {
@@ -80,19 +89,6 @@ $sideDes: 5px;
 			:global(.fa) {
 				margin-right: 5px;
 			}
-		}
-	}
-
-	&.hover-top {
-		> .header:after {
-			@include headerBlock;
-			top: -3px;
-		}
-	}
-	&.hover-bottom {
-		> .header:after {
-			@include headerBlock;
-			bottom: -3px;
 		}
 	}
 
