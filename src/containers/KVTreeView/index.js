@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
 import { showMenu } from 'utils/menuUtil';
-import { toggleKV, moveKV, moveKVInList, selectKV } from '../../actions/kv';
+import { toggleKV, moveKV, moveKVInList, selectKV } from 'actions/kv';
 
-import withTree from '../../components/Tree';
-import Avatar from '../../components/Avatar';
-import Lang, { withLang } from '../../containers/Lang';
+import withTree from 'components/Tree';
+import Avatar from 'components/Avatar';
+import Lang, { withLang } from 'containers/Lang';
+import NewKV from './NewKV';
 
 import styles from './index.scss';
 
@@ -73,8 +74,19 @@ class KVTreeView extends React.Component {
 	onNewClick = () => {
 		const { lang } = this.props;
 		showMenu({
-			[lang('NewKV')]: () => { console.log(111); },
+			[lang('NewKV')]: this.newKV,
 			[lang('NewKVGroup')]: () => { console.log(222); },
+		});
+	};
+
+	newKV = () => {
+		const { lang } = this.props;
+		this.context.showDialog(
+			lang('NewKV'),
+			<NewKV ref={(ele) => { this.$form = ele; }} />,
+		).then(() => {
+			const { name } = this.$form.state;
+			console.log('=>', name);
 		});
 	};
 
@@ -112,6 +124,10 @@ KVTreeView.propTypes = {
 	name: PropTypes.string,
 	className: PropTypes.string,
 	lang: PropTypes.func,
+};
+
+KVTreeView.contextTypes = {
+	showDialog: PropTypes.func,
 };
 
 const mapState = ({ kv }) => ({

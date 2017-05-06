@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
+import $ from 'jquery';
 
 import { undo, redo } from '../../actions/history';
 
@@ -54,10 +55,19 @@ class Main extends React.Component {
 	};
 
 	onDialogConfirm = () => {
-		if (this.dialogPromiseResolve) this.dialogPromiseResolve();
+		let close = true;
+		if (this.dialogPromiseResolve) {
+			close = this.dialogPromiseResolve();
+		}
 		setTimeout(() => {
-			this.setState({ showDialog: false });
+			if (close !== false) this.setState({ showDialog: false });
 		}, 0);
+	};
+
+	onDialogKeyPress = (e) => {
+		if (e.charCode === 13) {
+			this.onDialogConfirm();
+		}
 	};
 
 	showDialog(title = null, content = null, footer = null) {
@@ -71,6 +81,10 @@ class Main extends React.Component {
 				dialogContent: content,
 				dialogFooter: footer,
 			});
+
+			setTimeout(() => {
+				$(this.$dialog).find(':input:enabled:visible:first').focus();
+			}, 100);
 		});
 	}
 
@@ -113,11 +127,14 @@ class Main extends React.Component {
 
 				{showDialog &&
 					<div role="button" styleName="dialog-container" onClick={this.onDialogCancel}>
-						<div role="button" styleName="dialog" className="panel" onClick={this.onDialogClick}>
+						<div
+							role="button" styleName="dialog" className="panel"
+							onClick={this.onDialogClick} ref={(ele) => { this.$dialog = ele; }}
+						>
 							<div styleName="dialog-title">
 								<h1>{dialogTitle}</h1>
 							</div>
-							<div styleName="dialog-body">
+							<div styleName="dialog-body" onKeyPress={this.onDialogKeyPress}>
 								{dialogContent}
 							</div>
 							<div styleName="dialog-footer">

@@ -14,6 +14,8 @@ module.exports = {
 	DEFAULT: '默认',
 	NewKV: '新建KV',
 	NewKVGroup: '新建KV组',
+	
+	Name: '名称',
 
 	1: '是',
 	0: '否',
