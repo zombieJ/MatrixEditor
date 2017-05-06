@@ -2,6 +2,7 @@ module.exports = {
 	__LOCALE__: '中文',
 	Title: '矩阵编辑器 v2',
 
+	New: '新建',
 	Ability: '技能',
 	Item: '物品',
 	About: '关于',
@@ -11,6 +12,8 @@ module.exports = {
 	KVEmpty: 'KV为空',
 	NONE: '无',
 	DEFAULT: '默认',
+	NewKV: '新建KV',
+	NewKVGroup: '新建KV组',
 
 	1: '是',
 	0: '否',

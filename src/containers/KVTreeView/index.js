@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
+import { showMenu } from 'utils/menuUtil';
 import { toggleKV, moveKV, moveKVInList, selectKV } from '../../actions/kv';
 
 import withTree from '../../components/Tree';
 import Avatar from '../../components/Avatar';
+import Lang, { withLang } from '../../containers/Lang';
 
 import styles from './index.scss';
 
@@ -68,6 +70,14 @@ class KVTreeView extends React.Component {
 		dispatch(moveKVInList(name, srcId, tgtId));
 	};
 
+	onNewClick = () => {
+		const { lang } = this.props;
+		showMenu({
+			[lang('NewKV')]: () => { console.log(111); },
+			[lang('NewKVGroup')]: () => { console.log(222); },
+		});
+	};
+
 	render() {
 		const { kv, name, className } = this.props;
 		const kvHolder = kv[name];
@@ -85,7 +95,12 @@ class KVTreeView extends React.Component {
 						onItemMoveIn={this.onAvatarMoveIn}
 					/>
 				</div>
-				<div styleName="operator"></div>
+				<div styleName="operator">
+					<a onClick={this.onNewClick}>
+						<span className="fa fa-plus" />
+						<Lang id="New" />
+					</a>
+				</div>
 			</div>
 		);
 	}
@@ -96,10 +111,11 @@ KVTreeView.propTypes = {
 	kv: PropTypes.object,
 	name: PropTypes.string,
 	className: PropTypes.string,
+	lang: PropTypes.func,
 };
 
 const mapState = ({ kv }) => ({
 	kv,
 });
 
-export default connect(mapState)(cssModules(KVTreeView, styles));
+export default connect(mapState)(withLang(cssModules(KVTreeView, styles)));

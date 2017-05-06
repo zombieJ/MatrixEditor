@@ -19,5 +19,21 @@
 		height: 20px;
 		width: 100%;
 		border-bottom: 1px solid $panelBorderColor;
+		text-align: right;
+		padding-right: 3px;
+		font-size: 14px;
+
+		a {
+			vertical-align: top;
+			line-height: 100%;
+			padding-top: 3px;
+			display: inline-block;
+
+			:global {
+				.fa {
+					margin-right: 5px;
+				}
+			}
+		}
 	}
 }

@@ -86,7 +86,7 @@ module.exports = {
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules'],
+		modulesDirectories: ['node_modules', 'src'],
 	},
 	target: 'electron-renderer',
 };
