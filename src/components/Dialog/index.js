@@ -39,31 +39,30 @@ Button.propTypes = {
 };
 
 class Dialog extends React.Component {
-	constructor() {
-		super();
-		this.buttonClick = this.buttonClick.bind(this);
-	}
-
-	buttonClick(button) {
+	onButtonClick = (button) => {
 		const { onClose, dialog } = this.props;
 
 		if (button.click === 'close') {
 			if (onClose) onClose(dialog);
 		}
-	}
+	};
+
+	onBackgroundClick = () => {
+		this.onButtonClick({ click: 'close' });
+	};
 
 	render() {
 		const { title, content, buttons, confirm } = this.props;
 		const dlgButtons = buttons || (confirm ? buttonsConfirm : buttonsCancel);
 		return (
 			<div styleName="container">
-				<div styleName="backdrop" />
+				<div styleName="backdrop" role="button" onClick={this.onBackgroundClick} />
 				<div styleName="dialog">
 					<h1 styleName="title">{title}</h1>
 					<div styleName="content">{content}</div>
 					<div styleName="footer">
 						{dlgButtons.map((button, btnIndex) => (
-							<Button key={btnIndex} onClick={this.buttonClick} button={button}>
+							<Button key={btnIndex} onClick={this.onButtonClick} button={button}>
 								{button.name}
 							</Button>
 						))}

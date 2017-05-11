@@ -7,6 +7,7 @@ import { undo, redo } from '../../actions/history';
 
 import Lang from '../../containers/Lang';
 import Link from '../../containers/Router/Link';
+import DialogHolder from '../../components/Dialog';
 import Router from '../router';
 
 import styles from './index.scss';
@@ -19,9 +20,8 @@ class Main extends React.Component {
 		this.state = {
 			showDialog: false,
 		};
-		this.dialogPromiseResolve = null;
-		this.dialogPromiseReject = null;
-		this.showDialog = this.showDialog.bind(this);
+		// this.dialogPromiseResolve = null;
+		// this.dialogPromiseReject = null;
 	}
 
 	getChildContext() {
@@ -43,7 +43,7 @@ class Main extends React.Component {
 		dispatch(redo());
 	};
 
-	onDialogClick = (event) => {
+	/* onDialogClick = (event) => {
 		event.stopPropagation();
 	};
 
@@ -86,7 +86,15 @@ class Main extends React.Component {
 				$(this.$dialog).find(':input:enabled:visible:first').focus();
 			}, 100);
 		});
-	}
+	} */
+	showDialog = (title, content, footer) => {
+		const config = typeof title === 'object' ? title : {
+			title,
+			content,
+			footer,
+		};
+		this.$dialog.show(config);
+	};
 
 	closeDev = () => {
 		const { dispatch, dev } = this.props;
@@ -149,6 +157,7 @@ class Main extends React.Component {
 						</div>
 					</div>
 				}
+				<DialogHolder ref={(node) => { this.$dialog = node; }} />
 			</div>
 		);
 	}

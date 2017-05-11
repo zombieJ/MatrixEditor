@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Lang, { withLang } from 'containers/Lang';
 import cssModules from 'react-css-modules';
-import DialogHolder from 'components/Dialog';
 
 import { toRouter } from '../../actions/router';
 import { removeProjectRecord, loadProject } from '../../actions/project';
@@ -38,7 +37,7 @@ class Open extends React.Component {
 			dispatch(toRouter('/about'));
 			dispatch(cleanHistory());
 		}, (reject) => {
-			this.dialog.show({
+			this.context.showDialog({
 				title: lang('OPS'),
 				content: lang(reject),
 			});
@@ -69,8 +68,6 @@ class Open extends React.Component {
 						</li>
 					))}
 				</ul>
-
-				<DialogHolder ref={(node) => { this.dialog = node; }} {...this.state.dialog} />
 			</div>
 		);
 	}
@@ -80,6 +77,10 @@ Open.propTypes = {
 	dispatch: PropTypes.func,
 	lang: PropTypes.func,
 	historyPathList: PropTypes.arrayOf(PropTypes.string),
+};
+
+Open.contextTypes = {
+	showDialog: PropTypes.func,
 };
 
 const mapState = ({ project }) => ({
