@@ -1,11 +1,11 @@
 import { ROUTER_TO, ROUTER_REDIRECT } from '../actions/router';
-import { KV_MOVE, KV_TOGGLE, KV_SELECT, KV_SWITCH_TAB, KV_MODIFY } from '../actions/kv';
+import { KV_MOVE, KV_TOGGLE, KV_SELECT, KV_SWITCH_TAB, KV_MODIFY, KV_CREATE } from '../actions/kv';
 import { HISTORY_UNDO, HISTORY_REDO, HISTORY_CLEAN } from '../actions/history';
 
 const RECORD_ACTIONS = [
 	ROUTER_TO,
 	ROUTER_REDIRECT,
-	KV_MOVE, KV_TOGGLE, KV_SELECT, KV_SWITCH_TAB, KV_MODIFY,
+	KV_MOVE, KV_TOGGLE, KV_SELECT, KV_SWITCH_TAB, KV_MODIFY, KV_CREATE,
 ];
 
 const initialState = {

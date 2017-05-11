@@ -4,13 +4,18 @@ import { updateValue } from '../utils/pathUtil';
 const defaultState = {};
 
 function flatten(kvFileInfo, list = [], id = 0) {
+	console.log('~>', kvFileInfo);
 	let myId = id;
 	let firstId = 0;
 	let childFirstId = 0;
+
+	const relativePath = kvFileInfo._relativePath || '';
+
 	const folderHolder = {
 		id: myId,
 		list: [],
-		name: 'Hello World',
+		name: relativePath.replace(/^([^\/\\]*[\/\\])*/, '').replace(/\.txt$/, ''),
+		comment: relativePath,
 	};
 	myId += 1;
 

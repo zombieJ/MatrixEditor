@@ -18,7 +18,7 @@ const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
 	const { kv, list } = item;
 	const isFolder = !!list;
 	const name = isFolder ? item.name : kv.key;
-	const comment = isFolder ? 'Is Folder~' : kv.comment;
+	const comment = isFolder ? item.comment : kv.comment;
 
 	return (
 		<Avatar
