@@ -14,7 +14,7 @@ module.exports = {
 	DEFAULT: '默认',
 	NewKV: '新建KV',
 	NewKVGroup: '新建KV组',
-	
+
 	Name: '名称',
 
 	1: '是',
@@ -155,6 +155,7 @@ module.exports = {
 	projectNotExist: '项目不存在，请检查路径...',
 	projectAbilityNotExist: '技能文件不存在，请检查...',
 	projectAbilityNotMatch: '技能文件格式错误，请检查...',
+	nameConflict: '该名称已被使用，请检查...',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

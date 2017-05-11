@@ -85,8 +85,20 @@ class KVTreeView extends React.Component {
 			lang('NewKV'),
 			<NewKV ref={(ele) => { this.$form = ele; }} />,
 		).then(() => {
-			const { name } = this.$form.state;
-			console.log('=>', name);
+			const { kv, name } = this.props;
+			const { list = [] } = kv[name] || {};
+			const newKvName = (this.$form.state.name || '').trim();
+			const upperKvName = newKvName.toUpperCase();
+			const conflictName = list.some(({ kv: k }) => k && (k.key || '').toUpperCase() === upperKvName);
+			console.log('=>', list, conflictName);
+
+			if (conflictName) {
+				alert(lang('nameConflict'));
+				return false;
+			}
+			// const { name } = this.$form.state;
+			// console.log(this.props, name);
+			return true;
 		});
 	};
 
