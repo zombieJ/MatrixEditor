@@ -7,6 +7,7 @@ export const KV_MOVE_IN = 'KV_MOVE_IN';
 export const KV_SELECT = 'KV_SELECT';
 export const KV_SWITCH_TAB = 'KV_SWITCH_TAB';
 export const KV_MODIFY = 'KV_MODIFY';
+export const KV_CREATE = 'KV_CREATE';
 
 export const KV_MOVE_UP = 'kv_move_up';
 export const KV_MOVE_BOTTOM = 'kv_move_down';
@@ -42,6 +43,12 @@ export const moveKVInList = (name, src, tgt) => ({
 	name,
 	src,
 	tgt,
+});
+
+export const createKV = (name, kv) => ({
+	type: KV_CREATE,
+	name,
+	kv,
 });
 
 export const selectKV = (name, id) => (

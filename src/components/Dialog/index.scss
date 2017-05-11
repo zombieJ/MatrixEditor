@@ -22,7 +22,7 @@
 		top: 50%;
 		transform: translate(-50%,-50%);
 		min-height: 50px;
-		min-width: 300px;
+		min-width: 500px;
 		background: $panelColor;
 		border-radius: $borderRadius;
 		box-shadow: 0 0 3px $panelShadowColor;
@@ -43,6 +43,10 @@
 			padding: 10px;
 			text-align: right;
 			border-top: 1px solid rgba(255,255,255,0.1);
+
+			button {
+				margin-left: 5px;
+			}
 		}
 	}
 }

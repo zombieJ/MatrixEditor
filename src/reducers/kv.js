@@ -108,9 +108,46 @@ export default (state = defaultState, action) => {
 			});
 
 			// Add source near target
-			myState = updateValue(myState, [name, 'list', tgt, 'list'], (list) => [...list, src]);
+			myState = updateValue(myState, [name, 'list', tgt, 'list'], list => [...list, src]);
 
 			return myState;
+		}
+
+		case Action.KV_CREATE: {
+			let myState = state;
+			const { name, kv } = action;
+			const { selected } = myState[name];
+
+			let currentFolderId = 0;
+			let selectedPos = 0;
+			let newKvId = 0;
+
+			myState[name].list.some(({ list }, index) => {
+				if (!list) return false;
+
+				const pos = list.indexOf(selected);
+				if (pos !== -1) {
+					currentFolderId = index;
+					selectedPos = pos;
+					return true;
+				}
+				return false;
+			});
+
+			// Insert kv
+			myState = updateValue(myState, [name, 'list'], (list) => {
+				newKvId = list.length;
+				return list.concat({ id: newKvId, kv });
+			});
+
+			// Update holder list
+			myState = updateValue(myState, [name, 'list', currentFolderId], (holder) => {
+				const newList = holder.list.concat();
+				newList.splice(selectedPos + 1, 0, newKvId);
+				return Object.assign({}, holder, { list: newList });
+			});
+
+			return updateValue(myState, [name, 'selected'], () => newKvId);
 		}
 
 		case Action.KV_SELECT: {

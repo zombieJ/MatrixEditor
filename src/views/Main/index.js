@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
-import $ from 'jquery';
 
 import { undo, redo } from '../../actions/history';
 
@@ -20,12 +19,12 @@ class Main extends React.Component {
 		this.state = {
 			showDialog: false,
 		};
-		// this.dialogPromiseResolve = null;
-		// this.dialogPromiseReject = null;
 	}
 
 	getChildContext() {
-		return { showDialog: this.showDialog };
+		return {
+			showDialog: this.showDialog,
+		};
 	}
 
 	componentDidMount() {
@@ -87,12 +86,7 @@ class Main extends React.Component {
 			}, 100);
 		});
 	} */
-	showDialog = (title, content, footer) => {
-		const config = typeof title === 'object' ? title : {
-			title,
-			content,
-			footer,
-		};
+	showDialog = (config) => {
 		this.$dialog.show(config);
 	};
 

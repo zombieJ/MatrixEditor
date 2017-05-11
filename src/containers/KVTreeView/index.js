@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
+import KV from 'immutable-kv';
 
 import { showMenu } from 'utils/menuUtil';
-import { toggleKV, moveKV, moveKVInList, selectKV } from 'actions/kv';
+import { toggleKV, moveKV, moveKVInList, selectKV, createKV } from 'actions/kv';
 
 import withTree from 'components/Tree';
 import Avatar from 'components/Avatar';
@@ -81,24 +82,32 @@ class KVTreeView extends React.Component {
 
 	newKV = () => {
 		const { lang } = this.props;
-		this.context.showDialog(
-			lang('NewKV'),
-			<NewKV ref={(ele) => { this.$form = ele; }} />,
-		).then(() => {
-			const { kv, name } = this.props;
-			const { list = [] } = kv[name] || {};
-			const newKvName = (this.$form.state.name || '').trim();
-			const upperKvName = newKvName.toUpperCase();
-			const conflictName = list.some(({ kv: k }) => k && (k.key || '').toUpperCase() === upperKvName);
-			console.log('=>', list, conflictName);
+		this.context.showDialog({
+			title: lang('NewKV'),
+			content: <NewKV ref={(ele) => { this.$form = ele; }} />,
+			confirm: true,
+			onConfirm: () => {
+				const { dispatch, kv, name } = this.props;
+				const { list = [] } = kv[name] || {};
+				const form = this.$form.state;
+				const newKvName = (form.name || '').trim();
 
-			if (conflictName) {
-				alert(lang('nameConflict'));
-				return false;
-			}
-			// const { name } = this.$form.state;
-			// console.log(this.props, name);
-			return true;
+				if (!newKvName) {
+					alert(lang('cantBeEmpty'));
+					return false;
+				}
+
+				const upperKvName = newKvName.toUpperCase();
+				const conflictName = list.some(({ kv: k }) => k && (k.key || '').toUpperCase() === upperKvName);
+
+				if (conflictName) {
+					alert(lang('nameConflict'));
+					return false;
+				}
+
+				dispatch(createKV(name, new KV(newKvName, [], form.comment)));
+				return true;
+			},
 		});
 	};
 

@@ -16,6 +16,7 @@ module.exports = {
 	NewKVGroup: '新建KV组',
 
 	Name: '名称',
+	Comment: '备注',
 
 	1: '是',
 	0: '否',
@@ -156,6 +157,8 @@ module.exports = {
 	projectAbilityNotExist: '技能文件不存在，请检查...',
 	projectAbilityNotMatch: '技能文件格式错误，请检查...',
 	nameConflict: '该名称已被使用，请检查...',
+	cantBeEmpty: '输入不能为空！请检查...',
+	newKVTips: '新建的KV将会被放置于你当前选中的KV之后。',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

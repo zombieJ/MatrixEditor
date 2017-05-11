@@ -4,10 +4,14 @@
 
 import React, { PropTypes } from 'react';
 import cssModules from 'react-css-modules';
+import $ from 'jquery';
 // import classnames from 'classnames';
 import styles from './index.scss';
 
-const buttonsConfirm = [];
+const buttonsConfirm = [
+	{ name: 'Cancel', click: 'close' },
+	{ name: 'Confirm', click: 'confirm' },
+];
 const buttonsCancel = [
 	{ name: 'OK', click: 'close' },
 ];
@@ -39,12 +43,26 @@ Button.propTypes = {
 };
 
 class Dialog extends React.Component {
+	componentWillMount() {
+		setTimeout(() => {
+			$(this.$content).find(':input:enabled:visible:first').focus();
+		}, 100);
+	}
+
 	onButtonClick = (button) => {
-		const { onClose, dialog } = this.props;
+		const { onClose, onConfirm, dialog } = this.props;
+		let doClose = false;
 
 		if (button.click === 'close') {
-			if (onClose) onClose(dialog);
+			doClose = true;
+		} else if (button.click === 'confirm') {
+			if (onConfirm) {
+				const confirmRet = onConfirm(dialog);
+				if (confirmRet !== false) doClose = true;
+			}
 		}
+
+		if (doClose && onClose) onClose(dialog);
 	};
 
 	onBackgroundClick = () => {
@@ -52,16 +70,16 @@ class Dialog extends React.Component {
 	};
 
 	render() {
-		const { title, content, buttons, confirm } = this.props;
+		const { title, content, footer, buttons, confirm } = this.props;
 		const dlgButtons = buttons || (confirm ? buttonsConfirm : buttonsCancel);
 		return (
 			<div styleName="container">
 				<div styleName="backdrop" role="button" onClick={this.onBackgroundClick} />
 				<div styleName="dialog">
 					<h1 styleName="title">{title}</h1>
-					<div styleName="content">{content}</div>
+					<div styleName="content" ref={(e) => { this.$content = e; }}>{content}</div>
 					<div styleName="footer">
-						{dlgButtons.map((button, btnIndex) => (
+						{footer || dlgButtons.map((button, btnIndex) => (
 							<Button key={btnIndex} onClick={this.onButtonClick} button={button}>
 								{button.name}
 							</Button>
@@ -74,11 +92,13 @@ class Dialog extends React.Component {
 }
 
 Dialog.propTypes = {
-	title: PropTypes.string,
-	content: PropTypes.string,
+	title: PropTypes.node,
+	content: PropTypes.node,
+	footer: PropTypes.node,
 	buttons: PropTypes.arrayOf(PropTypes.shape({})),
 	confirm: PropTypes.bool,
 	onClose: PropTypes.func,
+	onConfirm: PropTypes.func,
 	dialog: PropTypes.shape({}),
 };
 
