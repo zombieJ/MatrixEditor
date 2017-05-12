@@ -20,30 +20,25 @@ function getModal(name) {
 }
 
 class KVEditor extends React.Component {
-	constructor() {
-		super();
-		this.onKVChange = this.onKVChange.bind(this);
-	}
-
 	onSwitchTab = (index) => {
 		const { dispatch, name } = this.props;
 		dispatch(switchKVTab(name, index));
 	};
 
-	onKVChange(path, value) {
+	onKVChange = (path, value) => {
 		const { dispatch, name, kv } = this.props;
-		dispatch(modifyKV(name, kv.getIn([name, 'selected']), path, value));
-	}
+		dispatch(modifyKV(name, kv[name].selected, path, value));
+	};
 
 	render() {
 		const { lang, kv, name } = this.props;
-		const kvHolder = kv.get(name);
-		const tab = kvHolder.get('tab');
-		const selected = kvHolder.get('selected');
-		const current = kvHolder.getIn(['list', selected]);
+		const kvHolder = kv[name];
+		const tab = kvHolder.tab;
+		const selected = kvHolder.selected;
+		const current = kvHolder.list[selected];
 		const { attrGroup = [] } = getModal(name);
 
-		if (!current || !current.get('kv')) {
+		if (!current || !current.kv) {
 			return (
 				<div className="panel with-padding">
 					<span className="fa fa-info-circle" /> <Lang id="KVEmpty" />
@@ -57,7 +52,7 @@ class KVEditor extends React.Component {
 					const { name: tabName, component: Component = KVPathView } = group;
 					return (
 						<TabContent key={tabName} title={lang(tabName)}>
-							<Component {...group} kv={current.get('kv')} onKVChange={this.onKVChange} />
+							<Component {...group} kv={current.kv} onKVChange={this.onKVChange} />
 						</TabContent>
 					);
 				})}
