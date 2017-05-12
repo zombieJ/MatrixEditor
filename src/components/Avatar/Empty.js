@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import { DropTarget as dropTarget } from 'react-dnd';
 
-import { ddc, DRAG_TYPE } from './Header';
+import { ddc, loopCheck, DRAG_TYPE } from './Header';
 
 import Lang from '../../containers/Lang';
 
@@ -28,15 +28,21 @@ const emptyTarget = {
 		monitor.getItem().lastComponent = component;
 	},
 
-	drop(props, monitor, component) {
-		const dragId = monitor.getItem().id;
-		const hoverId = props.id;
+	drop(dropProps, monitor, component) {
+		const dragProps = monitor.getItem();
 
 		component.setState({ hover: null });
 
-		if (dragId === hoverId) return;
+		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) return;
 
-		props.onItemMoveIn(dragId, hoverId);
+		dropProps.onItemMoveIn(dragProps.id, dropProps.id);
+	},
+
+	canDrop(dropProps, monitor) {
+		const dragProps = monitor.getItem();
+		const sameComponent = dragProps.id === dropProps.id;
+
+		return !sameComponent;
 	},
 };
 

@@ -12,6 +12,20 @@ import styles from './index.scss';
 export const DRAG_TYPE = 'AVATAR';
 export const ddc = dragDropContext(HTML5Backend);
 
+// Check if folder will move to its child folder
+export function loopCheck(kvList = [], dragId = 0, dropId = 0) {
+	if (dragId === dropId) return false;
+
+	for (let i = kvList.length - 1; i >= 0; i -= 1) {
+		const { list } = kvList[i];
+		if (list &&list.includes(dropId)) {
+			return loopCheck(kvList, dragId, i);
+		}
+	}
+
+	return true;
+}
+
 const avatarSource = {
 	beginDrag(props) {
 		return {
@@ -19,10 +33,6 @@ const avatarSource = {
 			isFolder: props.isFolder,
 		};
 	},
-
-	/* canDrag(props) {
-		return !props.isFolder;
-	}, */
 };
 
 const avatarTarget = {
@@ -36,10 +46,7 @@ const avatarTarget = {
 			lastComponent.setState({ hover: null });
 		}
 
-		if (
-			dragProps.id === dropProps.id ||
-			dragProps.isFolder !== dropProps.isFolder
-		) return;
+		if (dragProps.id === dropProps.id) return;
 
 		const clientOffset = monitor.getClientOffset();
 		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line
@@ -58,21 +65,22 @@ const avatarTarget = {
 		dragProps.hover = hover;
 	},
 
-	drop(props, monitor, component) {
+	drop(dropProps, monitor, component) {
 		const dragProps = monitor.getItem();
 		const { hover } = dragProps;
 
 		component.setState({ hover: null });
 
-		props.onItemMove(dragProps.id, props.id, hover);
+		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) return;
+
+		dropProps.onItemMove(dragProps.id, dropProps.id, hover);
 	},
 
 	canDrop(dropProps, monitor) {
 		const dragProps = monitor.getItem();
 		const sameComponent = dragProps.id === dropProps.id;
-		const sameType = dragProps.isFolder === dropProps.isFolder;
 
-		return !sameComponent && sameType;
+		return !sameComponent;
 	},
 };
 
