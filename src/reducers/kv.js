@@ -4,7 +4,6 @@ import { updateValue } from '../utils/pathUtil';
 const defaultState = {};
 
 function flatten(kvFileInfo, list = [], id = 0) {
-	console.log('~>', kvFileInfo);
 	let myId = id;
 	let firstId = 0;
 	let childFirstId = 0;
@@ -118,6 +117,7 @@ export default (state = defaultState, action) => {
 			return myState;
 		}
 
+		// Create KV
 		case Action.KV_CREATE: {
 			let myState = state;
 			const { name, kv } = action;
@@ -149,6 +149,56 @@ export default (state = defaultState, action) => {
 			myState = updateValue(myState, [name, 'list', currentFolderId], (holder) => {
 				const newList = holder.list.concat();
 				newList.splice(selectedPos + 1, 0, newKvId);
+				return Object.assign({}, holder, { list: newList });
+			});
+
+			return updateValue(myState, [name, 'selected'], () => newKvId);
+		}
+
+		// Create KV Group
+		case Action.KV_CREATE_GROUP: {
+			let myState = state;
+			const { name, relativePath } = action;
+			const { selected } = myState[name];
+
+			let currentFolderId = 0;
+			let newKvId = 0;
+
+			myState[name].list.some(({ list }, index) => {
+				if (!list) return false;
+
+				const pos = list.indexOf(selected);
+				if (pos !== -1) {
+					currentFolderId = index;
+					return true;
+				}
+				return false;
+			});
+
+			// Insert kv
+			myState = updateValue(myState, [name, 'list'], (list) => {
+				newKvId = list.length;
+				return list.concat({
+					id: newKvId,
+					list: [],
+					name: relativePath.replace(/^([^\/\\]*[\/\\])*/, '').replace(/\.txt$/, ''),
+					comment: relativePath,
+				});
+			});
+
+			// Update holder list
+			myState = updateValue(myState, [name, 'list', currentFolderId], (holder) => {
+				const newList = holder.list.concat();
+				let insertIndex = newList.length;
+				for (let index = 0; index < newList.length; index += 1) {
+					const subId = newList[index];
+					const sub = myState[name].list[subId];
+					if (!sub.list) {
+						insertIndex = index;
+						break;
+					}
+				}
+				newList.splice(insertIndex, 0, newKvId);
 				return Object.assign({}, holder, { list: newList });
 			});
 

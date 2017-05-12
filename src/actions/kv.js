@@ -8,6 +8,7 @@ export const KV_SELECT = 'KV_SELECT';
 export const KV_SWITCH_TAB = 'KV_SWITCH_TAB';
 export const KV_MODIFY = 'KV_MODIFY';
 export const KV_CREATE = 'KV_CREATE';
+export const KV_CREATE_GROUP = 'KV_CREATE_GROUP';
 
 export const KV_MOVE_UP = 'kv_move_up';
 export const KV_MOVE_BOTTOM = 'kv_move_down';
@@ -49,6 +50,12 @@ export const createKV = (name, kv) => ({
 	type: KV_CREATE,
 	name,
 	kv,
+});
+
+export const createKVGroup = (name, relativePath) => ({
+	type: KV_CREATE_GROUP,
+	name,
+	relativePath,
 });
 
 export const selectKV = (name, id) => (

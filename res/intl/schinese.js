@@ -12,8 +12,6 @@ module.exports = {
 	KVEmpty: 'KV为空',
 	NONE: '无',
 	DEFAULT: '默认',
-	NewKV: '新建KV',
-	NewKVGroup: '新建KV组',
 
 	Name: '名称',
 	Comment: '备注',
@@ -152,6 +150,12 @@ module.exports = {
 	OPS: '啊哦~',
 	Open: '打开',
 	OpenProject: '打开项目',
+	RelativePath: '相对路径',
+	Preview: '预览',
+
+	NewKV: '新建KV',
+	NewKVGroup: '新建KV组',
+
 	openProject: '选择需要打开的项目目录...',
 	projectNotExist: '项目不存在，请检查路径...',
 	projectAbilityNotExist: '技能文件不存在，请检查...',
@@ -159,6 +163,7 @@ module.exports = {
 	nameConflict: '该名称已被使用，请检查...',
 	cantBeEmpty: '输入不能为空！请检查...',
 	newKVTips: '新建的KV将会被放置于你当前选中的KV之后。',
+	newKVGroupTips: '新建的KV分组将会被放置于你当前选中的KV同级目录下。',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

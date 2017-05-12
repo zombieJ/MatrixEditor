@@ -4,12 +4,13 @@ import cssModules from 'react-css-modules';
 import KV from 'immutable-kv';
 
 import { showMenu } from 'utils/menuUtil';
-import { toggleKV, moveKV, moveKVInList, selectKV, createKV } from 'actions/kv';
+import { toggleKV, moveKV, moveKVInList, selectKV, createKV, createKVGroup } from 'actions/kv';
 
 import withTree from 'components/Tree';
 import Avatar from 'components/Avatar';
 import Lang, { withLang } from 'containers/Lang';
 import NewKV from './NewKV';
+import NewKVGroup from './NewKVGroup';
 
 import styles from './index.scss';
 
@@ -54,11 +55,15 @@ class KVTreeView extends React.Component {
 
 	onAvatarClick = (avatarProps) => {
 		const { dispatch, name } = this.props;
+		const { id } = avatarProps;
+		dispatch(selectKV(name, id));
+	};
+
+	onAvatarDblClick = (avatarProps) => {
+		const { dispatch, name } = this.props;
 		const { id, isFolder } = avatarProps;
 		if (isFolder) {
 			dispatch(toggleKV(name, id));
-		} else {
-			dispatch(selectKV(name, id));
 		}
 	};
 
@@ -76,7 +81,7 @@ class KVTreeView extends React.Component {
 		const { lang } = this.props;
 		showMenu({
 			[lang('NewKV')]: this.newKV,
-			[lang('NewKVGroup')]: () => { console.log(222); },
+			[lang('NewKVGroup')]: this.newKVGroup,
 		});
 	};
 
@@ -111,6 +116,27 @@ class KVTreeView extends React.Component {
 		});
 	};
 
+	newKVGroup = () => {
+		const { lang } = this.props;
+		this.context.showDialog({
+			title: lang('NewKVGroup'),
+			content: <NewKVGroup ref={(ele) => { this.$form = ele; }} />,
+			confirm: true,
+			onConfirm: () => {
+				const { dispatch, name } = this.props;
+				const newGroupRelativePath = this.$form.getBase();
+
+				if (!newGroupRelativePath) {
+					alert(lang('cantBeEmpty'));
+					return false;
+				}
+
+				dispatch(createKVGroup(name, newGroupRelativePath));
+				return true;
+			},
+		});
+	};
+
 	render() {
 		const { kv, name, className } = this.props;
 		const kvHolder = kv[name];
@@ -124,6 +150,7 @@ class KVTreeView extends React.Component {
 						kvList={kvList} id={0} selectedId={selected}
 						noHeader
 						onItemClick={this.onAvatarClick}
+						onItemDblClick={this.onAvatarDblClick}
 						onItemMove={this.onAvatarMove}
 						onItemMoveIn={this.onAvatarMoveIn}
 					/>

@@ -81,13 +81,17 @@ class Header extends React.Component {
 		this.state = {
 			hover: null,
 		};
-		this.onItemClick = this.onItemClick.bind(this);
 	}
 
-	onItemClick() {
+	onItemClick = () => {
 		const { onItemClick } = this.props;
 		if (onItemClick) onItemClick(this.props);
-	}
+	};
+
+	onItemDblClick = () => {
+		const { onItemDblClick } = this.props;
+		if (onItemDblClick) onItemDblClick(this.props);
+	};
 
 	render() {
 		const { hover } = this.state;
@@ -115,7 +119,9 @@ class Header extends React.Component {
 						'hover-bottom': hover === KV_MOVE_BOTTOM,
 					})}
 					style={{ opacity }}
-					className="clearfix" role="button" onClick={this.onItemClick}
+					className="clearfix" role="button"
+					onClick={this.onItemClick}
+					onDoubleClick={this.onItemDblClick}
 				>
 					<div styleName="icon">
 						{$icon}
@@ -136,6 +142,7 @@ Header.propTypes = {
 
 	noHeader: PropTypes.bool,
 	onItemClick: PropTypes.func,
+	onItemDblClick: PropTypes.func,
 	onItemMove: PropTypes.func,	// eslint-disable-line react/no-unused-prop-types
 	isFolder: PropTypes.bool,
 	open: PropTypes.bool,
