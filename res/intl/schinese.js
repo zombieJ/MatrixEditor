@@ -164,6 +164,7 @@ module.exports = {
 	cantBeEmpty: '输入不能为空！请检查...',
 	newKVTips: '新建的KV将会被放置于你当前选中的KV之后。',
 	newKVGroupTips: '新建的KV分组将会被放置于你当前选中的KV同级目录下。',
+	cantMoveKVGroupInChild: '不能将KV组移动到其子目录中。',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

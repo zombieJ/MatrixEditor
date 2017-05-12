@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import cssModules from 'react-css-modules';
-
 import { DragDropContext as dragDropContext, DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { KV_MOVE_UP, KV_MOVE_BOTTOM } from '../../actions/kv';
+
 import styles from './index.scss';
 
 export const DRAG_TYPE = 'AVATAR';
@@ -18,7 +18,7 @@ export function loopCheck(kvList = [], dragId = 0, dropId = 0) {
 
 	for (let i = kvList.length - 1; i >= 0; i -= 1) {
 		const { list } = kvList[i];
-		if (list &&list.includes(dropId)) {
+		if (list && list.includes(dropId)) {
 			return loopCheck(kvList, dragId, i);
 		}
 	}
@@ -31,6 +31,7 @@ const avatarSource = {
 		return {
 			id: props.id,
 			isFolder: props.isFolder,
+			lang: props.lang,
 		};
 	},
 };
@@ -71,7 +72,10 @@ const avatarTarget = {
 
 		component.setState({ hover: null });
 
-		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) return;
+		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) {
+			alert(dragProps.lang('cantMoveKVGroupInChild'));
+			return;
+		}
 
 		dropProps.onItemMove(dragProps.id, dropProps.id, hover);
 	},

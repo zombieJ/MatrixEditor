@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import cssModules from 'react-css-modules';
 
+import { withLang } from 'containers/Lang';
 import Header from './Header';
 import Empty from './Empty';
 
@@ -48,4 +49,4 @@ Avatar.propTypes = {
 	children: PropTypes.node,
 };
 
-export default cssModules(Avatar, styles, { allowMultiple: true });
+export default withLang(cssModules(Avatar, styles, { allowMultiple: true }));

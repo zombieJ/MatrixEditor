@@ -33,7 +33,10 @@ const emptyTarget = {
 
 		component.setState({ hover: null });
 
-		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) return;
+		if (!loopCheck(dropProps.kvList, dragProps.id, dropProps.id)) {
+			alert(dragProps.lang('cantMoveKVGroupInChild'));
+			return;
+		}
 
 		dropProps.onItemMoveIn(dragProps.id, dropProps.id);
 	},
