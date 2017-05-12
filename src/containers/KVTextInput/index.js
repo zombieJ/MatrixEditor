@@ -150,7 +150,7 @@ class KVTextInput extends React.Component {
 
 	getPropValue(props) {
 		const { kv, path } = props || this.props;
-		return kv.get(path, false, '');
+		return kv.get(path) || '';
 	}
 
 	showList = () => {

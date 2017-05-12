@@ -98,7 +98,7 @@ class KVMultipleInput extends React.Component {
 
 	getValues = () => {
 		const { kv, path } = this.props;
-		const value = kv.get(path, false, '');
+		const value = kv.get(path) || '';
 		if (!(value || '').trim()) return [];
 		return value.split(/\s*\|\s*/);
 	};

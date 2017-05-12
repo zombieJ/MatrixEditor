@@ -18,7 +18,7 @@ const attrGroup = [
 				],
 			},
 			{ name: 'AbilityTextureName' },
-			{ name: 'ScriptFile', showFunc: kv => ((kv.get('BaseClass', false, '').toLowerCase()) === 'ability_lua') },
+			{ name: 'ScriptFile', showFunc: kv => String(kv.get('BaseClass')).toLowerCase() === 'ability_lua' },
 			{
 				name: 'AbilityBehavior',
 				type: TYPE_MULTI,
@@ -141,7 +141,7 @@ const attrGroup = [
 			{ name: 'AbilityCastRangeBuffer' },
 			{ name: 'AbilityChannelTime' },
 			{ name: 'AbilityChannelledManaCostPerSecond' },
-			{ name: 'AOERadius', showFunc: kv => kv.get('AbilityBehavior', false, '').toUpperCase().indexOf('DOTA_ABILITY_BEHAVIOR_AOE') >= 0 },
+			{ name: 'AOERadius', showFunc: kv => String(kv.get('AbilityBehavior')).toUpperCase().indexOf('DOTA_ABILITY_BEHAVIOR_AOE') >= 0 },
 
 		],
 	},

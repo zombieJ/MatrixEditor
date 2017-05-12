@@ -18,7 +18,7 @@ class KVSelectInput extends React.Component {
 
 	getValue = () => {
 		const { kv, path } = this.props;
-		return kv.get(path, false, '');
+		return kv.get(path) || '';
 	};
 
 	render() {
