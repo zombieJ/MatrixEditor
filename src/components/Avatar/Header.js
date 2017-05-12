@@ -16,31 +16,30 @@ const avatarSource = {
 	beginDrag(props) {
 		return {
 			id: props.id,
-			index: props.index,
+			isFolder: props.isFolder,
 		};
 	},
 
-	canDrag(props) {
+	/* canDrag(props) {
 		return !props.isFolder;
-	},
+	}, */
 };
 
 const avatarTarget = {
-	hover(props, monitor, component) {
+	hover(dropProps, monitor, component) {
 		let hover = null;
 
-		const dragId = monitor.getItem().id;
-		const hoverId = props.id;
-
-		const { lastComponent } = monitor.getItem();
+		const dragProps = monitor.getItem();
+		const { lastComponent } = dragProps;
 
 		if (lastComponent && lastComponent !== component) {
 			lastComponent.setState({ hover: null });
 		}
 
-		if (props.isFolder || dragId === hoverId) {
-			return;
-		}
+		if (
+			dragProps.id === dropProps.id ||
+			dragProps.isFolder !== dropProps.isFolder
+		) return;
 
 		const clientOffset = monitor.getClientOffset();
 		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line
@@ -55,23 +54,25 @@ const avatarTarget = {
 			if (component.state.hover !== KV_MOVE_BOTTOM) component.setState({ hover: KV_MOVE_BOTTOM });
 		}
 
-		monitor.getItem().lastComponent = component;
-		monitor.getItem().hover = hover;
+		dragProps.lastComponent = component;
+		dragProps.hover = hover;
 	},
 
 	drop(props, monitor, component) {
-		const hover = monitor.getItem().hover;
-
-		const dragId = monitor.getItem().id;
-		const hoverId = props.id;
+		const dragProps = monitor.getItem();
+		const { hover } = dragProps;
 
 		component.setState({ hover: null });
 
-		if (props.isFolder || dragId === hoverId) {
-			return;
-		}
+		props.onItemMove(dragProps.id, props.id, hover);
+	},
 
-		props.onItemMove(dragId, hoverId, hover);
+	canDrop(dropProps, monitor) {
+		const dragProps = monitor.getItem();
+		const sameComponent = dragProps.id === dropProps.id;
+		const sameType = dragProps.isFolder === dropProps.isFolder;
+
+		return !sameComponent && sameType;
 	},
 };
 
