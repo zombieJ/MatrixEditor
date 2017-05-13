@@ -50,9 +50,12 @@ class KVMultiplePanel extends React.Component {
 				{options.map(({ value, recommend }, index) => (
 					<li
 						key={index}
-						styleName={classNames(valueMap[value] && 'active', recommend && 'recommend')}
+						styleName={classNames(valueMap[value] && 'active')}
 					>
-						<A onClick={this.triggerOption} data-index={index}>
+						<A
+							onClick={this.triggerOption} data-index={index}
+							styleName={classNames({ recommend })}
+						>
 							<p>{abbrFunc ? abbrFunc(value) : value}</p>
 							<h3>{lang(value) || value}</h3>
 						</A>
@@ -78,13 +81,6 @@ class KVMultipleInput extends React.Component {
 		this.onEdit = this.onEdit.bind(this);
 	}
 
-	getValues = () => {
-		const { kv, path } = this.props;
-		const value = kv.get(path) || '';
-		if (!(value || '').trim()) return [];
-		return value.split(/\s*\|\s*/);
-	};
-
 	onEdit() {
 		const { onKVChange, lang, path, options, abbrFunc } = this.props;
 		const title = path[path.length - 1];
@@ -105,6 +101,13 @@ class KVMultipleInput extends React.Component {
 			},
 		});
 	}
+
+	getValues = () => {
+		const { kv, path } = this.props;
+		const value = kv.get(path) || '';
+		if (!(value || '').trim()) return [];
+		return value.split(/\s*\|\s*/);
+	};
 
 	render() {
 		const { lang } = this.props;

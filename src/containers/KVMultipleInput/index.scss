@@ -23,19 +23,21 @@
 }
 
 .multi-panel {
-	margin: 0;
+	margin: 0 -5px 0 -5px;
 	padding: 0;
 	list-style: none;
 
 	> li {
 		display: inline-block;
-		margin: 0 10px 10px 0;
-		position: relative;
+		margin: 0 0 10px 0;
+		padding: 0 5px;
+		width: 33.33%;
 
 		> a {
+			position: relative;
 			color: darken($fontColor, 30%);
 			display: inline-block;
-			width: 220px;
+			width: 100%;
 			border: 2px solid $panelBorderColor;
 			border-radius: 5px;
 			padding: 5px;
@@ -54,24 +56,8 @@
 			h3 {
 				font-size: 14px;
 			}
-		}
 
-		&.active {
-			> a {
-				border-color: $fontColor;
-				color: $fontColor;
-				background: lighten($panelColor, 10%);
-			}
-
-			&.recommend {
-				> a:after {
-					content: "\f005";
-				}
-			}
-		}
-
-		&.recommend {
-			> a:after {
+			&.recommend:after {
 				font-family: FontAwesome;
 				content: "\f006";
 				position: absolute;
@@ -79,6 +65,30 @@
 				right: 6px;
 				font-size: 10px;
 			}
+		}
+
+		&.active {
+			> a {
+				border-color: $fontColor;
+				color: $fontColor;
+				background: lighten($panelColor, 10%);
+
+				&.recommend:after {
+					content: "\f005";
+				}
+			}
+		}
+	}
+
+	@media (min-width: 860px) {
+		> li {
+			width: 25%;
+		}
+	}
+
+	@media (min-width: 1020px) {
+		> li {
+			width: 20%;
 		}
 	}
 }
