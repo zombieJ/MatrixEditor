@@ -5,7 +5,7 @@
 import React, { PropTypes } from 'react';
 import cssModules from 'react-css-modules';
 import $ from 'jquery';
-// import classnames from 'classnames';
+import classNames from 'classnames';
 import styles from './index.scss';
 
 const buttonsConfirm = [
@@ -46,7 +46,7 @@ class Dialog extends React.Component {
 	componentWillMount() {
 		setTimeout(() => {
 			$(this.$content).find(':input:enabled:visible:first').focus();
-		}, 100);
+		}, 0);
 	}
 
 	onButtonClick = (button) => {
@@ -69,13 +69,16 @@ class Dialog extends React.Component {
 		this.onButtonClick({ click: 'close' });
 	};
 
+	onDialogClick = (event) => {
+		event.stopPropagation();
+	};
+
 	render() {
-		const { title, content, footer, buttons, confirm } = this.props;
+		const { title, content, footer, size, buttons, confirm } = this.props;
 		const dlgButtons = buttons || (confirm ? buttonsConfirm : buttonsCancel);
 		return (
-			<div styleName="container">
-				<div styleName="backdrop" role="button" onClick={this.onBackgroundClick} />
-				<div styleName="dialog">
+			<div role="button" styleName="backdrop" onClick={this.onBackgroundClick}>
+				<div role="button" styleName={classNames('dialog', size)} onClick={this.onDialogClick}>
 					<h1 styleName="title">{title}</h1>
 					<div styleName="content" ref={(e) => { this.$content = e; }}>{content}</div>
 					<div styleName="footer">
@@ -95,6 +98,7 @@ Dialog.propTypes = {
 	title: PropTypes.node,
 	content: PropTypes.node,
 	footer: PropTypes.node,
+	size: PropTypes.string,
 	buttons: PropTypes.arrayOf(PropTypes.shape({})),
 	confirm: PropTypes.bool,
 	onClose: PropTypes.func,
@@ -102,7 +106,7 @@ Dialog.propTypes = {
 	dialog: PropTypes.shape({}),
 };
 
-const CSSDialog = cssModules(Dialog, styles);
+const CSSDialog = cssModules(Dialog, styles, { allowMultiple: true });
 
 class DialogHolder extends React.Component {
 	constructor() {

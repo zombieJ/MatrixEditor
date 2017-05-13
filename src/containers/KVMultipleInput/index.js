@@ -78,30 +78,33 @@ class KVMultipleInput extends React.Component {
 		this.onEdit = this.onEdit.bind(this);
 	}
 
-	onEdit() {
-		const { onKVChange, lang, path, options, abbrFunc } = this.props;
-		const title = path[path.length - 1];
-		this.context.showDialog(
-			lang(title) || title,
-			<CssKVMultiplePanel
-				ref={(panel) => { this.panel = panel; }}
-				options={options} abbrFunc={abbrFunc} lang={lang}
-				values={this.getValues()}
-			/>
-		).then(() => {
-			const newValues = this.panel.getValues().join(' | ');
-			if (this.getValues().join(' | ') !== newValues) {
-				onKVChange(path, newValues);
-			}
-		}, () => {});
-	}
-
 	getValues = () => {
 		const { kv, path } = this.props;
 		const value = kv.get(path) || '';
 		if (!(value || '').trim()) return [];
 		return value.split(/\s*\|\s*/);
 	};
+
+	onEdit() {
+		const { onKVChange, lang, path, options, abbrFunc } = this.props;
+		const title = path[path.length - 1];
+		this.context.showDialog({
+			title: lang(title) || title,
+			content: <CssKVMultiplePanel
+				ref={(panel) => { this.panel = panel; }}
+				options={options} abbrFunc={abbrFunc} lang={lang}
+				values={this.getValues()}
+			/>,
+			size: 'large',
+			confirm: true,
+			onConfirm: () => {
+				const newValues = this.panel.getValues().join(' | ');
+				if (this.getValues().join(' | ') !== newValues) {
+					onKVChange(path, newValues);
+				}
+			},
+		});
+	}
 
 	render() {
 		const { lang } = this.props;
