@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import cssModules from 'react-css-modules';
@@ -126,24 +126,24 @@ class Header extends React.Component {
 
 		return connectDragSource(connectDropTarget(
 				!noHeader ?
-				<div
-					styleName={classNames('header', {
-						'hover-top': hover === KV_MOVE_UP,
-						'hover-bottom': hover === KV_MOVE_BOTTOM,
-					})}
-					style={{ opacity }}
-					className="clearfix" role="button"
-					onClick={this.onItemClick}
-					onDoubleClick={this.onItemDblClick}
-				>
-					<div styleName="icon">
-						{$icon}
-					</div>
-					<div styleName="info">
-						<h3 styleName="title">{name || '\u00A0'}</h3>
-						<p styleName="comment">{comment || '\u00A0'}</p>
-					</div>
-				</div> : null
+					<div
+						styleName={classNames('header', {
+							'hover-top': hover === KV_MOVE_UP,
+							'hover-bottom': hover === KV_MOVE_BOTTOM,
+						})}
+						style={{ opacity }}
+						className="clearfix" role="button"
+						onClick={this.onItemClick}
+						onDoubleClick={this.onItemDblClick}
+					>
+						<div styleName="icon">
+							{$icon}
+						</div>
+						<div styleName="info">
+							<h3 styleName="title">{name || '\u00A0'}</h3>
+							<p styleName="comment">{comment || '\u00A0'}</p>
+						</div>
+					</div> : null
 		));
 	}
 }

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import Form from 'components/Form';
 import Field from 'components/Form/Field';

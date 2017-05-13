@@ -3,7 +3,6 @@
  */
 
 import NotifyPromise from 'notify-promise';
-import { Deferred } from 'jquery';
 import storage from 'electron-json-storage';
 import { KV } from 'immutable-kv';
 import { folderExist, fileExist } from '../utils/fileUtil';
@@ -14,6 +13,8 @@ export const PROJECT_INIT = 'PROJECT_INIT';
 export const PROJECT_LOADED = 'PROJECT_LOADED';
 export const PROJECT_RECORDED = 'PROJECT_RECORDED';
 export const PROJECT_RECORD_REMOVE = 'PROJECT_RECORD_REMOVE';
+
+export const ABILITY_PATH = 'scripts/npc';
 
 export const init = () => (dispatch) => {
 	storage.get('project', (error, projectState) => {
@@ -50,16 +51,14 @@ export const loadProject = path => dispatch => (
 
 			// Load Ability
 			notify('Check abilities...');
-			const abilityPath = `${path}/scripts/npc/npc_abilities_custom.txt`;
+			const abilityPath = `${path}/${ABILITY_PATH}/npc_abilities_custom.txt`;
 			if (!fileExist(abilityPath)) {
 				reject('projectAbilityNotExist');
 				return;
 			}
 
 			notify('Load abilities...');
-			const abilityPromise = KV.baseLoad(abilityPath).then((kvFileInfo) => {
-				return dispatch(loadKVList('ability', kvFileInfo));
-			});
+			const abilityPromise = KV.baseLoad(abilityPath).then(kvFileInfo => dispatch(loadKVList('ability', kvFileInfo)));
 
 			Promise.all([abilityPromise]).then(() => {
 				dispatch({

@@ -2,7 +2,7 @@
  * Created by jiljiang on 2016/10/16.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 import $ from 'jquery';
 import classNames from 'classnames';

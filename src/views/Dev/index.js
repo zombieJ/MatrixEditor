@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KV } from 'immutable-kv';
 
@@ -31,8 +31,10 @@ const DEV_KV = `
 
 class Dev extends React.Component {
 	componentWillMount() {
-		const { dispatch } = this.props;
-		dispatch(loadKVList('dev', ImmutableKV.parse(DEV_KV).normalizr()));
+		/* const { dispatch } = this.props;
+		dispatch(loadKVList('dev', {
+			kv: KV.parse(DEV_KV),
+		})); */
 	}
 
 	render() {

@@ -13,7 +13,7 @@ function flatten(kvFileInfo, list = [], id = 0) {
 	const folderHolder = {
 		id: myId,
 		list: [],
-		name: relativePath.replace(/^([^\/\\]*[\/\\])*/, '').replace(/\.txt$/, ''),
+		name: relativePath.replace(/^([^/\\]*[/\\])*/, '').replace(/\.txt$/, ''),
 		comment: relativePath,
 	};
 	myId += 1;
@@ -181,7 +181,7 @@ export default (state = defaultState, action) => {
 				return list.concat({
 					id: newKvId,
 					list: [],
-					name: relativePath.replace(/^([^\/\\]*[\/\\])*/, '').replace(/\.txt$/, ''),
+					name: relativePath.replace(/^([^/\\]*[/\\])*/, '').replace(/\.txt$/, ''),
 					comment: relativePath,
 				});
 			});

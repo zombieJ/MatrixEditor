@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import cssModules from 'react-css-modules';
 
@@ -213,7 +213,7 @@ class KVTextInput extends React.Component {
 								>
 									{$context}
 								</Li>
-								);
+							);
 						})}
 					</ul>
 					) : null}

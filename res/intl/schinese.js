@@ -151,10 +151,13 @@ module.exports = {
 	Open: '打开',
 	OpenProject: '打开项目',
 	RelativePath: '相对路径',
+	AbsolutePath: '绝对路径',
 	Preview: '预览',
 
 	NewKV: '新建KV',
 	NewKVGroup: '新建KV组',
+	KVGroupInfo: 'KV组信息',
+	KVGroupLeafCount: '包含KV数量',
 
 	openProject: '选择需要打开的项目目录...',
 	projectNotExist: '项目不存在，请检查路径...',

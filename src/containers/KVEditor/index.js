@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Ability from '../../models/Ability';
@@ -9,6 +9,7 @@ import Lang, { withLang } from '../../containers/Lang';
 import KVPathView from '../../containers/KVPathView';
 import Tabs from '../../components/Tabs';
 import TabContent from '../../components/Tabs/TabContent';
+import FolderEditor from './KVGroupInfo';
 
 function getModal(name) {
 	switch (name) {
@@ -39,6 +40,14 @@ class KVEditor extends React.Component {
 		const { attrGroup = [] } = getModal(name);
 
 		if (!current || !current.kv) {
+			if (current.list) {
+				return (
+					<div className="panel with-padding">
+						<FolderEditor kvList={kvHolder.list} group={current} />
+					</div>
+				);
+			}
+
 			return (
 				<div className="panel with-padding">
 					<span className="fa fa-info-circle" /> <Lang id="KVEmpty" />

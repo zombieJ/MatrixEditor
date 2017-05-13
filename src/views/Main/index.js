@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 
@@ -165,7 +166,7 @@ Main.propTypes = {
 };
 
 Main.childContextTypes = {
-	showDialog: React.PropTypes.func,
+	showDialog: PropTypes.func,
 };
 
 const mapState = ({ app: { dev }, history: { history, future } }) => ({

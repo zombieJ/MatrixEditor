@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 import KV from 'immutable-kv';
@@ -156,7 +156,7 @@ class KVTreeView extends React.Component {
 					/>
 				</div>
 				<div styleName="operator">
-					<a onClick={this.onNewClick}>
+					<a role="button" onClick={this.onNewClick}>
 						<span className="fa fa-plus" />
 						<Lang id="New" />
 					</a>
