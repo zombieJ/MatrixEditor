@@ -19,7 +19,7 @@ const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
 	const { kv, list } = item;
 	const isFolder = !!list;
 	const name = isFolder ? item.name : kv.key;
-	const comment = isFolder ? item.comment : kv.comment;
+	const comment = isFolder ? item.relativePath : kv.comment;
 
 	return (
 		<Avatar
@@ -36,15 +36,13 @@ const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
 	// Skip kv entity
 	if (kv) return [];
 
-	const subPropsList = list.map((subId, index) => ({
+	return list.map((subId, index) => ({
 		kvList,
 		id: subId,
 		index,
 		...props,
 		noHeader: false,
 	}));
-
-	return subPropsList;
 });
 
 class KVTreeView extends React.Component {

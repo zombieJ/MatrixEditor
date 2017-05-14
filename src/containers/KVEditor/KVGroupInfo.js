@@ -13,7 +13,7 @@ import styles from './KVGroupInfo.scss';
 
 function getPathList(kvList, id) {
 	const kvGroup = kvList[id];
-	const relativePath = kvGroup.comment;
+	const { relativePath } = kvGroup;
 	const parentKvGroup = kvList.find(({ list }) => list && list.includes(id));
 	const relativeDir = PATH.dirname(relativePath);
 
@@ -27,10 +27,10 @@ function getPathList(kvList, id) {
 
 class KVGroupInfo extends React.Component {
 	onModifyClick = () => {
-		const { lang, group: { id, comment } } = this.props;
+		const { lang, group: { id, relativePath } } = this.props;
 		this.context.showDialog({
 			title: lang('ModifyKVGroup'),
-			content: <NewKVGroup ref={(ele) => { this.$form = ele; }} relativePath={comment} />,
+			content: <NewKVGroup ref={(ele) => { this.$form = ele; }} relativePath={relativePath} />,
 			confirm: true,
 			onConfirm: () => {
 				const { dispatch, name } = this.props;
@@ -53,13 +53,13 @@ class KVGroupInfo extends React.Component {
 		const pathList = getPathList(kvList, group.id);
 		return PATH.resolve(
 			path, ABILITY_PATH,
-			...pathList, PATH.basename(group.comment),
+			...pathList, PATH.basename(group.relativePath),
 		);
 	};
 
 	render() {
 		const { group } = this.props;
-		const { name, comment, list } = group;
+		const { name, relativePath, list } = group;
 
 		return (
 			<div styleName="group">
@@ -72,7 +72,7 @@ class KVGroupInfo extends React.Component {
 						</tr>
 						<tr>
 							<th><Lang id="RelativePath" /></th>
-							<td>{comment}</td>
+							<td>{relativePath}</td>
 						</tr>
 						<tr>
 							<th><Lang id="AbsolutePath" /></th>

@@ -14,7 +14,7 @@ function flatten(kvFileInfo, list = [], id = 0) {
 		id: myId,
 		list: [],
 		name: relativePath.replace(/^([^/\\]*[/\\])*/, '').replace(/\.txt$/, ''),
-		comment: relativePath,
+		relativePath,
 	};
 	myId += 1;
 
@@ -182,7 +182,7 @@ export default (state = defaultState, action) => {
 					id: newKvId,
 					list: [],
 					name: relativePath.replace(/^([^/\\]*[/\\])*/, '').replace(/\.txt$/, ''),
-					comment: relativePath,
+					relativePath,
 				});
 			});
 
@@ -227,7 +227,7 @@ export default (state = defaultState, action) => {
 
 		case Action.KV_MODIFY_GROUP: {
 			const { name, id, relativePath } = action;
-			return updateValue(state, [name, 'list', id, 'comment'], () => relativePath);
+			return updateValue(state, [name, 'list', id, 'relativePath'], () => relativePath);
 		}
 	}
 	return state;
