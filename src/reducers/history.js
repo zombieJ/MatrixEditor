@@ -67,7 +67,7 @@ export default (state = initialState, action, store, mergeStoreFunc) => {
 
 		default: {
 			if (RECORD_ACTIONS.indexOf(type) !== -1) {
-				const { config: { historyLimit } } = store;
+				const { config: { maxRedo } } = store;
 
 				const cloneStore = snapshot(store);
 
@@ -79,7 +79,7 @@ export default (state = initialState, action, store, mergeStoreFunc) => {
 				}
 
 				return Object.assign({}, state, {
-					history: history.slice(-historyLimit),
+					history: history.slice(-maxRedo),
 					future: [],
 				});
 			}

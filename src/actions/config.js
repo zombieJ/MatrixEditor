@@ -9,7 +9,8 @@ const initConfig = {
 	lang: 'schinese',
 };
 
-export const INIT = 'ACTION_INIT';
+export const INIT = 'CONFIG_INIT';
+export const CONFIG_UPDATE = 'CONFIG_UPDATE';
 
 export const init = () => (dispatch) => {
 	storage.get('config', (error, data) => {
@@ -25,3 +26,8 @@ export const init = () => (dispatch) => {
 		dispatch(loadLang(config.lang));
 	});
 };
+
+export const updateConfig = config => ({
+	type: CONFIG_UPDATE,
+	config,
+});

@@ -12,6 +12,7 @@ module.exports = {
 	KVEmpty: 'KV为空',
 	NONE: '无',
 	DEFAULT: '默认',
+	Config: '配置',
 
 	Name: '名称',
 	Comment: '备注',
@@ -154,6 +155,12 @@ module.exports = {
 	RelativePath: '相对路径',
 	AbsolutePath: '绝对路径',
 	Preview: '预览',
+	Confirm: '确认',
+	Cancel: '取消',
+
+	MaxRedo: '最大撤销数量',
+	MaxHistoryBackup: '最大历史备份数量',
+	DotaPath: 'Dota游戏所在目录',
 
 	NewKV: '新建KV',
 	NewKVGroup: '新建KV组',
@@ -170,6 +177,7 @@ module.exports = {
 	newKVTips: '新建的KV将会被放置于你当前选中的KV之后。',
 	newKVGroupTips: '新建的KV分组将会被放置于你当前选中的KV同级目录下。',
 	cantMoveKVGroupInChild: '不能将KV组移动到其子目录中。',
+	dotaPath: '设置Dota游戏路径，用于Dota技能图标等功能支持',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

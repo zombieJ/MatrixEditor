@@ -109,6 +109,7 @@ class Main extends React.Component {
 					<ul styleName="nav">
 						<li><Link to="/ability"><Lang id="Ability" /></Link></li>
 						<li><Link to="/item"><Lang id="Item" /></Link></li>
+						<li><Link to="/config"><Lang id="Config" /></Link></li>
 						<li><Link to="/about"><Lang id="About" /></Link></li>
 						<li><Link to="/dev"><Lang id="Develop" /></Link></li>
 					</ul>

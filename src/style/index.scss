@@ -72,6 +72,10 @@ textarea {
 	&:focus {
 		background-color: $inputFocusColor;
 	}
+
+	&::-webkit-input-placeholder {
+		color: rgba($fontColor, 0.3);
+	}
 }
 
 button {

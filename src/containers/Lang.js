@@ -31,14 +31,16 @@ const mapState = ({ international }, { id }) => ({
 
 export default connect(mapState)(Lang);
 
-const withLangMapState = ({ international }) => ({
-	lang: (id) => {
-		const str = international.lang[id];
-		if (str !== undefined) return str;
-		return `[MissString] ${id}`;
-	},
-});
+const withLangMapState = (bindProp = 'lang') => (
+	({ international }) => ({
+		[bindProp]: (id) => {
+			const str = international.lang[id];
+			if (str !== undefined) return str;
+			return `[MissString] ${id}`;
+		},
+	})
+);
 
-export function withLang(Component) {
-	return connect(withLangMapState)(Component);
+export function withLang(Component, bindProp = 'lang') {
+	return connect(withLangMapState(bindProp))(Component);
 }

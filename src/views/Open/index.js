@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Lang, { withLang } from 'containers/Lang';
 import cssModules from 'react-css-modules';
