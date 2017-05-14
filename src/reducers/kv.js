@@ -224,6 +224,11 @@ export default (state = defaultState, action) => {
 				return kv.set(path, value);
 			});
 		}
+
+		case Action.KV_MODIFY_GROUP: {
+			const { name, id, relativePath } = action;
+			return updateValue(state, [name, 'list', id, 'comment'], () => relativePath);
+		}
 	}
 	return state;
 };

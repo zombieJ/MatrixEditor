@@ -7,6 +7,7 @@ export const KV_MOVE_IN = 'KV_MOVE_IN';
 export const KV_SELECT = 'KV_SELECT';
 export const KV_SWITCH_TAB = 'KV_SWITCH_TAB';
 export const KV_MODIFY = 'KV_MODIFY';
+export const KV_MODIFY_GROUP = 'KV_MODIFY_GROUP';
 export const KV_CREATE = 'KV_CREATE';
 export const KV_CREATE_GROUP = 'KV_CREATE_GROUP';
 
@@ -85,4 +86,11 @@ export const modifyKV = (name, id, path, value) => ({
 	id,
 	path,
 	value,
+});
+
+export const modifyKVGroup = (name, id, relativePath) => ({
+	type: KV_MODIFY_GROUP,
+	name,
+	id,
+	relativePath,
 });

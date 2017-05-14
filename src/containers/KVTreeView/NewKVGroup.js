@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Form from 'components/Form';
 import Field from 'components/Form/Field';
@@ -9,7 +10,18 @@ class NewKV extends React.Component {
 		super();
 		this.state = {
 			relativePath: '',
+			modify: false,
 		};
+	}
+
+	componentWillMount() {
+		const { relativePath } = this.props;
+		if (relativePath) {
+			this.setState({
+				relativePath: relativePath.replace(/\.txt$/, ''),
+				modify: true,
+			});
+		}
 	}
 
 	getBase = () => {
@@ -24,6 +36,7 @@ class NewKV extends React.Component {
 	};
 
 	render() {
+		const { modify } = this.state;
 		const base = this.getBase();
 
 		return (
@@ -36,10 +49,16 @@ class NewKV extends React.Component {
 				<p><Lang id="Preview" />: <code>{`#base "${base}"`}</code></p>
 				}
 
-				<p>* <Lang id="newKVGroupTips" /></p>
+				{!modify &&
+					<p>* <Lang id="newKVGroupTips" /></p>
+				}
 			</div>
 		);
 	}
 }
+
+NewKV.propTypes = {
+	relativePath: PropTypes.string,
+};
 
 export default NewKV;

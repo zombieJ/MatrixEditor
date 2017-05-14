@@ -5,7 +5,9 @@ import cssModules from 'react-css-modules';
 import PATH from 'path';
 
 import { ABILITY_PATH } from 'actions/project';
-import Lang from 'containers/Lang';
+import { modifyKVGroup } from 'actions/kv';
+import Lang, { withLang } from 'containers/Lang';
+import NewKVGroup from 'containers/KVTreeView/NewKVGroup';
 
 import styles from './KVGroupInfo.scss';
 
@@ -24,15 +26,35 @@ function getPathList(kvList, id) {
 }
 
 class KVGroupInfo extends React.Component {
+	onModifyClick = () => {
+		const { lang, group: { id, comment } } = this.props;
+		this.context.showDialog({
+			title: lang('ModifyKVGroup'),
+			content: <NewKVGroup ref={(ele) => { this.$form = ele; }} relativePath={comment} />,
+			confirm: true,
+			onConfirm: () => {
+				const { dispatch, name } = this.props;
+				const newGroupRelativePath = this.$form.getBase();
+
+				if (!newGroupRelativePath) {
+					alert(lang('cantBeEmpty'));
+					return false;
+				}
+
+				dispatch(modifyKVGroup(name, id, newGroupRelativePath));
+				return true;
+			},
+		});
+	};
+
 	getAbsolutePath = () => {
-		const { path, kvList, group } = this.props;
+		const { path, kv, name, group } = this.props;
+		const kvList = kv[name].list;
 		const pathList = getPathList(kvList, group.id);
-		const absolutePath = PATH.resolve(
+		return PATH.resolve(
 			path, ABILITY_PATH,
 			...pathList, PATH.basename(group.comment),
 		);
-
-		return absolutePath;
 	};
 
 	render() {
@@ -62,19 +84,29 @@ class KVGroupInfo extends React.Component {
 						</tr>
 					</tbody>
 				</table>
+				<button className="btn" onClick={this.onModifyClick}>
+					<Lang id="Modify" />
+				</button>
 			</div>
 		);
 	}
 }
 
 KVGroupInfo.propTypes = {
+	dispatch: PropTypes.func,
+	lang: PropTypes.func,
 	path: PropTypes.string,
-	kvList: PropTypes.array,
+	kv: PropTypes.object,
+	name: PropTypes.string,
 	group: PropTypes.object,
+};
+
+KVGroupInfo.contextTypes = {
+	showDialog: PropTypes.func,
 };
 
 const mapState = ({ project: { path } }) => ({
 	path,
 });
 
-export default connect(mapState)(cssModules(KVGroupInfo, styles));
+export default connect(mapState)(withLang(cssModules(KVGroupInfo, styles)));

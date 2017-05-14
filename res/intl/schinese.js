@@ -15,6 +15,7 @@ module.exports = {
 
 	Name: '名称',
 	Comment: '备注',
+	Modify: '修改',
 
 	1: '是',
 	0: '否',
@@ -156,6 +157,7 @@ module.exports = {
 
 	NewKV: '新建KV',
 	NewKVGroup: '新建KV组',
+	ModifyKVGroup: '修改KV组',
 	KVGroupInfo: 'KV组信息',
 	KVGroupLeafCount: '包含KV数量',
 

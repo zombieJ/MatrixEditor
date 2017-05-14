@@ -43,7 +43,7 @@ class KVEditor extends React.Component {
 			if (current.list) {
 				return (
 					<div className="panel with-padding">
-						<FolderEditor kvList={kvHolder.list} group={current} />
+						<FolderEditor kv={kv} name={name} group={current} />
 					</div>
 				);
 			}
