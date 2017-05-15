@@ -1,3 +1,4 @@
+import storage from 'electron-json-storage';
 import * as Action from '../actions/config';
 
 const initialState = {
@@ -21,7 +22,14 @@ export default (state = initialState, action) => {
 			if (config.maxRedo < 0) config.maxRedo = 0;
 			if (config.maxHistoryBackup < 0) config.maxHistoryBackup = 0;
 
-			return Object.assign({}, state, config);
+			const newState = Object.assign({}, state, config);
+
+			// Save storage
+			storage.set('config', newState, (err) => {
+				if (err) console.error('[Project] Record Error:', newState);
+			});
+
+			return newState;
 		}
 	}
 	return state;

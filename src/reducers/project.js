@@ -14,6 +14,8 @@ export default (state = initialState, action) => {
 			const { path } = action;
 			const historyPathList = state.historyPathList.filter(prjPath => prjPath !== path);
 			const newState = Object.assign({}, state, { historyPathList });
+
+			// Save storage
 			storage.set('project', newState, (err) => {
 				console.log('[Project] Record:', newState, err);
 			});
@@ -24,6 +26,8 @@ export default (state = initialState, action) => {
 			const historyPathList = state.historyPathList.filter(prjPath => prjPath !== path);
 			historyPathList.unshift(path);
 			const newState = Object.assign({}, state, { path, historyPathList });
+
+			// Save storage
 			storage.set('project', newState, (err) => {
 				if (err) console.error('[Project] Record Error:', newState);
 			});
