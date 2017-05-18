@@ -44,6 +44,7 @@ module.exports = {
 		}),
 
 		new webpack.IgnorePlugin(/common\.config/),
+		new webpack.IgnorePlugin(/vertx/),
 	],
 
 	module: {
@@ -88,6 +89,10 @@ module.exports = {
 			{
 				test: /\.(png|gif|jpe?g|svg)$/i,
 				loader: 'file?prefix=img/',
+			},
+			{
+				test: /\.json/,
+				loader: 'json',
 			},
 		],
 	},
