@@ -2,6 +2,7 @@ import { combineReducers } from '../utils/redux-dependencies-reducers';
 import international from './international';
 import project from './project';
 import config from './config';
+import resource from './resource';
 import router from './router';
 import history from './history';
 import kv from './kv';
@@ -15,6 +16,7 @@ export default combineReducers({
 
 	app,
 	config,
+	resource,
 	history,
 }, {
 	dependencies: {

@@ -245,6 +245,10 @@ ul {
 	white-space: nowrap;
 }
 
+.text-danger {
+	color: $dangerColor;
+}
+
 // Misc
 .clearfix:before,
 .clearfix:after {

@@ -178,6 +178,7 @@ module.exports = {
 	newKVGroupTips: '新建的KV分组将会被放置于你当前选中的KV同级目录下。',
 	cantMoveKVGroupInChild: '不能将KV组移动到其子目录中。',
 	dotaPath: '设置Dota游戏路径，用于Dota技能图标等功能支持',
+	dotaPathNotExist: 'Dota游戏路径不匹配',
 
 	welcome: '欢迎使用矩阵编辑器v2版本，目前这个版本还在测试中。如果你有任何意见或者建议，以及发现BUG，欢迎提交到我的github地址：https://github.com/zombieJ/MatrixEditor/issues',
 };

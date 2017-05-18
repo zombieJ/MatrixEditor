@@ -44,12 +44,17 @@ class Config extends React.Component {
 	};
 
 	render() {
+		const { dotaExist } = this.props;
+
 		return (
 			<div styleName="config">
 				<Form instance={this} path="config">
 					<Field path="maxRedo" lang="MaxRedo" />
 					<Field path="maxHistoryBackup" lang="MaxHistoryBackup" />
 					<Field path="dotaPath" lang="DotaPath" descLang="dotaPath" />
+					{!dotaExist && <p className="text-danger">
+						<span className="fa fa-exclamation-triangle" /> <Lang id="dotaPathNotExist" />
+					</p>}
 				</Form>
 
 				<div styleName="config-footer">
@@ -64,8 +69,9 @@ class Config extends React.Component {
 Config.propTypes = {
 	dispatch: PropTypes.func,
 	config: PropTypes.object,
+	dotaExist: PropTypes.bool,
 };
 
-const mapState = ({ config }) => ({ config });
+const mapState = ({ config, resource: { dotaExist } }) => ({ config, dotaExist });
 
 export default connect(mapState)(cssModules(Config, styles));

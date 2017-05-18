@@ -21,6 +21,7 @@ const snapshot = (store) => {
 	const cloneStore = Object.assign({}, store);
 	delete cloneStore.config;
 	delete cloneStore.history;
+	delete cloneStore.resource;
 
 	return cloneStore;
 };

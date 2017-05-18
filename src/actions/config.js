@@ -4,6 +4,7 @@
 
 import storage from 'electron-json-storage';
 import { loadLang } from './international';
+import { loadDotaResource } from './resource';
 
 const initConfig = {
 	lang: 'schinese',
@@ -12,22 +13,32 @@ const initConfig = {
 export const INIT = 'CONFIG_INIT';
 export const CONFIG_UPDATE = 'CONFIG_UPDATE';
 
-export const init = () => (dispatch) => {
-	storage.get('config', (error, data) => {
-		if (error) console.warn('Config read failed:', error);
+export const init = () => (
+	dispatch => new Promise((resolve) => {
+		storage.get('config', (error, data) => {
+			if (error) console.warn('Config read failed:', error);
 
-		const config = Object.assign({}, initConfig, data);
+			const config = Object.assign({}, initConfig, data);
 
+			dispatch({
+				type: INIT,
+				config,
+			});
+
+			resolve(
+				dispatch(loadLang(config.lang))
+			);
+		});
+	})
+);
+
+export const updateConfig = config => (
+	(dispatch) => {
 		dispatch({
-			type: INIT,
+			type: CONFIG_UPDATE,
 			config,
 		});
 
-		dispatch(loadLang(config.lang));
-	});
-};
-
-export const updateConfig = config => ({
-	type: CONFIG_UPDATE,
-	config,
-});
+		dispatch(loadDotaResource());
+	}
+);

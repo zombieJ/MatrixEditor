@@ -19,4 +19,6 @@ export const loadLang = lang => (dispatch) => {
 		type: LOADED_LANG,
 		lang: langData,
 	});
+
+	return Promise.resolve();
 };
