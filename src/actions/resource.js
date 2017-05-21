@@ -36,7 +36,9 @@ export const loadDotaResource = () => (
 				);
 
 				// Load icon list
-				const imgPromiseList = spellImageList.map(vpkPath => vpk.readFile(vpkPath));
+				const imgPromiseList = spellImageList.map(
+					vpkPath => vpk.readFile(vpkPath).then(buffer => buffer.toString('base64'))
+				);
 				Promise.all(imgPromiseList).then((bufferList) => {
 					const images = {};
 					const sliceLen = RES_SPELL_IMAGE_PATH.length;
@@ -45,7 +47,7 @@ export const loadDotaResource = () => (
 						const abbr = vpkPath
 							.slice(sliceLen) // Remove path
 							.slice(0, -4); // Remove extension
-						images[abbr] = bufferList[index];
+						images[abbr] = `data:image/png;base64,${bufferList[index]}`;
 					});
 
 					dispatch({
