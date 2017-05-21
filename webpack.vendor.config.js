@@ -2,9 +2,9 @@
  * Created by jiljiang on 2016/10/12.
  */
 
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	devtool: 'source-map',
@@ -56,37 +56,47 @@ module.exports = {
 			path: path.join(__dirname, 'builds', 'manifest.json'),
 			name: '[name]',
 		}),
-		new ExtractTextPlugin('style.css', { allChunks: true }),
+		new ExtractTextPlugin('common.css'),
 	],
 
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.js$/,
-				loaders: ['babel'],
+				use: [{
+					loader: 'babel-loader',
+				}],
 				exclude: /node_modules/,
 				include: __dirname,
 			},
 			{
-				test: /\.css/,
-				loader: ExtractTextPlugin.extract(
-					'style-loader',
-					'css-loader'
-				),
+				test: /\.css$/,
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: 'css-loader',
+					// publicPath: '/builds',
+				}),
 			},
 			{
 				test: /\.(woff|woff2|svg|eot|ttf)/,
-				loader: 'file?prefix=font/',
+				use: [{
+					loader: 'file-loader?prefix=font/',
+				}],
 			},
 			{
 				test: /\.(png|gif|jpe?g|svg)$/i,
-				loader: 'file?prefix=img/',
+				use: [{
+					loader: 'file-loader?prefix=img/',
+				}],
 			},
 		],
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules', 'src'],
+		modules: [
+			'node_modules',
+			path.join(__dirname, 'src'),
+		],
 	},
 	target: 'electron-renderer',
 };

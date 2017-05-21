@@ -2,9 +2,9 @@
  * Created by jiljiang on 2016/10/12.
  */
 
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	// devtool: 'source-map',
@@ -14,19 +14,18 @@ module.exports = {
 		app: [
 			'react-hot-loader/patch',
 			'webpack-hot-middleware/client',
-			'./src/index'
+			'./src/index',
 		]
 	},
 
 	output: {
 		path: path.join(__dirname, 'builds'),
 		filename: 'bundle.js',
-		publicPath: 'http://localhost:1128/builds/'
+		publicPath: 'http://localhost:1128/builds/',
 	},
 
 	plugins: [
-		new ExtractTextPlugin('style.css', { allChunks: true }),
-		new webpack.optimize.OccurenceOrderPlugin(),
+		new ExtractTextPlugin('style.css'),
 		new webpack.HotModuleReplacementPlugin(),
 
 		new webpack.DefinePlugin({
@@ -48,57 +47,62 @@ module.exports = {
 	],
 
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.js$/,
-				loaders: ['babel'],
+				use: [{
+					loader: 'babel-loader',
+				}],
 				exclude: /node_modules/,
 				include: __dirname,
 			},
 			{
-				test: /\.scss/,
-				loaders: [
-					'style-loader',
-					'css-loader?sourceMap&modules&importLoaders=1&localIdentName=bdp_[local]_[hash:base64:5]',
-					'postcss-loader?sourceMap=inline',
-					'sass-loader?sourceMap',
+				test: /\.scss$/,
+				use: [
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=bdp_[local]_[hash:base64:5]' },
+					{ loader: 'postcss-loader?sourceMap=inline' },
+					{ loader: 'sass-loader?sourceMap' },
 				],
 				exclude: /style/,
 			},
 			{
-				test: /\.scss/,
-				loaders: [
-					'style-loader',
-					'css-loader?sourceMap&importLoaders=1',
-					'postcss-loader?sourceMap=inline',
-					'sass-loader?sourceMap',
+				test: /\.scss$/,
+				use: [
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader?sourceMap&importLoaders=1' },
+					{ loader: 'postcss-loader?sourceMap=inline' },
+					{ loader: 'sass-loader?sourceMap' },
 				],
 				include: /style/,
 			},
 			{
-				test: /\.css/,
-				loader: ExtractTextPlugin.extract(
-					'style-loader',
-					'css-loader'
-				),
+				test: /\.css$/,
+				use: [
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader' },
+				],
 			},
 			{
 				test: /\.(woff|woff2|svg|eot|ttf)/,
-				loader: 'file?prefix=font/',
+				use: [{
+					loader: 'file-loader?prefix=font/',
+				}],
 			},
 			{
 				test: /\.(png|gif|jpe?g|svg)$/i,
-				loader: 'file?prefix=img/',
-			},
-			{
-				test: /\.json/,
-				loader: 'json',
+				use: [{
+					loader: 'file-loader?prefix=img/',
+				}],
 			},
 		],
 	},
 
 	resolve: {
-		modulesDirectories: ['node_modules', './src'],
+		modules: [
+			'node_modules',
+			path.join(__dirname, 'src'),
+		],
 	},
-	target:'electron-renderer',
+	target: 'electron-renderer',
 };
