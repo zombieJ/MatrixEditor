@@ -108,7 +108,7 @@ class Header extends React.Component {
 
 	render() {
 		const { hover } = this.state;
-		const { noHeader, isFolder, open, name, comment } = this.props;
+		const { noHeader, isFolder, open, name, comment, imgSrc } = this.props;
 		const { isDragging, connectDragSource, connectDropTarget } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
@@ -122,6 +122,8 @@ class Header extends React.Component {
 					})}
 				/>
 			);
+		} else {
+			$icon = <img alt="" src={imgSrc} />;
 		}
 
 		return connectDragSource(connectDropTarget(
@@ -161,6 +163,7 @@ Header.propTypes = {
 	open: PropTypes.bool,
 	name: PropTypes.string,
 	comment: PropTypes.string,
+	imgSrc: PropTypes.string,
 };
 
 const dt = dropTarget(DRAG_TYPE, avatarTarget, connect => ({

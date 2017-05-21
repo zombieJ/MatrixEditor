@@ -14,18 +14,19 @@ import NewKVGroup from './NewKVGroup';
 
 import styles from './index.scss';
 
-const TreeAvatar = withTree(({ kvList, id, selectedId, ...props }) => {
+const TreeAvatar = withTree(({ kvList, id, selectedId, images = {}, ...props }) => {
 	const item = kvList[id];
 	const { kv, list } = item;
 	const isFolder = !!list;
 	const name = isFolder ? item.name : kv.key;
 	const comment = isFolder ? item.relativePath : kv.comment;
+	const imgSrc = isFolder ? '' : images[kv.get('AbilityTextureName')];
 
 	return (
 		<Avatar
 			kvList={kvList} id={id} selected={selectedId === id}
 			isFolder={isFolder} open={item.open}
-			name={name} comment={comment}
+			name={name} comment={comment} imgSrc={imgSrc}
 			{...props}
 		/>
 	);
@@ -136,9 +137,11 @@ class KVTreeView extends React.Component {
 	};
 
 	render() {
-		const { kv, name, className } = this.props;
+		const { kv, resource, name, className } = this.props;
 		const kvHolder = kv[name];
 		if (!kvHolder) return <span>Loading...</span>;
+
+		const images = resource[`${name}Images`];
 
 		const { selected, list: kvList } = kvHolder;
 		return (
@@ -146,7 +149,7 @@ class KVTreeView extends React.Component {
 				<div styleName="tree-container">
 					<TreeAvatar
 						kvList={kvList} id={0} selectedId={selected}
-						noHeader
+						images={images} noHeader
 						onItemClick={this.onAvatarClick}
 						onItemDblClick={this.onAvatarDblClick}
 						onItemMove={this.onAvatarMove}
@@ -167,6 +170,7 @@ class KVTreeView extends React.Component {
 KVTreeView.propTypes = {
 	dispatch: PropTypes.func,
 	kv: PropTypes.object,
+	resource: PropTypes.object,
 	name: PropTypes.string,
 	className: PropTypes.string,
 	lang: PropTypes.func,
@@ -176,8 +180,9 @@ KVTreeView.contextTypes = {
 	showDialog: PropTypes.func,
 };
 
-const mapState = ({ kv }) => ({
+const mapState = ({ kv, resource }) => ({
 	kv,
+	resource,
 });
 
 export default connect(mapState)(withLang(cssModules(KVTreeView, styles)));

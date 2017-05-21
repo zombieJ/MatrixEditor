@@ -13,7 +13,7 @@ export const loadDotaResource = () => (
 	(dispatch, getState) => {
 		const {
 			config: { dotaPath },
-			resource: { spellImages, itemImages },
+			resource: { abilityImages, itemImages },
 		} = getState();
 
 		const path = PATH.resolve(dotaPath, 'game/dota');
@@ -27,13 +27,14 @@ export const loadDotaResource = () => (
 		// Load resource
 		dispatch({ type: RES_DOTA_EXIST });
 
-		if (spellImages === undefined) {
+		if (abilityImages === undefined) {
 			const vpk = new VPK(PATH.resolve(path, 'pak01_dir.vpk'));
 			vpk.load().then(() => {
 				// Filter icon list
 				const spellImageList = vpk.fileList.filter(
 					vpkPath => vpkPath.startsWith(RES_SPELL_IMAGE_PATH)
 				);
+					// .slice(0, 1);
 
 				// Load icon list
 				const imgPromiseList = spellImageList.map(
