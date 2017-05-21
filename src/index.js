@@ -11,6 +11,20 @@ import storage from 'electron-json-storage';
 import app from './reducers';
 import Main from './views/Main';
 
+// ============================================================
+// =                         Polyfill                         =
+// ============================================================
+String.prototype.padStart = function padStart(len, fill = ' ') {
+	let current = this;
+	while (current.length < len) {
+		current = fill + current;
+	}
+	return current;
+};
+
+// ============================================================
+// =                           Main                           =
+// ============================================================
 const loggerMiddleware = createLogger({
 	collapsed: true,
 });

@@ -2,15 +2,18 @@ import PATH from 'path';
 import FS from 'fs';
 import VPK from 'valve-vpk';
 
-export const RES_LAUNCHER_LOADED = 'RES_LAUNCHER_LOADED';
+// export const RES_LAUNCHER_LOADED = 'RES_LAUNCHER_LOADED';
 export const RES_DOTA_EXIST = 'RES_DOTA_EXIST';
 export const RES_DOTA_NOT_EXIST = 'RES_DOTA_NOT_EXIST';
+export const RES_SPELL_IMAGE_LOADED = 'RES_SPELL_IMAGE_LOADED';
+
+export const RES_SPELL_IMAGE_PATH = 'resource/flash3/images/spellicons/';
 
 export const loadDotaResource = () => (
 	(dispatch, getState) => {
 		const {
 			config: { dotaPath },
-			resource: { abilityImages, itemImages },
+			resource: { spellImages, itemImages },
 		} = getState();
 
 		const path = PATH.resolve(dotaPath, 'game/dota');
@@ -24,20 +27,37 @@ export const loadDotaResource = () => (
 		// Load resource
 		dispatch({ type: RES_DOTA_EXIST });
 
-		if (abilityImages === undefined) {
-			console.log('do load ability icons');
+		if (spellImages === undefined) {
 			const vpk = new VPK(PATH.resolve(path, 'pak01_dir.vpk'));
 			vpk.load().then(() => {
+				// Filter icon list
+				const spellImageList = vpk.fileList.filter(
+					vpkPath => vpkPath.startsWith(RES_SPELL_IMAGE_PATH)
+				);
 
+				// Load icon list
+				const imgPromiseList = spellImageList.map(vpkPath => vpk.readFile(vpkPath));
+				Promise.all(imgPromiseList).then((bufferList) => {
+					const images = {};
+					const sliceLen = RES_SPELL_IMAGE_PATH.length;
+
+					spellImageList.forEach((vpkPath, index) => {
+						const abbr = vpkPath
+							.slice(sliceLen) // Remove path
+							.slice(0, -4); // Remove extension
+						images[abbr] = bufferList[index];
+					});
+
+					dispatch({
+						type: RES_SPELL_IMAGE_LOADED,
+						images,
+					});
+				}).catch((err) => {
+					console.error('Load spell image error:', err);
+				});
 			}).catch((err) => {
 				console.error(err);
 			});
-			// console.log('>>>', vpk.isValid());
-			// console.time('vpk');
-			// vpk.load();
-			// console.timeEnd('vpk');
-			// console.log('len:', vpk.files.length);
-			// console.log('>>>', vpk.files.filter(filePath => filePath.indexOf('resource/flash3/images/spellicons') !== -1));
 		}
 	}
 );

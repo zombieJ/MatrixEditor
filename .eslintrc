@@ -27,7 +27,7 @@
 		"global-require": 0,
 		"no-alert": 0,
 		"no-console": 0,
-		"no-extend-native": ["error", { "exceptions": ["Promise"] }],
+		"no-extend-native": ["error", { "exceptions": ["Promise", "String"] }],
 		"no-param-reassign": 0,
 		"no-script-url": 0,
 		"no-tabs": 0,
